@@ -54,7 +54,7 @@ body {
 
 /* 2. 更新原有的 .container 样式 */
 .container {
-    max-width: 100%; /* 让内容区域填满 .page-wrapper 的宽度 */
+    max-width: 70%; /* 让内容区域填满 .page-wrapper 的宽度 */
     margin: 0 auto;
     padding: 20px 0; /* 移除左右内边距，因为 .page-wrapper 已经处理了 */
 }
