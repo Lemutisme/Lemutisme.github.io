@@ -41,10 +41,22 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* 1. 为新增的页面框架添加样式 */
+.page-wrapper {
+    max-width: 1200px; /* 设置整个框架的最大宽度 */
+    margin: 0 auto;    /* 使框架在页面中水平居中 */
+    padding: 0 50px;   /* 在框架内部、垂直线两侧留出50px的空白 */
+    border-left: 1px solid var(--border-color);  /* 左侧的垂直线 */
+    border-right: 1px solid var(--border-color); /* 右侧的垂直线 */
+    min-height: 100vh; /* 确保线条至少和屏幕一样高 */
+    background-color: var(--bg-color); /* 确保框架背景色和页面一致 */
+}
+
+/* 2. 更新原有的 .container 样式 */
 .container {
-    max-width: 1100px; /* 增加了最大宽度，可以根据喜好调整 */
-    margin: 0 auto;    /* 关键：让容器在页面中水平居中 */
-    padding: 20px 40px; /* 上下20px，左右40px的内边距，提供呼吸空间 */
+    max-width: 100%; /* 让内容区域填满 .page-wrapper 的宽度 */
+    margin: 0 auto;
+    padding: 20px 0; /* 移除左右内边距，因为 .page-wrapper 已经处理了 */
 }
 
 a {
