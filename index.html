@@ -1,186 +1,127 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Duo Zhou</title>
     <meta name="author" content="Duo Zhou">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/cat5small.jpg" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="style.css">
-  </head>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
 
-  <body>
-    <table style="width:100%;max-width:800px;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;"><tbody>
-      <tr><td style="padding:0">
-        <!-- Header / Intro -->
-        <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;"><tbody>
-          <tr>
-            <td style="padding:2.5%;width:63%;vertical-align:top">
-              <p class="name" style="text-align:center;">Duo Zhou</p>
-              <p>
-                Hi, I'm a Ph.D. student at the <a href="https://illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a> (UIUC). My research interests are in AI Safety, focusing on the theory and application of the following areas:
-              </p>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1 class="name">Duo Zhou</h1>
+                    <p class="intro">
+                        Hi, I'm a Ph.D. student at the <a href="https://illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a> (UIUC). My research interests are in AI Safety, focusing on the theory and application of the following areas:
+                    </p>
+                    <ul class="research-interests">
+                        <li><strong>Trustworthy Machine Learning:</strong> I work on advancing machine learning robustness by addressing challenges like non-i.i.d. data and distribution shifts. My research also explores adversarial robustness, including neural network verification and attack & defense strategies.</li>
+                        <li><strong>Sequential Decision Making Under Uncertainty:</strong> I study robust and distributionally robust approaches to reinforcement learning, online learning, and optimal control. My goal is to develop methods that ensure reliable and optimal performance in uncertain and dynamic environments.</li>
+                    </ul>
+                    <div class="links">
+                        <a href="mailto:me@duo-zhou.com" class="link-chip">Email</a>
+                        <a href="https://scholar.google.com/citations?user=QnBzRsIAAAAJ&hl=en" target="_blank" rel="noopener" class="link-chip">Google Scholar</a>
+                        <a href="https://github.com/Lemutisme" target="_blank" rel="noopener" class="link-chip">GitHub</a>
+                    </div>
+                </div>
+                <div class="header-profile">
+                    <img src="images/profile.jpg" alt="Profile photo of Duo Zhou" class="profile-photo">
+                </div>
+            </div>
+        </header>
 
-              <ul>
-                <li>
-                  <strong>Trustworthy Machine Learning:</strong> I work on advancing machine learning robustness by addressing challenges like non-i.i.d. data and distribution shifts. My research also explores adaptable learning paradigms (e.g., federated, transfer, and continual learning) and adversarial robustness, including neural network verification and attack & defense strategies.
-                </li>
-                <li>
-                  <strong>Sequential Decision Making Under Uncertainty:</strong> I study robust and distributionally robust approaches to reinforcement learning, online learning, and optimal control. My goal is to develop methods that ensure reliable and optimal performance in uncertain and dynamic environments.
-                </li>
-              </ul>
-              <p style="text-align:center">
-                <a href="mailto:me@duo-zhou.com">Email</a> &nbsp;/&nbsp;
-                <a href="https://scholar.google.com/citations?user=QnBzRsIAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> &nbsp;/&nbsp;
-                <!--<a href="https://orcid.org/" target="_blank" rel="noopener">ORCID</a> &nbsp;/&nbsp; -->
-                <a href="https://github.com/Lemutisme" target="_blank" rel="noopener">GitHub</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/profile.svg"><img style="width:70%;max-width:70%" alt="profile photo" src="images/profile.jpg" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
+        <main>
+            <section class="section">
+                <h2 class="section-title">Selected Papers</h2>
+                <div class="publications">
+                    <div class="pub-item">
+                        <p class="papertitle">ShortageSim: Simulating Drug Shortages under Information Asymmetry</p>
+                        <p class="authors">Mingxuan Cui*, Yilan Jiang*, <strong>Duo Zhou*</strong>, Cheng Qian, Yuji Zhang, Qiong Wang</p>
+                        <p class="venue"><i>preprint</i>, 2025</p>
+                        <div class="pub-links">
+                            <a href="https://arxiv.org/pdf/2509.01813">[paper]</a>
+                            <a href="https://github.com/Lemutisme/Sortage_Management">[code]</a>
+                        </div>
+                    </div>
+                    <div class="pub-item">
+                        <p class="papertitle">DR-SAC: Distributionally Robust Soft Actor-Critic for Reinforcement Learning under Uncertainty</p>
+                        <p class="authors">Mingxuan Cui*, <strong>Duo Zhou*†</strong>, Yuxuan Han, Grani A Hanasusanto, Qiong Wang, Huan Zhang, Zhengyuan Zhou</p>
+                        <p class="venue"><i>preprint</i>, 2025</p>
+                        <div class="pub-links">
+                            <a href="https://arxiv.org/pdf/2506.12622">[paper]</a>
+                            <a href="https://github.com/Lemutisme/DR-SAC">[code]</a>
+                        </div>
+                    </div>
+                    <div class="pub-item">
+                        <p class="papertitle">Clip-and-Verify: Linear Constraint-Driven Domain Clipping for Accelerating Neural Network Verification</p>
+                        <p class="authors"><strong>Duo Zhou</strong>, Jorge Chavez, Hesun Chen, Grani A. Hanasusanto, Huan Zhang</p>
+                        <p class="venue"><i>In submission</i>, 2025</p>
+                        <div class="pub-links">
+                            <a href="#">[paper]</a>
+                            <a href="#">[code]</a>
+                        </div>
+                    </div>
+                    <div class="pub-item">
+                        <p class="papertitle">Scalable Neural Network Verification with Branch-and-bound Inferred Cutting Planes</p>
+                        <p class="authors"><strong>Duo Zhou</strong>, Christopher Brix, Grani A Hanasusanto, Huan Zhang</p>
+                        <p class="venue"><i>Advances in Neural Information Processing Systems 37, 29324--29353</i>, 2024.</p>
+                        <div class="pub-links">
+                            <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html">[paper]</a>
+                            <a href="https://github.com/Lemutisme/BICCOS">[code]</a>
+                        </div>
+                    </div>
+                    <div class="pub-item">
+                        <p class="papertitle">Distributionally robust path integral control</p>
+                        <p class="authors">Hyuk Park, <strong>Duo Zhou</strong>, Grani A Hanasusanto, Takashi Tanaka</p>
+                        <p class="venue"><i>American Control Conference (ACC), pp. 1164-1171. IEEE,</i> 2024.</p>
+                        <div class="pub-links">
+                            <a href="https://ieeexplore.ieee.org/abstract/document/10644179">[paper]</a>
+                            <a href="https://github.com/Lemutisme/Distributionally-Robust-Path-Integral-Control">[code]</a>
+                        </div>
+                    </div>
+                    <div class="pub-item">
+                        <p class="papertitle">An adaptive and dynamical neural network for machine remaining useful life prediction</p>
+                        <p class="authors">Ruibing Jin*, <strong>Duo Zhou*</strong>, Min Wu, Xiaoli Li, Zhenghua Chen</p>
+                        <p class="venue"><i>IEEE Transactions on Industrial Informatics 20, no. 2 (2023): 1093-1102,</i> 2023</p>
+                        <div class="pub-links">
+                            <a href="https://ieeexplore.ieee.org/abstract/document/10065450">[paper]</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Research Overview 
-        <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;"><tbody>
-          <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <h2>Research Overview</h2>
-              <p>My work centers on designing <em>robust</em> learning and decision-making methods under distributional uncertainty. Representative directions include:</p>
-              <ul>
-                <li>Distributionally Robust Optimization for <strong>policy evaluation and control</strong> in RL/IRL.</li>
-                <li>Trustworthy ML: <strong>reliability, safety</strong>, and <strong>generalization</strong> under shifts.</li>
-                <li>Statistical Learning Theory for <strong>risk bounds</strong>, <strong>robustness</strong>, and <strong>consistency</strong>.</li>
-              </ul>
-            </td>
-          </tr>
-        </tbody></table> -->
+            <section class="section">
+                <h2 class="section-title">Selected Honors</h2>
+                <ul class="honors-list">
+                    <li>The Winner for both Regular & Extended Track in VNN-COMP 2025.</li>
+                    <li>The Winner for both Regular & Extended Track in VNN-COMP 2024.</li>
+                    <li>First-Class Scholarship for the Graduating Class. 2021.</li>
+                    <li>Meritorious Winner of Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling. 2020.</li>
+                    <li>Provincial First Prize, Contemporary Undergraduate Mathematical Contest in Modeling. 2019.</li>
+                </ul>
+            </section>
 
-        <!-- Selected Papers -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
-          <tr><td><h2>Selected Papers</h2></td></tr>
-        </tbody></table>
-        <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;"><tbody>
+            <section class="section">
+                <h2 class="section-title">Selected Services</h2>
+                <ul class="services-list">
+                    <li>Reviewer: NeurIPS, ICLR, ICML, AAAI</li>
+                </ul>
+            </section>
+        </main>
 
-          <!-- Example publication item -->
-
-          <tr>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <papertitle>ShortageSim: Simulating Drug Shortages under Information Asymmetry</papertitle><br>
-              Mingxuan Cui*, Yilan Jiang*, <strong>Duo Zhou*</strong>, Cheng Qian, Yuji Zhang, Qiong Wang<br>
-              <i>preprint</i>, 2025<br>
-              <a href="https://arxiv.org/pdf/2509.01813">[paper]</a> <a href="https://github.com/Lemutisme/Sortage_Management">[code]</a> 
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <papertitle>DR-SAC: Distributionally Robust Soft Actor-Critic for Reinforcement Learning under Uncertainty</papertitle><br>
-              Mingxuan Cui*, <strong>Duo Zhou*†</strong>, Yuxuan Han, Grani A Hanasusanto, Qiong Wang, Huan Zhang, Zhengyuan Zhou<br>
-              <i>preprint</i>, 2025<br>
-              <a href="https://arxiv.org/pdf/2506.12622">[paper]</a> <a href="https://github.com/Lemutisme/DR-SAC">[code]</a> 
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <papertitle>Clip-and-Verify: Linear Constraint-Driven Domain Clipping for Accelerating Neural Network Verification</papertitle><br>
-              <strong>Duo Zhou</strong>, Jorge Chavez, Hesun Chen, Grani A. Hanasusanto, Huan Zhang <br>
-              <i>In submission</i>, 2025<br>
-              <a href="#">[paper]</a> <a href="#">[code]</a>
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <papertitle>Scalable Neural Network Verification with Branch-and-bound Inferred Cutting Planes</papertitle><br>
-              <strong>Duo Zhou</strong>, Christopher Brix, Grani A Hanasusanto, Huan Zhang <br>
-              <i>Advances in Neural Information Processing Systems 37, 29324--29353</i>, 2024.<br>
-              <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html">[paper]</a> 
-              <a href="https://github.com/Lemutisme/BICCOS">[code]</a>
-              <!-- <a href="bib/dcnn.bib">[bibtex]</a> -->
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <papertitle>Distributionally robust path integral control</papertitle><br>
-              Hyuk Park, <strong>Duo Zhou</strong>, Grani A Hanasusanto, Takashi Tanaka <br>
-              <i>American Control Conference (ACC), pp. 1164-1171. IEEE,</i> 2024.<br>
-              <a href="https://ieeexplore.ieee.org/abstract/document/10065450">[paper]</a> 
-              <a href="https://github.com/Lemutisme/Distributionally-Robust-Path-Integral-Control">[code]</a>
-              <!-- <a href="bib/dcnn.bib">[bibtex]</a> -->
-            </td>
-          </tr>
-
-          <tr>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <papertitle>An adaptive and dynamical neural network for machine remaining useful life prediction</papertitle><br>
-              Ruibing Jin*, <strong>Duo Zhou*</strong>, Min Wu, Xiaoli Li, Zhenghua Chen<br>
-              <i>IEEE Transactions on Industrial Informatics 20, no. 2 (2023): 1093-1102,</i> 2023 <br>
-              <a href="https://ieeexplore.ieee.org/abstract/document/10065450">[paper]</a> 
-              <!-- <a href="bib/dcnn.bib">[bibtex]</a> -->
-            </td>
-          </tr>
-
-        </tbody></table>
-
-        <!-- Honors -->
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
-          <tr><td><h2>Selected Honors</h2></td></tr>
-        </tbody></table>
-        <table width="100%" align="center" border="0" cellpadding="20"><tbody>
-          <tr><td width="100%" valign="center">
-            <li>The Winner for both Regular & Extended Track in VNN-COMP 2025.</li>
-            <li>The Winner for both Regular & Extended Track in VNN-COMP 2024.</li>
-            <li>First-Class Scholarship for the Graduating Class. 2021.</li>
-            <li>Meritorious Winner of Mathematical Contest in Modeling and Interdisciplinary Contest in Modeling. 2020.</li>
-            <li>Provincial First Prize, Contemporary Undergraduate Mathematical Contest in Modeling. 2019.</li>
-          </td></tr>
-        </tbody></table>
-
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
-          <tr><td><h2>Selected Services</h2></td></tr>
-        </tbody></table>
-        <table width="100%" align="center" border="0" cellpadding="20"><tbody>
-          <tr><td width="100%" valign="center">
-            <li>NeurIPS 2025 - Reviewer</li>
-
-          </td></tr>
-        </tbody></table>
-
-        <div id="globe-container" style="width: 100px; height: 100px;">
-        <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=OyHOj7tI7JgQh3wi5Y7ceOXED8lvucb0mvSDnMOej0o"></script>
-        </div>
-        <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;"><tbody>
-          <tr><td style="padding:0">
-            <br>
-            <p style="text-align:right;font-size:small;">
-              Template adapted from <a href="https://github.com/jonbarron/jonbarron_website" target="_blank" rel="noopener">Jon Barron</a>. &nbsp;
-              Analytics: Matomo (self-hosted, optional).
+        <footer class="footer">
+             <div id="globe-container" style="width: 100px; height: 100px; margin: 1rem auto;">
+                <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=OyHOj7tI7JgQh3wi5Y7ceOXED8lvucb0mvSDnMOej0o"></script>
+             </div>
+            <p>
+                &copy; 2025 Duo Zhou. All rights reserved.
             </p>
-          </td></tr>
-        </tbody></table>
-      </td></tr>
-    </tbody></table>
+        </footer>
+    </div>
 
-    
-
-    <!-- Matomo (self-hosted, open-source) analytics — optional.
-         Replace MATOMO_HOST and SITE_ID, then uncomment to enable.
-    <script>
-      var _paq = window._paq = window._paq || [];
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u = "https://MATOMO_HOST/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', 'SITE_ID']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    -->
-  </body>
+</body>
 </html>
