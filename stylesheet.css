@@ -42,9 +42,9 @@ body {
 }
 
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 1100px; /* 增加了最大宽度，可以根据喜好调整 */
+    margin: 0 auto;    /* 关键：让容器在页面中水平居中 */
+    padding: 20px 40px; /* 上下20px，左右40px的内边距，提供呼吸空间 */
 }
 
 a {
