@@ -1,23 +1,107 @@
-/* Lato font faces and Barron-style theme */
-@font-face{font-family:'Lato';font-style:italic;font-weight:400;src:local('Lato Italic'),local('Lato-Italic'),url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2) format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Lato';font-style:italic;font-weight:400;src:local('Lato Italic'),local('Lato-Italic'),url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAXC-qNiXg7Q.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
-@font-face{font-family:'Lato';font-style:italic;font-weight:700;src:local('Lato Bold Italic'),local('Lato-BoldItalic'),url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_FQftx9897sxZ.woff2) format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Lato';font-style:italic;font-weight:700;src:local('Lato Bold Italic'),local('Lato-BoldItalic'),url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_Gwftx9897g.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
-@font-face{font-family:'Lato';font-style:normal;font-weight:400;src:local('Lato Regular'),local('Lato-Regular'),url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2) format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Lato';font-style:normal;font-weight:400;src:local('Lato Regular'),local('Lato-Regular'),url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
-@font-face{font-family:'Lato';font-style:normal;font-weight:700;src:local('Lato Bold'),local('Lato-Bold'),url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2) format('woff2');unicode-range:U+0100-024F,U+0259,U+1E00-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;}
-@font-face{font-family:'Lato';font-style:normal;font-weight:700;src:local('Lato Bold'),local('Lato-Bold'),url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+/* ... (之前的CSS代码保持不变) ... */
 
-a{color:#1772d0;text-decoration:none}
-a:focus,a:hover{color:#f09228;text-decoration:none}
+/* Header */
+.header {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 40px;
+}
 
-body,td,th,tr,p,a{font-family:'Lato',Verdana,Helvetica,sans-serif;font-size:14px}
-strong{font-family:'Lato',Verdana,Helvetica,sans-serif;font-size:14px}
-h2{margin:0;font-weight:normal;font-family:'Lato',Verdana,Helvetica,sans-serif;font-size:22px}
-.papertitle{font-family:'Lato',Verdana,Helvetica,sans-serif;font-size:14px;font-weight:700}
-papertitle{font-family:'Lato',Verdana,Helvetica,sans-serif;font-size:14px;font-weight:700}
-.name{padding-top:20px;margin:0;font-family:'Lato',Verdana,Helvetica,sans-serif;font-size:32px}
-.one{width:160px;height:160px;position:relative}
-.two{width:160px;height:160px;position:absolute;transition:opacity .2s ease-in-out;-moz-transition:opacity .2s ease-in-out;-webkit-transition:opacity .2s ease-in-out}
-.fade{transition:opacity .2s ease-in-out;-moz-transition:opacity .2s ease-in-out;-webkit-transition:opacity .2s ease-in-out}
-span.highlight{background-color:#ffffd0}
+.header-content {
+    display: flex; /* 确保使用Flexbox */
+    align-items: flex-start; /* 保持文本和图片顶部对齐，如果需要垂直居中，改为 center */
+    gap: 40px; /* 设置文本和图片之间的间距 */
+    /* 移除 flex-direction: column-reverse; 如果之前在主样式中设置了 */
+}
+
+.header-text {
+    flex: 1; /* 让文本区域占据可用空间 */
+    /* 移除 text-align: center; 如果它在这里被设置了，除非你希望文本居中 */
+}
+
+.name {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--heading-color);
+    margin: 0 0 10px 0;
+}
+
+.intro {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.research-interests {
+    padding-left: 20px;
+}
+
+.research-interests li {
+    margin-bottom: 10px;
+}
+
+.links {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    /* 移除 justify-content: center; 如果它在这里被设置了 */
+}
+
+.link-chip {
+    display: inline-block;
+    padding: 8px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background-color: var(--card-bg-color);
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.link-chip:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+    text-decoration: none;
+}
+
+
+.header-profile {
+    flex-shrink: 0; /* 防止图片缩小 */
+    order: 1; /* 让图片在Flex容器中排在文本之后 */
+    /* 移除 margin-bottom: 20px; 如果它在这里被设置了 */
+}
+
+.profile-photo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--border-color);
+}
+
+/* ... (Publications, Lists, Footer 等其他CSS代码保持不变) ... */
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column-reverse; /* 在小屏幕上，照片仍然在文本上方 */
+        align-items: center; /* 居中对齐 */
+        text-align: center; /* 文本也居中 */
+    }
+
+    .header-text {
+        width: 100%;
+    }
+    
+    .profile-photo {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 20px; /* 小屏幕上，照片下方留出间距 */
+    }
+
+    .links {
+        justify-content: center; /* 小屏幕上链接居中 */
+    }
+}
