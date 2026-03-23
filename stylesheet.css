@@ -207,7 +207,8 @@ a:hover {
 }
 
 .news-list li {
-    position: relative;
+    display: flex;
+    align-items: baseline;
     padding: 0.55rem 0 0.55rem 1rem;
     margin: 0;
     border-left: 2.5px solid var(--color-border);
@@ -221,11 +222,18 @@ a:hover {
     background: linear-gradient(90deg, var(--color-card) 0%, transparent 100%);
 }
 
-.news-list li strong {
+.news-date {
+    flex-shrink: 0;
+    width: 7rem;
     color: var(--color-accent);
     font-weight: 600;
     font-size: 0.9rem;
     letter-spacing: 0.01em;
+}
+
+.news-body {
+    flex: 1;
+    min-width: 0;
 }
 
 
