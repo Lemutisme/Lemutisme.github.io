@@ -1,90 +1,103 @@
-/* Import Lato Font */
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&display=swap');
 
-/* CSS Variables for Theming */
 :root {
-    --bg-color: #ffffff;
-    --text-color: #333333;
-    --heading-color: #111111;
-    --accent-color: #1772d0;
-    --accent-hover-color: #f09228;
-    --border-color: #e0e0e0;
-    --card-bg-color: #f9f9f9;
-    --text-muted-color: #555555;
-    --code-bg-color: #f0f0f0;
+    --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-sans: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
+
+    --color-bg: #faf9f6;
+    --color-bg-alt: #f0ede8;
+    --color-fg: #1c1f26;
+    --color-heading: #0f1420;
+    --color-muted: #636b7f;
+    --color-accent: #1a4f8b;
+    --color-accent-hover: #b87514;
+    --color-border: #ddd9d1;
+    --color-card: #f3f1ec;
+    --color-shadow: rgba(28, 31, 38, 0.06);
+    --color-pub-rule: #e4e0d9;
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-color: #121212;
-        --text-color: #e0e0e0;
-        --heading-color: #ffffff;
-        --accent-color: #64b5f6;
-        --accent-hover-color: #ffa726;
-        --border-color: #333333;
-        --card-bg-color: #1e1e1e;
-        --text-muted-color: #bbbbbb;
-        --code-bg-color: #2c2c2c;
+        --color-bg: #0e1117;
+        --color-bg-alt: #131821;
+        --color-fg: #c8ceda;
+        --color-heading: #e2e8f2;
+        --color-muted: #7f8da4;
+        --color-accent: #6b9ed4;
+        --color-accent-hover: #d4a030;
+        --color-border: #1c2433;
+        --color-card: #141a24;
+        --color-shadow: rgba(0, 0, 0, 0.25);
+        --color-pub-rule: #1e2738;
     }
 }
 
-/* General Styles */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Lato', 'Verdana', 'Helvetica', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    background-color: var(--bg-color);
-    color: var(--text-color);
+    font-family: var(--font-sans);
+    font-size: 16.5px;
+    line-height: 1.72;
+    color: var(--color-fg);
+    background-color: var(--color-bg);
     margin: 0;
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* 1. 为新增的页面框架添加样式 */
-.page-wrapper {
-    max-width: 1200px; /* 设置整个框架的最大宽度 */
-    margin: 0 auto;    /* 使框架在页面中水平居中 */
-    padding: 0 50px;   /* 在框架内部、垂直线两侧留出50px的空白 */
-    border-left: 1px solid var(--border-color);  /* 左侧的垂直线 */
-    border-right: 1px solid var(--border-color); /* 右侧的垂直线 */
-    min-height: 100vh; /* 确保线条至少和屏幕一样高 */
-    background-color: var(--bg-color); /* 确保框架背景色和页面一致 */
-}
-
-/* 2. 更新原有的 .container 样式 */
-.container {
-    max-width: 70%; /* 让内容区域填满 .page-wrapper 的宽度 */
-    margin: 0 auto;
-    padding: 20px 0; /* 移除左右内边距，因为 .page-wrapper 已经处理了 */
-}
-
-a {
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-}
-
-a:hover {
-    color: var(--accent-hover-color);
-    text-decoration: underline;
-}
-
 strong {
     font-weight: 700;
 }
 
-/* Header */
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+.page-wrapper {
+    max-width: 840px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+/* ── Header ───────────────────────────────────────────── */
+
 .header {
-    padding: 40px 0;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 40px;
+    padding: 3.5rem 0 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2.5rem;
 }
 
 .header-content {
     display: flex;
     align-items: flex-start;
-    gap: 40px;
+    gap: 2.5rem;
 }
 
 .header-text {
@@ -92,259 +105,386 @@ strong {
 }
 
 .name {
-    font-size: 36px;
+    font-family: var(--font-serif);
+    font-size: 2.6rem;
     font-weight: 700;
-    color: var(--heading-color);
-    margin: 0 0 10px 0;
+    color: var(--color-heading);
+    margin: 0 0 0.8rem;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
 }
 
 .intro {
-    font-size: 18px;
-    margin-bottom: 20px;
+    font-size: 1.05rem;
+    line-height: 1.72;
+    margin-bottom: 0.8rem;
 }
 
 .research-interests {
-    padding-left: 20px;
+    padding-left: 1.3rem;
+    margin: 0 0 0.5rem;
 }
 
 .research-interests li {
-    margin-bottom: 10px;
+    margin-bottom: 0.7rem;
+    font-size: 0.97rem;
+    line-height: 1.72;
 }
 
 .links {
-    margin-top: 20px;
+    margin-top: 1.4rem;
     display: flex;
-    gap: 10px;
+    gap: 0.55rem;
     flex-wrap: wrap;
 }
 
 .link-chip {
-    display: inline-block;
-    padding: 8px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    background-color: var(--card-bg-color);
-    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.38rem 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: 2rem;
+    background: var(--color-card);
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--color-fg);
     text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .link-chip:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
-    border-color: var(--accent-color);
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
     text-decoration: none;
+    box-shadow: 0 2px 8px var(--color-shadow);
 }
-
 
 .header-profile {
     flex-shrink: 0;
 }
 
 .profile-photo {
-    width: 160px;
-    height: 160px;
+    width: 172px;
+    height: 172px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid var(--border-color);
+    border: 2px solid var(--color-border);
+    box-shadow: 0 4px 24px var(--color-shadow);
+    transition: box-shadow 0.3s ease;
 }
 
-/* Main Content & Sections */
+.profile-photo:hover {
+    box-shadow: 0 6px 32px var(--color-shadow);
+}
+
+
+/* ── Sections ─────────────────────────────────────────── */
+
 .section {
-    margin-bottom: 40px;
+    margin-bottom: 2.8rem;
 }
 
 .section-title {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--heading-color);
-    margin: 0 0 20px 0;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--accent-color);
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin: 0 0 1.3rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 2px solid var(--color-accent);
+    letter-spacing: 0.005em;
 }
 
-/* Publications */
+
+/* ── News ─────────────────────────────────────────────── */
+
+.news-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.news-list li {
+    position: relative;
+    padding: 0.55rem 0 0.55rem 1rem;
+    margin: 0;
+    border-left: 2.5px solid var(--color-border);
+    font-size: 0.97rem;
+    line-height: 1.65;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.news-list li:hover {
+    border-left-color: var(--color-accent);
+    background: linear-gradient(90deg, var(--color-card) 0%, transparent 100%);
+}
+
+.news-list li strong {
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.01em;
+}
+
+
+/* ── Publications ─────────────────────────────────────── */
+
+.note {
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    font-style: italic;
+    margin: -0.5rem 0 1.2rem;
+    padding: 0;
+}
+
+.publications {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
 .pub-item {
-    background-color: var(--card-bg-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-    transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--color-pub-rule);
+    transition: background-color 0.2s ease;
+}
+
+.pub-item:first-child {
+    padding-top: 0;
+}
+
+.pub-item:last-child {
+    border-bottom: none;
 }
 
 .pub-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(90deg, var(--color-card) 0%, transparent 80%);
+    margin: 0 -0.8rem;
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    border-radius: 4px;
 }
 
 .papertitle {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--heading-color);
-    margin: 0;
+    font-family: var(--font-serif);
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--color-heading);
+    margin: 0 0 0.2rem;
+    line-height: 1.4;
 }
 
-.authors, .venue {
-    font-size: 15px;
-    color: var(--text-muted-color);
-    margin: 5px 0;
+.authors {
+    font-size: 0.93rem;
+    color: var(--color-muted);
+    margin: 0.15rem 0;
+    line-height: 1.55;
+}
+
+.venue {
+    font-size: 0.93rem;
+    color: var(--color-muted);
+    margin: 0.1rem 0;
+    line-height: 1.55;
 }
 
 .pub-links {
-    margin-top: 10px;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
 }
 
 .pub-links a {
-    margin-right: 15px;
-    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.18rem 0.55rem;
+    border: 1px solid var(--color-border);
+    border-radius: 0.3rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+    background: var(--color-bg);
+    transition: all 0.2s ease;
+    letter-spacing: 0.01em;
 }
 
-/* Lists (Honors & Services) */
-.honors-list, .services-list {
-    list-style-type: square;
-    padding-left: 20px;
+.pub-links a:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+    text-decoration: none;
 }
 
-.honors-list li, .services-list li {
-    margin-bottom: 10px;
+
+/* ── Honors & Services ────────────────────────────────── */
+
+.honors-list,
+.services-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* Footer */
+.honors-list li,
+.services-list li {
+    position: relative;
+    padding: 0.4rem 0 0.4rem 1.2rem;
+    font-size: 0.97rem;
+    line-height: 1.65;
+}
+
+.honors-list li::before,
+.services-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+}
+
+
+/* ── Footer ───────────────────────────────────────────── */
+
 .footer {
     text-align: center;
-    padding: 30px 0;
-    margin-top: 40px;
-    border-top: 1px solid var(--border-color);
-    font-size: 14px;
-    color: var(--text-muted-color);
+    padding: 1.5rem 0 2rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    font-size: 0.85rem;
+    color: var(--color-muted);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+.footer p {
+    margin: 0.5rem 0 0;
+}
+
+
+/* ── Entrance animation ───────────────────────────────── */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    animation: fadeUp 0.5s ease-out both;
+}
+
+main .section:nth-child(1) { animation: fadeUp 0.5s ease-out 0.08s both; }
+main .section:nth-child(2) { animation: fadeUp 0.5s ease-out 0.16s both; }
+main .section:nth-child(3) { animation: fadeUp 0.5s ease-out 0.24s both; }
+main .section:nth-child(4) { animation: fadeUp 0.5s ease-out 0.32s both; }
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+
+/* ── Responsive ───────────────────────────────────────── */
+
+@media (max-width: 680px) {
+    .page-wrapper {
+        padding: 0 1.2rem;
+    }
+
+    .header {
+        padding: 2rem 0 2rem;
+    }
+
     .header-content {
         flex-direction: column-reverse;
         align-items: center;
         text-align: center;
     }
 
-    .header-text {
-        width: 100%;
+    .name {
+        font-size: 2rem;
     }
-    
+
     .profile-photo {
         width: 140px;
         height: 140px;
-        margin-bottom: 20px;
+        margin-bottom: 0.5rem;
+    }
+
+    .research-interests {
+        text-align: left;
     }
 
     .links {
         justify-content: center;
     }
-}
 
-/* Header */
-.header {
-    padding: 40px 0;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 40px;
-}
-
-.header-content {
-    display: flex; /* 确保使用Flexbox */
-    align-items: flex-start; /* 保持文本和图片顶部对齐，如果需要垂直居中，改为 center */
-    gap: 40px; /* 设置文本和图片之间的间距 */
-    /* 移除 flex-direction: column-reverse; 如果之前在主样式中设置了 */
-}
-
-.header-text {
-    flex: 1; /* 让文本区域占据可用空间 */
-    /* 移除 text-align: center; 如果它在这里被设置了，除非你希望文本居中 */
-}
-
-.name {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--heading-color);
-    margin: 0 0 10px 0;
-}
-
-.intro {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-.research-interests {
-    padding-left: 20px;
-}
-
-.research-interests li {
-    margin-bottom: 10px;
-}
-
-.links {
-    margin-top: 20px;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    /* 移除 justify-content: center; 如果它在这里被设置了 */
-}
-
-.link-chip {
-    display: inline-block;
-    padding: 8px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    background-color: var(--card-bg-color);
-    font-size: 14px;
-    text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.link-chip:hover {
-    background-color: var(--accent-color);
-    color: var(--bg-color);
-    border-color: var(--accent-color);
-    text-decoration: none;
-}
-
-
-.header-profile {
-    flex-shrink: 0; /* 防止图片缩小 */
-    order: 1; /* 让图片在Flex容器中排在文本之后 */
-    /* 移除 margin-bottom: 20px; 如果它在这里被设置了 */
-}
-
-.profile-photo {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--border-color);
-}
-
-/* ... (Publications, Lists, Footer 等其他CSS代码保持不变) ... */
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .header-content {
-        flex-direction: column-reverse; /* 在小屏幕上，照片仍然在文本上方 */
-        align-items: center; /* 居中对齐 */
-        text-align: center; /* 文本也居中 */
+    .section-title {
+        font-size: 1.3rem;
     }
 
-    .header-text {
-        width: 100%;
+    .pub-item:hover {
+        margin: 0;
+        padding-left: 0;
+        padding-right: 0;
     }
-    
+}
+
+
+/* ── Print ────────────────────────────────────────────── */
+
+@media print {
+    body {
+        font-size: 11pt;
+        color: #000;
+        background: #fff;
+    }
+
+    .page-wrapper {
+        max-width: 100%;
+        padding: 0;
+    }
+
+    a {
+        color: #000;
+        text-decoration: underline;
+    }
+
+    a[href]::after {
+        content: ' (' attr(href) ')';
+        font-size: 0.8em;
+        color: #555;
+    }
+
+    .link-chip[href]::after,
+    .pub-links a[href]::after {
+        content: none;
+    }
+
     .profile-photo {
-        width: 140px;
-        height: 140px;
-        margin-bottom: 20px; /* 小屏幕上，照片下方留出间距 */
+        box-shadow: none;
+        border: 1px solid #ccc;
     }
 
-    .links {
-        justify-content: center; /* 小屏幕上链接居中 */
+    .pub-item:hover {
+        background: none;
+        margin: 0;
+        padding-left: 0;
+    }
+
+    .footer #globe-container {
+        display: none;
     }
 }
