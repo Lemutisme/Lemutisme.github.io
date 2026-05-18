@@ -9,8 +9,8 @@
     </main>
 
     <footer class="footer">
-      <div id="globe-container" style="width: 100px; height: 100px; margin: 1rem auto;">
-        <!-- The globe script is in index.html, we just need the container -->
+      <div id="globe-container" style="width: 200px; height: 200px; margin: 1rem auto;">
+        <iframe src="/globe.html" style="width: 100%; height: 100%; border: none; overflow: hidden;" scrolling="no"></iframe>
       </div>
       <p>&copy; {{ new Date().getFullYear() }} Duo Zhou. Built with Vue 3.</p>
     </footer>
@@ -18,21 +18,11 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 import ProfileHeader from './components/ProfileHeader.vue';
 import NewsSection from './components/NewsSection.vue';
 import PublicationsSection from './components/PublicationsSection.vue';
 import HonorsSection from './components/HonorsSection.vue';
 import ServicesSection from './components/ServicesSection.vue';
-
-onMounted(() => {
-  // Load the ClustrMaps script dynamically to avoid Vue hydration issues
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.id = 'clstr_globe';
-  script.src = '//clustrmaps.com/globe.js?d=OyHOj7tI7JgQh3wi5Y7ceOXED8lvucb0mvSDnMOej0o';
-  document.getElementById('globe-container')?.appendChild(script);
-});
 </script>
 
 <style scoped>
