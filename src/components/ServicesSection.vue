@@ -7,6 +7,11 @@
         <span v-html="service"></span>
       </li>
     </ul>
+    <div class="badges">
+      <a href="https://www.jmlr.org/" target="_blank" rel="noopener" title="I review for JMLR">
+        <img src="/images/I_review_JMLR.png" alt="I review for JMLR" class="badge" />
+      </a>
+    </div>
   </section>
 </template>
 
@@ -37,5 +42,16 @@ const services = servicesData;
   background-color: var(--primary-color);
   border-radius: 50%;
   display: inline-block;
+}
+.badges {
+  margin-top: 1rem;
+}
+.badge {
+  height: 80px;
+  width: auto;
+  transition: transform 0.2s ease;
+}
+.badge:hover {
+  transform: scale(1.05);
 }
 </style>
