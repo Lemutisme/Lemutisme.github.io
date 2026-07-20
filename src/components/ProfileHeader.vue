@@ -11,9 +11,6 @@
         </ul>
       </div>
       <div class="profile-sidebar">
-        <div class="profile-image">
-          <img src="/images/profile.jpg" :alt="`Profile photo of ${profile.name}`" />
-        </div>
         <div class="icon-links">
           <a v-for="(link, index) in profile.links" :key="index" :href="link.url" target="_blank" rel="noopener" class="icon-link" :title="link.label">
             <svg v-if="link.label.includes('Email')" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -45,14 +42,14 @@ const profile = profileData;
 }
 .profile-content {
   display: flex;
-  flex-direction: column-reverse;
-  gap: 2rem;
-  align-items: center;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 @media (min-width: 768px) {
   .profile-content {
     flex-direction: row;
     align-items: flex-start;
+    justify-content: space-between;
   }
 }
 .profile-text {
@@ -85,9 +82,13 @@ const profile = profileData;
 }
 .profile-sidebar {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
+  flex-shrink: 0;
+  align-items: flex-start;
+}
+@media (min-width: 768px) {
+  .profile-sidebar {
+    padding-top: 0.25rem;
+  }
 }
 .icon-links {
   display: flex;
@@ -112,17 +113,5 @@ const profile = profileData;
   border-color: var(--primary-color);
   transform: translateY(-3px);
   box-shadow: var(--shadow-sm);
-}
-.profile-image img {
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid white;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease;
-}
-.profile-image img:hover {
-  transform: scale(1.05);
 }
 </style>
