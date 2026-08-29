@@ -83,7 +83,14 @@
             <p class="section-index">03 / SELECTED OUTPUT</p>
             <h2 id="papers-title">Publications</h2>
           </div>
-          <p class="heading-note">{{ publications.length }} selected papers · * equal contribution · † corresponding</p>
+          <p class="heading-note">
+            * equal contribution · † corresponding ·
+            <a
+              href="https://scholar.google.com/citations?user=QnBzRsIAAAAJ&hl=en"
+              target="_blank"
+              rel="noopener"
+            >Complete publication list on Google Scholar ↗</a>
+          </p>
         </div>
 
         <div class="publication-list">

@@ -237,6 +237,7 @@ h1 {
 .section-index { margin-bottom: 0.35rem; color: var(--green); }
 .section-heading h2 { font-family: var(--display); font-size: clamp(2.4rem, 6vw, 4.2rem); letter-spacing: -0.04em; }
 .heading-note { max-width: 470px; color: var(--ink-soft); letter-spacing: 0; text-align: right; }
+.heading-note a { color: var(--green); font-weight: 600; }
 
 .news-grid {
   display: grid;

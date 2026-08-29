@@ -4,18 +4,13 @@ export const profileData = {
   researchInterests: [
     {
       code: '01',
-      title: 'Trustworthy Machine Learning',
-      description: `Formal guarantees and scalable verification for neural networks, including <a href="https://neurips.cc/virtual/2025/poster/118862" target="_blank" rel="noopener">Clip-and-Verify</a>, <a href="https://openreview.net/forum?id=lX9Eto4L1O" target="_blank" rel="noopener">Lookahead Branching</a>, and <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html" target="_blank" rel="noopener">BICCOS</a>.`,
+      title: 'Trustworthy Agentic AI',
+      description: `I study reliable agents and multi-agent systems that can plan, coordinate, and improve over long horizons. My current focus includes recursive self-improvement (RSI), agent governance, verifiable execution, and the system foundations needed to keep increasingly capable agents aligned and auditable.`,
     },
     {
       code: '02',
-      title: 'Decision Making Under Uncertainty',
-      description: `Reinforcement learning, optimal control, and market simulation with worst-case or distributionally robust objectives.`,
-    },
-    {
-      code: '03',
-      title: 'Safe Learning Foundations',
-      description: `Optimization geometry, machine unlearning, and learning theory that turn safety requirements into practical algorithms with explicit guarantees.`,
+      title: 'Optimization, Post-Training & Verification',
+      description: `I develop optimization methods and theory for model post-training, reinforcement learning, and neural network verification. The goal is to connect principled objectives and formal guarantees with scalable algorithms that work on real systems.`,
     },
   ],
   links: [
