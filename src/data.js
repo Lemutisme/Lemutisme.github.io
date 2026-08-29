@@ -1,6 +1,6 @@
 export const profileData = {
   name: 'Duo Zhou',
-  intro: `I am a Computer Science Ph.D. student at the <a href="https://illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a>. I work on reliable AI systems: certifying neural networks, making learning robust under uncertainty, and developing principled methods for AI safety.`,
+  intro: `I am a Computer Science Ph.D. student at the <a href="https://illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a>. I study how to make increasingly capable AI systems reliable - from the optimization and post-training methods that shape model behavior to the agents and multi-agent systems that act, coordinate, and improve over time. My work develops scalable algorithms, formal guarantees, and system-level mechanisms for reinforcement learning, neural network verification, and recursive self-improvement.`,
   researchInterests: [
     {
       code: '01',
@@ -119,7 +119,7 @@ export const publicationsData = [
   {
     title: 'Clip-and-Verify: Linear Constraint-Driven Domain Clipping for Accelerating Neural Network Verification',
     authors: '<strong>Duo Zhou*</strong>, Jorge Chavez*, Hesun Chen, Grani A. Hanasusanto, Huan Zhang',
-    venue: 'Advances in Neural Information Processing Systems 38, 174849–174895',
+    venue: 'Advances in Neural Information Processing Systems 38, 174849-174895',
     venueShort: "NEURIPS '25",
     year: '2025',
     links: [
@@ -130,7 +130,7 @@ export const publicationsData = [
   {
     title: 'Scalable Neural Network Verification with Branch-and-bound Inferred Cutting Planes',
     authors: '<strong>Duo Zhou</strong>, Christopher Brix, Grani A. Hanasusanto, Huan Zhang',
-    venue: 'Advances in Neural Information Processing Systems 37, 29324–29353',
+    venue: 'Advances in Neural Information Processing Systems 37, 29324-29353',
     venueShort: "NEURIPS '24",
     year: '2024',
     links: [
@@ -141,7 +141,7 @@ export const publicationsData = [
   {
     title: 'Distributionally Robust Path Integral Control',
     authors: 'Hyuk Park, <strong>Duo Zhou</strong>, Grani A. Hanasusanto, Takashi Tanaka',
-    venue: 'American Control Conference, pp. 1164–1171',
+    venue: 'American Control Conference, pp. 1164-1171',
     venueShort: "ACC '24",
     year: '2024',
     links: [
@@ -152,7 +152,7 @@ export const publicationsData = [
   {
     title: 'An Adaptive and Dynamical Neural Network for Machine Remaining Useful Life Prediction',
     authors: 'Ruibing Jin*, <strong>Duo Zhou*</strong>, Min Wu, Xiaoli Li, Zhenghua Chen',
-    venue: 'IEEE Transactions on Industrial Informatics 20(2), 1093–1102',
+    venue: 'IEEE Transactions on Industrial Informatics 20(2), 1093-1102',
     venueShort: 'IEEE TII',
     year: '2024',
     links: [
@@ -162,6 +162,7 @@ export const publicationsData = [
 ];
 
 export const honorsData = [
+  'Winner of both the Regular and Extended tracks at VNN-COMP 2026.',
   'Winner of both the Regular and Extended tracks at VNN-COMP 2025.',
   'Winner of both the Regular and Extended tracks at VNN-COMP 2024.',
   'First-Class Scholarship for the Graduating Class, 2021.',

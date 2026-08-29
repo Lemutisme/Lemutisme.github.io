@@ -23,7 +23,7 @@
             <p>profile.md</p>
           </div>
           <div class="hero-content">
-            <p class="eyebrow">AI SAFETY / FORMAL METHODS / ROBUST LEARNING</p>
+            <p class="eyebrow">TRUSTWORTHY AI / FROM OPTIMIZATION TO SELF-IMPROVING AGENTS</p>
             <h1 id="hero-title">Duo Zhou<span class="cursor" aria-hidden="true">_</span></h1>
             <p class="role">Ph.D. Student · Computer Science · UIUC</p>
             <p class="intro" v-html="profile.intro"></p>
@@ -68,12 +68,29 @@
           </div>
           <p class="heading-note">recent.log</p>
         </div>
-        <div class="news-grid">
-          <article v-for="(item, index) in news" :key="`${item.date}-${item.body}`" class="news-item">
-            <span class="news-number">{{ String(index + 1).padStart(2, '0') }}</span>
-            <time>{{ item.date }}</time>
-            <p v-html="item.body"></p>
+        <div class="news-list">
+          <article v-if="news[0]" class="news-row news-row-featured">
+            <span class="news-number">01</span>
+            <time>{{ news[0].date }}</time>
+            <p v-html="news[0].body"></p>
           </article>
+          <details v-if="news.length > 1" class="news-archive">
+            <summary>
+              <span>Show {{ news.length - 1 }} earlier updates</span>
+              <span class="summary-icon" aria-hidden="true">+</span>
+            </summary>
+            <div class="news-archive-list">
+              <article
+                v-for="(item, index) in news.slice(1)"
+                :key="`${item.date}-${item.body}`"
+                class="news-row"
+              >
+                <span class="news-number">{{ String(index + 2).padStart(2, '0') }}</span>
+                <time>{{ item.date }}</time>
+                <p v-html="item.body"></p>
+              </article>
+            </div>
+          </details>
         </div>
       </section>
 
