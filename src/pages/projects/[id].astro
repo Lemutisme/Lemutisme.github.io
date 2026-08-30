@@ -2,7 +2,7 @@
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Citation from '../../components/Citation.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { buildBibTeX } from '../../lib/citation';
+import { countEntries, resolveCitation } from '../../lib/citation';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -20,13 +20,16 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 const citationHref = `/projects/${project.id}/citation.bib`;
 const citationUrl = new URL(`/projects/${project.id}/`, Astro.site ?? Astro.url);
-const bibtex = buildBibTeX({
+const bibtex = resolveCitation(project.data.bibtex, {
   id: project.id,
   title: project.data.title,
   year: project.data.citationYear,
   url: citationUrl.toString(),
   note: 'Project page',
 });
+const citationLabel = project.data.bibtex
+  ? (countEntries(bibtex) > 1 ? 'Cite the papers' : 'Cite the paper')
+  : 'Cite this project';
 ---
 
 <BaseLayout
@@ -57,7 +60,7 @@ const bibtex = buildBibTeX({
           bibtex={bibtex}
           downloadHref={citationHref}
           filename={`${project.id}.bib`}
-          label="Cite this project"
+          label={citationLabel}
         />
       </div>
 

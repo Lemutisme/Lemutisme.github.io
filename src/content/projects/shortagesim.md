@@ -18,6 +18,16 @@ links:
     url: "https://arxiv.org/abs/2509.01813"
   - label: "Code and dataset"
     url: "https://github.com/Lemutisme/ShortageSim"
+bibtex: |
+  @inproceedings{cui2026shortagesim,
+    author    = {Cui, Mingxuan and Jiang, Yilan and Zhou, Duo and Qian, Cheng and Zhang, Yuji and Wang, Qiong},
+    title     = {{ShortageSim}: Simulating Drug Shortages under Information Asymmetry},
+    booktitle = {Proceedings of the AAAI Conference on Artificial Intelligence},
+    volume    = {40},
+    number    = {45},
+    pages     = {38321--38330},
+    year      = {2026}
+  }
 ---
 
 ## Research question

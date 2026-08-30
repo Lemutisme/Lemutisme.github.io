@@ -43,3 +43,14 @@ export const buildBibTeX = ({ id, title, year, url, note }: CitationInput) => `@
 }
 `;
 
+
+/**
+ * Prefer the real paper's BibTeX when a project supplies one, and fall back to
+ * a generated citation for the project page otherwise.
+ */
+export const resolveCitation = (paperBibTeX: string | undefined, fallback: CitationInput) => {
+  const paper = paperBibTeX?.trim();
+  return paper ? `${paper}\n` : buildBibTeX(fallback);
+};
+
+export const countEntries = (bibtex: string) => (bibtex.match(/@\w+\s*\{/g) ?? []).length;

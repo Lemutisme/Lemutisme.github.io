@@ -16,6 +16,13 @@ links:
     url: "https://arxiv.org/abs/2511.17100"
   - label: "Code"
     url: "https://github.com/Lemutisme/Geometric-Unlearning"
+bibtex: |
+  @inproceedings{zhou2026geometric,
+    author    = {Zhou, Duo and Zhang, Yuji and Wei, Tianxin and Qiu, Ruizhong and Yang, Ke and Lin, Xiao and Qian, Cheng and He, Jingrui and Tong, Hanghang and Ji, Heng and Zhang, Huan},
+    title     = {Geometric-Disentanglement Language Model Unlearning},
+    booktitle = {Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing},
+    year      = {2026}
+  }
 ---
 
 ## Research question

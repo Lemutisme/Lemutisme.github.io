@@ -24,6 +24,22 @@ links:
     url: "https://arxiv.org/abs/2310.01633"
   - label: "DRPI code"
     url: "https://github.com/Lemutisme/Distributionally-Robust-Path-Integral-Control"
+bibtex: |
+  @inproceedings{cui2026drsac,
+    author    = {Cui, Mingxuan and Zhou, Duo and Han, Yuxuan and Hanasusanto, Grani A. and Wang, Qiong and Zhang, Huan and Zhou, Zhengyuan},
+    title     = {{DR-SAC}: Distributionally Robust Soft Actor-Critic for Reinforcement Learning under Uncertainty},
+    booktitle = {The Fourteenth International Conference on Learning Representations},
+    pages     = {92720--92750},
+    year      = {2026}
+  }
+
+  @inproceedings{park2024drpi,
+    author    = {Park, Hyuk and Zhou, Duo and Hanasusanto, Grani A. and Tanaka, Takashi},
+    title     = {Distributionally Robust Path Integral Control},
+    booktitle = {American Control Conference},
+    pages     = {1164--1171},
+    year      = {2024}
+  }
 ---
 
 ## Research question

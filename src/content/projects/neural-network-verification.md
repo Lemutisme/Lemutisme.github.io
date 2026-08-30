@@ -22,6 +22,31 @@ links:
     url: "https://github.com/Lemutisme/BICCOS"
   - label: "Clip-and-Verify code"
     url: "https://github.com/Verified-Intelligence/Clip_and_Verify"
+bibtex: |
+  @inproceedings{zhou2024biccos,
+    author    = {Zhou, Duo and Brix, Christopher and Hanasusanto, Grani A. and Zhang, Huan},
+    title     = {Scalable Neural Network Verification with Branch-and-bound Inferred Cutting Planes},
+    booktitle = {Advances in Neural Information Processing Systems},
+    volume    = {37},
+    pages     = {29324--29353},
+    year      = {2024}
+  }
+
+  @inproceedings{zhou2025clipandverify,
+    author    = {Zhou, Duo and Chavez, Jorge and Chen, Hesun and Hanasusanto, Grani A. and Zhang, Huan},
+    title     = {Clip-and-Verify: Linear Constraint-Driven Domain Clipping for Accelerating Neural Network Verification},
+    booktitle = {Advances in Neural Information Processing Systems},
+    volume    = {38},
+    pages     = {174849--174895},
+    year      = {2025}
+  }
+
+  @inproceedings{davis2026lookahead,
+    author    = {Davis, Liam and Zhou, Duo and Zhang, Huan and Katz, Guy and Barrett, Clark W. and Wu, Haoze},
+    title     = {Lookahead Branching for Neural Network Verification},
+    booktitle = {Proceedings of the 35th International Joint Conference on Artificial Intelligence},
+    year      = {2026}
+  }
 ---
 
 ## Research question

@@ -1,11 +1,12 @@
 import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
-import { buildBibTeX } from '../../../lib/citation';
+import { resolveCitation } from '../../../lib/citation';
 
 interface CitationProps {
   id: string;
   title: string;
   year: number;
+  bibtex?: string;
 }
 
 export async function getStaticPaths() {
@@ -17,14 +18,15 @@ export async function getStaticPaths() {
       id: project.id,
       title: project.data.title,
       year: project.data.citationYear,
+      bibtex: project.data.bibtex,
     } satisfies CitationProps,
   }));
 }
 
 export const GET: APIRoute = ({ props, site }) => {
-  const { id, title, year } = props as CitationProps;
+  const { id, title, year, bibtex: paperBibTeX } = props as CitationProps;
   const url = new URL(`/projects/${id}/`, site ?? 'https://www.duo-zhou.com');
-  const bibtex = buildBibTeX({ id, title, year, url: url.toString(), note: 'Project page' });
+  const bibtex = resolveCitation(paperBibTeX, { id, title, year, url: url.toString(), note: 'Project page' });
 
   return new Response(bibtex, {
     headers: {

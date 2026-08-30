@@ -29,6 +29,9 @@ const projects = defineCollection({
       label: z.string(),
       url: z.url(),
     })).default([]),
+    // Verbatim BibTeX for the paper(s) this project covers. When absent the
+    // project page falls back to a generated citation for the page itself.
+    bibtex: z.string().optional(),
   }),
 });
 
