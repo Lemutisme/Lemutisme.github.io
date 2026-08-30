@@ -694,8 +694,14 @@ h1 {
 .prose code { padding: 0.12rem 0.3rem; background: var(--paper-deep); font-family: var(--mono); font-size: 0.88em; }
 .prose pre { overflow-x: auto; padding: 1.15rem; border: 2px solid var(--line); background: var(--ink); }
 .prose pre code { padding: 0; color: var(--paper); background: transparent; }
-.prose table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.prose table { display: block; width: 100%; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.95rem; }
 .prose th, .prose td { padding: 0.65rem; border: 1px solid var(--line); text-align: left; }
+
+/* KaTeX: display math scrolls inside its own box rather than widening the page.
+   Colors are inherited, so both themes are handled by the prose rules above. */
+.prose .katex { font-size: 1.03em; }
+.prose .katex-display { overflow-x: auto; overflow-y: hidden; padding: 0.5rem 0; }
+.prose .katex-display > .katex { white-space: nowrap; }
 .prose th { background: var(--paper-deep); font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; }
 
 .citation-panel {
