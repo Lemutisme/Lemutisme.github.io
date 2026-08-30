@@ -14,6 +14,7 @@
   --display: 'Pixelify Sans', 'IBM Plex Mono', monospace;
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --serif: 'Newsreader', Georgia, serif;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -274,10 +275,40 @@ h1 {
 
 .news-archive summary::-webkit-details-marker { display: none; }
 .news-archive summary:hover { background: var(--green-soft); }
-.summary-icon { font-family: var(--display); font-size: 1.2rem; transition: transform 140ms ease; }
+.summary-icon { font-family: var(--display); font-size: 1.2rem; transition: transform 260ms var(--ease-out); }
 .news-archive[open] .summary-icon { transform: rotate(45deg); }
 .news-archive[open] summary { border-bottom: 1px solid var(--line); }
 .news-archive-list .news-row:last-child { border-bottom: 0; }
+
+/* Animate the disclosure. Browsers without ::details-content simply snap
+   open, which is the previous behaviour. */
+.news-archive::details-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  content-visibility: hidden;
+  transition:
+    grid-template-rows 320ms var(--ease-out),
+    content-visibility 320ms allow-discrete;
+}
+
+.news-archive[open]::details-content {
+  grid-template-rows: 1fr;
+  content-visibility: visible;
+}
+
+.news-archive-list {
+  min-height: 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 200ms var(--ease-out), transform 320ms var(--ease-out);
+}
+
+.news-archive[open] .news-archive-list {
+  opacity: 1;
+  transform: none;
+  transition-delay: 70ms;
+}
 .publication-list { border-top: 2px solid var(--line); }
 
 .publication-card {
@@ -705,4 +736,6 @@ h1 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  *::details-content { transition-duration: 0.01ms !important; }
 }
