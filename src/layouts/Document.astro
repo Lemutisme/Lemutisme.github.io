@@ -23,7 +23,7 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Duo Zhou" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f3efe4" />
+    <meta id="theme-color" name="theme-color" content="#f3efe4" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -36,9 +36,89 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
       <link rel="alternate" type="application/x-bibtex" href={citationHref} title="BibTeX citation" />
     )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>
+      (() => {
+        const storageKey = 'duo-color-theme';
+        const allowedThemes = new Set(['light', 'dark', 'system']);
+
+        try {
+          const storedTheme = localStorage.getItem(storageKey);
+          const preference = allowedThemes.has(storedTheme) ? storedTheme : 'system';
+          const systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const resolvedTheme = preference === 'system'
+            ? (systemIsDark ? 'dark' : 'light')
+            : preference;
+
+          document.documentElement.dataset.theme = resolvedTheme;
+          document.documentElement.dataset.themePreference = preference;
+          document.documentElement.style.colorScheme = resolvedTheme;
+        } catch {
+          document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.themePreference = 'system';
+        }
+      })();
+    </script>
     <title>{title}</title>
   </head>
   <body>
     <slot />
+
+    <div class="theme-switcher" role="group" aria-label="Color theme">
+      <span class="theme-switcher-label" aria-hidden="true">THEME</span>
+      <button type="button" data-theme-option="light" aria-label="Use light theme" aria-pressed="false">Light</button>
+      <button type="button" data-theme-option="dark" aria-label="Use dark theme" aria-pressed="false">Dark</button>
+      <button type="button" data-theme-option="system" aria-label="Follow system theme" aria-pressed="false">System</button>
+    </div>
+
+    <script is:inline>
+      (() => {
+        const storageKey = 'duo-color-theme';
+        const root = document.documentElement;
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const controls = Array.from(document.querySelectorAll('[data-theme-option]'));
+        const themeColor = document.querySelector('#theme-color');
+
+        const resolveTheme = (preference) => (
+          preference === 'system'
+            ? (systemTheme.matches ? 'dark' : 'light')
+            : preference
+        );
+
+        const applyTheme = (preference, persist = true) => {
+          const resolvedTheme = resolveTheme(preference);
+          root.dataset.theme = resolvedTheme;
+          root.dataset.themePreference = preference;
+          root.style.colorScheme = resolvedTheme;
+
+          controls.forEach((control) => {
+            control.setAttribute('aria-pressed', String(control.dataset.themeOption === preference));
+          });
+
+          if (themeColor) {
+            themeColor.setAttribute('content', resolvedTheme === 'dark' ? '#101511' : '#f3efe4');
+          }
+
+          if (persist) {
+            try { localStorage.setItem(storageKey, preference); } catch {}
+          }
+        };
+
+        controls.forEach((control) => {
+          control.addEventListener('click', () => applyTheme(control.dataset.themeOption));
+        });
+
+        systemTheme.addEventListener('change', () => {
+          if (root.dataset.themePreference === 'system') applyTheme('system', false);
+        });
+
+        window.addEventListener('storage', (event) => {
+          if (event.key === storageKey && ['light', 'dark', 'system'].includes(event.newValue)) {
+            applyTheme(event.newValue, false);
+          }
+        });
+
+        applyTheme(root.dataset.themePreference || 'system', false);
+      })();
+    </script>
   </body>
 </html>
