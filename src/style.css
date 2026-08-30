@@ -28,6 +28,11 @@
   --mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
   --serif: 'Newsreader', Georgia, serif;
   --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* The code panel stays dark in both themes: Shiki's github-dark token
+     colours are designed for a dark ground, and the site reads it as a
+     terminal. Deliberately not redefined under [data-theme='dark']. */
+  --code-bg: #1c211d;
+  --code-fg: #f3efe4;
 }
 
 :root[data-theme='dark'] {
@@ -550,7 +555,7 @@ h1 {
 }
 
 .entry-meta time { color: var(--green); }
-.entry-body h2 { margin-bottom: 0.4rem; font-family: var(--serif); font-size: clamp(1.35rem, 3vw, 1.9rem); }
+.entry-body h2 { margin-bottom: 0.4rem; font-family: var(--display); font-size: clamp(1.35rem, 3vw, 1.9rem); font-weight: 600; letter-spacing: -0.04em; }
 .entry-body h2 a { text-decoration: none; }
 .entry-body p { max-width: 760px; color: var(--ink-soft); }
 .entry-arrow { font-family: var(--display); font-size: 1.5rem; text-decoration: none; }
@@ -639,14 +644,10 @@ h1 {
 .project-detail-header h1 {
   max-width: 17ch;
   margin: 0.55rem 0 1rem;
-  font-family: var(--serif);
-  font-size: clamp(2.8rem, 7vw, 5.7rem);
-  letter-spacing: -0.04em;
-}
-
-.project-detail-header h1 {
   font-family: var(--display);
+  font-size: clamp(2.8rem, 7vw, 5.7rem);
   font-weight: 600;
+  letter-spacing: -0.04em;
 }
 
 .article-deck { max-width: 780px; margin-bottom: 1.35rem; color: var(--ink-soft); font-size: clamp(1.15rem, 2.4vw, 1.45rem); line-height: 1.45; }
@@ -692,8 +693,20 @@ h1 {
 .prose li + li { margin-top: 0.45rem; }
 .prose blockquote { padding: 1rem 1.2rem; border-left: 5px solid var(--green); background: var(--green-soft); }
 .prose code { padding: 0.12rem 0.3rem; background: var(--paper-deep); font-family: var(--mono); font-size: 0.88em; }
-.prose pre { overflow-x: auto; padding: 1.15rem; border: 2px solid var(--line); background: var(--ink); }
-.prose pre code { padding: 0; color: var(--paper); background: transparent; }
+/* Shiki writes `background-color` inline on the <pre>, so it does not follow
+   the theme, while the foreground used to come from a token that does. In dark
+   mode that left near-black text on Shiki's dark ground at 1.26:1. Pin both
+   ends of the pair instead; !important is needed to beat the inline style. */
+.prose pre {
+  overflow-x: auto;
+  padding: 1.15rem;
+  border: 2px solid var(--line);
+  background: var(--code-bg) !important;
+}
+
+.prose pre,
+.prose pre code { color: var(--code-fg); }
+.prose pre code { padding: 0; background: transparent; }
 .prose table { display: block; width: 100%; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 0.95rem; }
 .prose th, .prose td { padding: 0.65rem; border: 1px solid var(--line); text-align: left; }
 

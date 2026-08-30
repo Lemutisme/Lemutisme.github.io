@@ -167,9 +167,14 @@ $$
 \begin{aligned} \omega^{k+1} &= \omega^k + h M^{-1}\!\left( p(u) - P_e(\delta^k) - D\omega^k \right), \\ \widetilde{\delta}^{k+1} &= \delta^k + h \omega_b \omega^{k+1}, \\ \delta^{k+1} &= \widetilde{\delta}^{k+1} - \mathbf{1}\rho^T \widetilde{\delta}^{k+1}, \end{aligned}
 $$
 
-where the last line projects out the center-of-inertia angle. Constraints enforce generator power limits, frequency limits, pairwise angle separation, terminal frequency limits, and bus-voltage limits. The objective is normalized reserve activation.
+where the last line projects out the center-of-inertia angle.
 
-The reduced Gurobi reference encodings contain 1,841 variables / 2,823 rows (Case9) and 7,245 variables / 13,639 rows (Case57). The ABCROWN graph substitutes the complete rollout and leaves only $u \in \mathbb{R}^2$ free. Case9 exports the objective plus 1,242 scalar inequalities.
+- **Decisions** ($u \in \mathbb{R}^2$): two normalized dispatch levels.
+- **Objective:** normalized reserve activation - how much reserve the chosen dispatch has to call on, scaled to the available range. Unlike the other six instances, the audit states this in words and does not give the closed form, so none is reproduced here.
+- **Constraints:** generator power limits, frequency limits, pairwise angle separation, terminal frequency limits, and bus-voltage limits.
+- **Output head:** $m = 1{,}243$ for Case9 (objective plus 1,242 scalar inequalities); $m = 8$ for Case57 after aggregation, below.
+
+The reduced Gurobi reference encodings contain 1,841 variables / 2,823 rows (Case9) and 7,245 variables / 13,639 rows (Case57). The ABCROWN graph substitutes the complete rollout and leaves only $u \in \mathbb{R}^2$ free.
 
 **Second exact step (Case57):** 6,998 scalar inequalities are grouped into seven family heads,
 
