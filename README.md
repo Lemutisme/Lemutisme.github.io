@@ -1,5 +1,16 @@
-# Vue 3 + Vite
+# Duo Zhou
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Source code for [www.duo-zhou.com](https://www.duo-zhou.com), a personal academic website built with Vue 3 and Vite.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Local development
+
+Requires Node.js 20.19+ and npm.
+
+```bash
+npm ci
+npm run dev
+```
+
+Edit site content in `src/data.js`, the page layout in `src/App.vue`, and styles in `src/style.css`.
+
+Run `npm run build` to create a production build in `dist/`. Pushes to `main` are deployed to GitHub Pages by GitHub Actions.
