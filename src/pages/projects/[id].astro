@@ -1,6 +1,8 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Citation from '../../components/Citation.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildBibTeX } from '../../lib/citation';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -16,12 +18,22 @@ interface Props {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+const citationHref = `/projects/${project.id}/citation.bib`;
+const citationUrl = new URL(`/projects/${project.id}/`, Astro.site ?? Astro.url);
+const bibtex = buildBibTeX({
+  id: project.id,
+  title: project.data.title,
+  year: project.data.citationYear,
+  url: citationUrl.toString(),
+  note: 'Project page',
+});
 ---
 
 <BaseLayout
   title={`${project.data.title} - Duo Zhou`}
   description={project.data.description}
   active="projects"
+  citationHref={citationHref}
 >
   <article class="project-detail">
     <header class="project-detail-header">
@@ -37,8 +49,16 @@ const { Content } = await render(project);
     </header>
 
     <div class="project-detail-grid">
-      <div class="prose project-prose">
-        <Content />
+      <div class="project-main">
+        <div class="prose project-prose">
+          <Content />
+        </div>
+        <Citation
+          bibtex={bibtex}
+          downloadHref={citationHref}
+          filename={`${project.id}.bib`}
+          label="Cite this project"
+        />
       </div>
 
       <aside class="project-sidebar" aria-label="Project metadata">

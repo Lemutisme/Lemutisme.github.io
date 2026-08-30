@@ -4,6 +4,7 @@ tagline: "An evidence-governed kernel for long-running and self-improving agents
 description: "ProContract separates an agent's adaptive policy from a small trusted kernel that controls obligations, evidence, and canonical state transitions."
 status: "Active research"
 period: "2026 - Present"
+citationYear: 2026
 order: 1
 tags:
   - Agentic AI

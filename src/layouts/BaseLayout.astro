@@ -4,13 +4,17 @@ import Document from './Document.astro';
 interface Props {
   title: string;
   description: string;
-  active?: 'projects' | 'blog';
+  active?: 'home' | 'projects' | 'blog';
+  citationHref?: string;
 }
 
-const { title, description, active } = Astro.props;
+const { title, description, active, citationHref } = Astro.props;
+
+const repoUrl = 'https://github.com/Lemutisme/Lemutisme.github.io';
+const lastUpdated = new Date().toISOString().slice(0, 10);
 ---
 
-<Document title={title} description={description}>
+<Document title={title} description={description} citationHref={citationHref}>
   <div class="site-shell">
     <a class="skip-link" href="#main">Skip to content</a>
 
@@ -32,8 +36,16 @@ const { title, description, active } = Astro.props;
     </main>
 
     <footer class="footer">
-      <p><span class="footer-mark">DZ</span> Built for the open web · {new Date().getFullYear()}</p>
-      <a href="/">back_to_home ↑</a>
+      <p>
+        <span class="footer-mark">DZ</span>
+        <span>
+          Last updated <time datetime={lastUpdated}>{lastUpdated}</time> ·{' '}
+          <a href={repoUrl} target="_blank" rel="noopener">source ↗</a>
+        </span>
+      </p>
+      {active === 'home'
+        ? <a href="#top">back_to_top ↑</a>
+        : <a href="/">back_to_home ↑</a>}
     </footer>
   </div>
 </Document>

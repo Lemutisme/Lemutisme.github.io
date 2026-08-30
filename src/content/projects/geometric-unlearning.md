@@ -4,6 +4,7 @@ tagline: "Separate targeted forgetting from capability preservation through opti
 description: "A geometric approach to language model unlearning that controls interference between forgetting objectives and retained behavior."
 status: "EMNLP 2026 Main"
 period: "2025 - 2026"
+citationYear: 2026
 order: 3
 tags:
   - Machine Unlearning

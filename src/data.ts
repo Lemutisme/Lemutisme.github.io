@@ -1,4 +1,39 @@
-export const profileData = {
+interface Link {
+  label: string;
+  url: string;
+}
+
+interface ResearchInterest {
+  code: string;
+  title: string;
+  description: string;
+}
+
+interface Profile {
+  name: string;
+  intro: string;
+  researchInterests: ResearchInterest[];
+  links: Link[];
+}
+
+interface NewsItem {
+  date: string;
+  body: string;
+}
+
+interface Publication {
+  title: string;
+  authors: string;
+  venue: string;
+  venueShort: string;
+  year: string;
+  featured?: boolean;
+  links?: Link[];
+}
+
+export const scholarUrl = 'https://scholar.google.com/citations?user=QnBzRsIAAAAJ&hl=en';
+
+export const profileData: Profile = {
   name: 'Duo Zhou',
   intro: `I am a Computer Science Ph.D. student at the <a href="https://illinois.edu/" target="_blank" rel="noopener">University of Illinois Urbana-Champaign</a>. I study how to make increasingly capable AI systems reliable - from the optimization and post-training methods that shape model behavior to the agents and multi-agent systems that act, coordinate, and improve over time. My work develops scalable algorithms, formal guarantees, and system-level mechanisms for reinforcement learning, neural network verification, and recursive self-improvement.`,
   researchInterests: [
@@ -15,12 +50,12 @@ export const profileData = {
   ],
   links: [
     { label: 'Email', url: 'mailto:duozhou2@illinois.edu' },
-    { label: 'Scholar', url: 'https://scholar.google.com/citations?user=QnBzRsIAAAAJ&hl=en' },
+    { label: 'Scholar', url: scholarUrl },
     { label: 'GitHub', url: 'https://github.com/Lemutisme' },
   ],
 };
 
-export const newsData = [
+export const newsData: NewsItem[] = [
   { date: 'Aug. 2026', body: '<strong>Geometric-Disentanglement Language Model Unlearning</strong> accepted to EMNLP 2026 Main.' },
   { date: 'Jul. 2026', body: 'Won VNN-COMP 2026 on CAV 2026.' },
   { date: 'May 2026', body: '<strong>InvSTG-PLM</strong> accepted to KDD 2026.' },
@@ -33,7 +68,7 @@ export const newsData = [
   { date: 'Sep. 2024', body: '<strong>BICCOS</strong> accepted to NeurIPS 2024.' },
 ];
 
-export const publicationsData = [
+export const publicationsData: Publication[] = [
   {
     title: 'Geometric-Disentanglement Language Model Unlearning',
     authors: '<strong>Duo Zhou*</strong>, Yuji Zhang*, Tianxin Wei, Ruizhong Qiu, Ke Yang, Xiao Lin, Cheng Qian, Jingrui He, Hanghang Tong, Heng Ji, Huan Zhang',
@@ -54,6 +89,7 @@ export const publicationsData = [
     year: '2026',
     links: [
       { label: 'Paper', url: 'https://doi.org/10.1145/3770855.3818006' },
+      { label: 'Code', url: 'https://github.com/tingwang25/InvSTG-PLM' },
     ],
   },
   {
@@ -165,7 +201,7 @@ export const publicationsData = [
   },
 ];
 
-export const honorsData = [
+export const honorsData: string[] = [
   'Winner of both the Regular and Extended tracks at VNN-COMP 2026.',
   'Winner of both the Regular and Extended tracks at VNN-COMP 2025.',
   'Winner of both the Regular and Extended tracks at VNN-COMP 2024.',
@@ -174,6 +210,6 @@ export const honorsData = [
   'Provincial First Prize, Contemporary Undergraduate Mathematical Contest in Modeling, 2019.',
 ];
 
-export const servicesData = [
+export const servicesData: string[] = [
   'Reviewer: JMLR, NeurIPS, ICLR, ICML, AAAI, IJCAI, KDD, and ARR.',
 ];

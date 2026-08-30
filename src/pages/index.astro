@@ -1,11 +1,181 @@
 ---
-import App from '../App.vue';
-import Document from '../layouts/Document.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  honorsData,
+  newsData,
+  profileData,
+  publicationsData,
+  scholarUrl,
+  servicesData,
+} from '../data';
+
+const profile = profileData;
+const news = newsData;
+const publications = publicationsData;
+const honors = honorsData;
+const services = servicesData;
 ---
 
-<Document
+<BaseLayout
   title="Duo Zhou - Trustworthy AI"
   description="Duo Zhou is a Computer Science Ph.D. student at UIUC working on trustworthy AI, optimization, self-improving agents, and neural network verification."
+  active="home"
 >
-  <App />
-</Document>
+  <section id="top" class="hero section-grid" aria-labelledby="hero-title">
+    <div class="hero-copy pixel-window">
+      <div class="window-bar" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <p>profile.md</p>
+      </div>
+      <div class="hero-content">
+        <p class="eyebrow">TRUSTWORTHY AI / FROM OPTIMIZATION TO SELF-IMPROVING AGENTS</p>
+        <h1 id="hero-title">Duo Zhou<span class="cursor" aria-hidden="true">_</span></h1>
+        <p class="role">Ph.D. Student · Computer Science · UIUC</p>
+        <p class="intro" set:html={profile.intro} />
+        <div class="profile-links" aria-label="Profile links">
+          {profile.links.map((link) => (
+            <a
+              href={link.url}
+              target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+              rel="noopener"
+              class="pixel-button"
+            >
+              <span aria-hidden="true">↗</span> {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <aside id="research" class="research-panel" aria-labelledby="research-title">
+      <div class="panel-label">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>research.log</span>
+      </div>
+      <h2 id="research-title">What I work on</h2>
+      <ol class="research-list">
+        {profile.researchInterests.map((interest) => (
+          <li>
+            <span class="research-code">{interest.code}</span>
+            <div>
+              <h3>{interest.title}</h3>
+              <p set:html={interest.description} />
+            </div>
+          </li>
+        ))}
+      </ol>
+    </aside>
+  </section>
+
+  <section id="news" class="content-section" aria-labelledby="news-title">
+    <div class="section-heading">
+      <div>
+        <p class="section-index">02 / UPDATE STREAM</p>
+        <h2 id="news-title">News</h2>
+      </div>
+      <p class="heading-note">recent.log</p>
+    </div>
+    <div class="news-list">
+      {news[0] && (
+        <article class="news-row news-row-featured">
+          <span class="news-number">01</span>
+          <time>{news[0].date}</time>
+          <p set:html={news[0].body} />
+        </article>
+      )}
+      {news.length > 1 && (
+        <details class="news-archive">
+          <summary>
+            <span>Show {news.length - 1} earlier updates</span>
+            <span class="summary-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="news-archive-list">
+            {news.slice(1).map((item, index) => (
+              <article class="news-row">
+                <span class="news-number">{String(index + 2).padStart(2, '0')}</span>
+                <time>{item.date}</time>
+                <p set:html={item.body} />
+              </article>
+            ))}
+          </div>
+        </details>
+      )}
+    </div>
+  </section>
+
+  <section id="papers" class="content-section" aria-labelledby="papers-title">
+    <div class="section-heading papers-heading">
+      <div>
+        <p class="section-index">03 / SELECTED OUTPUT</p>
+        <h2 id="papers-title">Publications</h2>
+      </div>
+      <p class="heading-note">
+        * equal contribution · † corresponding ·{' '}
+        <a href={scholarUrl} target="_blank" rel="noopener">Complete publication list on Google Scholar ↗</a>
+      </p>
+    </div>
+
+    <div class="publication-list">
+      {publications.map((pub, index) => (
+        <article class:list={['publication-card', { featured: pub.featured }]}>
+          <div class="pub-index" aria-hidden="true">
+            <span>{pub.year}</span>
+            <strong>{String(index + 1).padStart(2, '0')}</strong>
+          </div>
+          <div class="pub-body">
+            <div class="pub-meta">
+              <span class="venue-chip">{pub.venueShort}</span>
+              {pub.featured && <span class="new-chip">NEW</span>}
+            </div>
+            <h3 set:html={pub.title} />
+            <p class="authors" set:html={pub.authors} />
+            <p class="venue" set:html={pub.venue} />
+          </div>
+          {pub.links && pub.links.length > 0 && (
+            <div class="pub-links" aria-label="Publication resources">
+              {pub.links.map((link) => (
+                <a href={link.url} target="_blank" rel="noopener">{link.label} ↗</a>
+              ))}
+            </div>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="service" class="content-section bottom-grid" aria-label="Honors and academic service">
+    <div class="ledger-panel">
+      <div class="section-heading compact">
+        <div>
+          <p class="section-index">04A / MILESTONES</p>
+          <h2>Honors</h2>
+        </div>
+      </div>
+      <ul class="ledger-list">
+        {honors.map((honor, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <p>{honor}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="ledger-panel service-panel">
+      <div class="section-heading compact">
+        <div>
+          <p class="section-index">04B / COMMUNITY</p>
+          <h2>Service</h2>
+        </div>
+      </div>
+      <ul class="ledger-list">
+        {services.map((service, index) => (
+          <li>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <p>{service}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

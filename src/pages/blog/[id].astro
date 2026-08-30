@@ -1,6 +1,8 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Citation from '../../components/Citation.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { buildBibTeX } from '../../lib/citation';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -16,6 +18,15 @@ interface Props {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const citationHref = `/blog/${post.id}/citation.bib`;
+const citationUrl = new URL(`/blog/${post.id}/`, Astro.site ?? Astro.url);
+const bibtex = buildBibTeX({
+  id: post.id,
+  title: post.data.title,
+  year: post.data.publishedAt.getUTCFullYear(),
+  url: citationUrl.toString(),
+  note: 'Research note',
+});
 const formatDate = (date: Date) => new Intl.DateTimeFormat('en', {
   year: 'numeric',
   month: 'long',
@@ -27,6 +38,7 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('en', {
   title={`${post.data.title} - Duo Zhou`}
   description={post.data.description}
   active="blog"
+  citationHref={citationHref}
 >
   <article class="article-shell">
     <header class="article-header">
@@ -41,5 +53,11 @@ const formatDate = (date: Date) => new Intl.DateTimeFormat('en', {
     <div class="prose">
       <Content />
     </div>
+    <Citation
+      bibtex={bibtex}
+      downloadHref={citationHref}
+      filename={`${post.id}.bib`}
+      label="Cite this note"
+    />
   </article>
 </BaseLayout>

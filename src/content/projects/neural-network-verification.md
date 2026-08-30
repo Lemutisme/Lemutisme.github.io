@@ -4,6 +4,7 @@ tagline: "Optimization and search methods that turn formal guarantees into pract
 description: "A research program on stronger relaxations, tighter domain reduction, and more informed branching for complete neural network verification."
 status: "Active research"
 period: "2024 - Present"
+citationYear: 2026
 order: 2
 tags:
   - Formal Methods

@@ -4,11 +4,13 @@ import '../style.css';
 interface Props {
   title?: string;
   description?: string;
+  citationHref?: string;
 }
 
 const {
   title = 'Duo Zhou - Trustworthy AI',
   description = 'Duo Zhou is a Computer Science Ph.D. student at UIUC working on trustworthy AI, optimization, self-improving agents, and neural network verification.',
+  citationHref,
 } = Astro.props;
 
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
@@ -30,6 +32,9 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.u
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <link rel="canonical" href={canonical} />
+    {citationHref && (
+      <link rel="alternate" type="application/x-bibtex" href={citationHref} title="BibTeX citation" />
+    )}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>{title}</title>
   </head>

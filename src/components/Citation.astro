@@ -1,0 +1,55 @@
+---
+interface Props {
+  bibtex: string;
+  downloadHref: string;
+  filename: string;
+  label: string;
+}
+
+const { bibtex, downloadHref, filename, label } = Astro.props;
+---
+
+<details class="citation-panel" data-citation-panel>
+  <summary>
+    <span>{label}</span>
+    <span class="citation-toggle" aria-hidden="true">+</span>
+  </summary>
+  <div class="citation-body">
+    <div class="citation-toolbar">
+      <p class="section-index">BIBTEX</p>
+      <div class="citation-actions">
+        <button type="button" data-copy-bibtex>Copy</button>
+        <a href={downloadHref} download={filename}>Download .bib</a>
+      </div>
+    </div>
+    <pre tabindex="0"><code data-bibtex>{bibtex}</code></pre>
+    <p class="citation-status" data-citation-status aria-live="polite"></p>
+  </div>
+</details>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-citation-panel]').forEach((panel) => {
+    const button = panel.querySelector<HTMLButtonElement>('[data-copy-bibtex]');
+    const code = panel.querySelector<HTMLElement>('[data-bibtex]');
+    const status = panel.querySelector<HTMLElement>('[data-citation-status]');
+
+    if (!button || !code || !status) return;
+
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent ?? '');
+        button.textContent = 'Copied';
+        status.textContent = 'BibTeX copied to clipboard.';
+
+        window.setTimeout(() => {
+          button.textContent = 'Copy';
+          status.textContent = '';
+        }, 2200);
+      } catch {
+        status.textContent = 'Copy failed. Select the BibTeX text manually.';
+        code.parentElement?.focus();
+      }
+    });
+  });
+</script>
+

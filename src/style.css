@@ -8,7 +8,6 @@
   --line: #222a24;
   --green: #1f6b4f;
   --green-soft: #d5e2d3;
-  --blue: #315b8a;
   --yellow: #f0c35a;
   --red: #bd5b4a;
   --white: #fffdf7;
@@ -491,7 +490,7 @@ h1 {
 .project-number { color: var(--green); font-family: var(--display); font-size: 1.55rem; }
 .status-chip { padding: 0.22rem 0.5rem; color: var(--white); background: var(--green); }
 .project-period { margin: 2.2rem 0 0.7rem; color: var(--ink-soft); }
-.project-card h2 { max-width: 790px; font-family: var(--serif); font-size: clamp(1.75rem, 4vw, 3rem); }
+.project-card h2 { max-width: 790px; font-family: var(--display); font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 600; letter-spacing: -0.04em; }
 .project-card h2 a { text-decoration: none; }
 .project-card h2 a:hover { color: var(--green); }
 .project-tagline { max-width: 760px; margin-top: 0.65rem; font-size: 1.18rem; font-weight: 600; line-height: 1.35; }
@@ -529,6 +528,11 @@ h1 {
   letter-spacing: -0.04em;
 }
 
+.project-detail-header h1 {
+  font-family: var(--display);
+  font-weight: 600;
+}
+
 .article-deck { max-width: 780px; margin-bottom: 1.35rem; color: var(--ink-soft); font-size: clamp(1.15rem, 2.4vw, 1.45rem); line-height: 1.45; }
 
 .project-detail-header { padding-bottom: 44px; border-bottom: 2px solid var(--line); }
@@ -558,6 +562,8 @@ h1 {
 .resource-list li + li { margin-top: 0.55rem; }
 .resource-list a { color: var(--green); font-family: var(--mono); font-size: 0.72rem; font-weight: 600; }
 
+.project-main { min-width: 0; }
+
 .prose { max-width: 760px; padding-top: 44px; font-size: 1.08rem; line-height: 1.75; }
 .project-prose { padding-top: 0; }
 .prose > * + * { margin-top: 1.2rem; }
@@ -575,6 +581,77 @@ h1 {
 .prose table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .prose th, .prose td { padding: 0.65rem; border: 1px solid var(--line); text-align: left; }
 .prose th { background: var(--paper-deep); font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; }
+
+.citation-panel {
+  margin-top: 3rem;
+  border: 2px solid var(--line);
+  background: var(--white);
+  box-shadow: 5px 5px 0 var(--green);
+}
+
+.citation-panel summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  list-style: none;
+  text-transform: uppercase;
+}
+
+.citation-panel summary::-webkit-details-marker { display: none; }
+.citation-panel summary:hover { background: var(--green-soft); }
+.citation-panel summary:focus-visible { outline: 3px solid var(--yellow); outline-offset: 3px; }
+.citation-toggle { font-family: var(--display); font-size: 1.25rem; transition: transform 140ms ease; }
+.citation-panel[open] .citation-toggle { transform: rotate(45deg); }
+.citation-body { padding: 1rem; border-top: 1px solid var(--line); }
+.citation-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+.citation-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.citation-actions button,
+.citation-actions a {
+  padding: 0.38rem 0.58rem;
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.citation-actions button { cursor: pointer; }
+.citation-actions button:hover,
+.citation-actions a:hover { color: var(--white); background: var(--green); }
+.citation-actions button:focus-visible,
+.citation-actions a:focus-visible { outline: 3px solid var(--yellow); outline-offset: 2px; }
+
+.citation-panel pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  color: var(--white);
+  background: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  white-space: pre;
+}
+
+.citation-status {
+  min-height: 1.2rem;
+  margin-top: 0.5rem;
+  color: var(--green);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+}
 
 @media (max-width: 900px) {
   .nav-links a { padding: 0 0.55rem; font-size: 0.62rem; }
@@ -618,6 +695,7 @@ h1 {
   .project-detail-title { display: block; }
   .project-period-large { display: inline-block; margin-top: 0.5rem; }
   .article-header h1, .project-detail-header h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+  .citation-toolbar { align-items: flex-start; flex-direction: column; }
 }
 
 @media (prefers-reduced-motion: reduce) {

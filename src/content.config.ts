@@ -22,6 +22,7 @@ const projects = defineCollection({
     description: z.string(),
     status: z.string(),
     period: z.string(),
+    citationYear: z.number().int(),
     order: z.number(),
     tags: z.array(z.string()).default([]),
     links: z.array(z.object({
