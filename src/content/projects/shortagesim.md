@@ -48,7 +48,9 @@ This makes it possible to examine interventions that have no clean analytical co
 
 ## Evaluation
 
-The framework is evaluated against a self-processed dataset of historical shortage events. On production disruption cases, ShortageSim tracks real-world trajectories more closely than the zero-shot baseline, reducing resolution lag by up to 84%.
+The framework is evaluated against 51 resolved shortage trajectories drawn from 2,925 FDA-reported events. Accuracy is measured as resolution lag percentage - how far the simulated clearance time sits from the historical one. On the discontinuation-cause split, ShortageSim lands within a mean 4.5% of real resolution times, against -28.3% for the zero-shot baseline, which clears shortages far too quickly.
+
+The reported 84% is the reduction in that simulation error. It describes how closely the model reproduces history, not a change in how long real shortages last.
 
 The framework and a dataset of 2,925 FDA shortage events are released openly, so that policy designs can be tested against recorded shortage history rather than only against assumptions.
 
