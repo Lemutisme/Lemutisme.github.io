@@ -22,11 +22,15 @@ export const profileData = {
 
 export const newsData = [
   { date: 'Aug. 2026', body: '<strong>Geometric-Disentanglement Language Model Unlearning</strong> accepted to EMNLP 2026 Main.' },
+  { date: 'Jul. 2026', body: 'Won VNN-COMP 2026 on CAV 2026.' },
   { date: 'May 2026', body: '<strong>InvSTG-PLM</strong> accepted to KDD 2026.' },
   { date: 'Apr. 2026', body: '<strong>Lookahead Branching</strong> accepted to IJCAI 2026.' },
   { date: 'Mar. 2026', body: '<strong>AdaFuse</strong> accepted to ACL 2026 Main.' },
   { date: 'Jan. 2026', body: '<strong>DR-SAC</strong> accepted to ICLR 2026.' },
   { date: 'Nov. 2025', body: '<strong>ShortageSim</strong> accepted to AAAI 2026 as an oral presentation.' },
+  { date: 'Sep. 2025', body: '<strong>Clip-and-Verify</strong> accepted to NeurIPS 2025.' },
+  { date: 'Jul. 2025', body: 'Won VNN-COMP 2025 on CAV 2025.' },
+  { date: 'Sep. 2024', body: '<strong>BICCOS</strong> accepted to NeurIPS 2024.' },
 ];
 
 export const publicationsData = [
@@ -45,7 +49,7 @@ export const publicationsData = [
   {
     title: 'Invariant Structure Learning with Pre-trained Language Models for Spatio-temporal Graph',
     authors: 'Ting Wang*, <strong>Duo Zhou*</strong>, Daqian Shi, Hao Tang, Hao Deng, Shengjie Zhao',
-    venue: 'Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining',
+    venue: 'Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining, pp. 5045-5056',
     venueShort: "KDD '26",
     year: '2026',
     links: [
@@ -55,7 +59,7 @@ export const publicationsData = [
   {
     title: 'AdaFuse: Adaptive Ensemble Decoding for Large Language Models',
     authors: 'Chengming Cui*, Tianxin Wei*, Ziyi Chen, Ruizhong Qiu, Zhichen Zeng, Zhining Liu, Xuying Ning, <strong>Duo Zhou</strong>, Jingrui He',
-    venue: 'Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics · Main Conference',
+    venue: 'Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics · Main Conference, pp. 42644-42657',
     venueShort: "ACL '26",
     year: '2026',
     links: [
@@ -76,7 +80,7 @@ export const publicationsData = [
   {
     title: 'DR-SAC: Distributionally Robust Soft Actor-Critic for Reinforcement Learning under Uncertainty',
     authors: 'Mingxuan Cui*, <strong>Duo Zhou*<sup>†</sup></strong>, Yuxuan Han, Grani A. Hanasusanto, Qiong Wang, Huan Zhang, Zhengyuan Zhou',
-    venue: 'The Fourteenth International Conference on Learning Representations',
+    venue: 'The Fourteenth International Conference on Learning Representations Vol. 2026, pp. 92720-92750',
     venueShort: "ICLR '26",
     year: '2026',
     links: [
@@ -108,8 +112,8 @@ export const publicationsData = [
   {
     title: 'ShortageSim: Simulating Drug Shortages under Information Asymmetry',
     authors: 'Mingxuan Cui*, Yilan Jiang*, <strong>Duo Zhou*</strong>, Cheng Qian, Yuji Zhang<sup>†</sup>, Qiong Wang<sup>†</sup>',
-    venue: 'AAAI 2026 · Oral Presentation',
-    venueShort: "AAAI '26",
+    venue: 'Proceedings of the AAAI Conference on Artificial Intelligence Vol. 40, No. 45, pp. 38321-38330',
+    venueShort: "AAAI '26 Oral",
     year: '2026',
     links: [
       { label: 'Paper', url: 'https://ojs.aaai.org/index.php/AAAI/article/view/41172' },
@@ -120,7 +124,7 @@ export const publicationsData = [
     title: 'Clip-and-Verify: Linear Constraint-Driven Domain Clipping for Accelerating Neural Network Verification',
     authors: '<strong>Duo Zhou*</strong>, Jorge Chavez*, Hesun Chen, Grani A. Hanasusanto, Huan Zhang',
     venue: 'Advances in Neural Information Processing Systems 38, 174849-174895',
-    venueShort: "NEURIPS '25",
+    venueShort: "NeurIPS '25",
     year: '2025',
     links: [
       { label: 'Paper', url: 'https://neurips.cc/virtual/2025/poster/118862' },
@@ -131,7 +135,7 @@ export const publicationsData = [
     title: 'Scalable Neural Network Verification with Branch-and-bound Inferred Cutting Planes',
     authors: '<strong>Duo Zhou</strong>, Christopher Brix, Grani A. Hanasusanto, Huan Zhang',
     venue: 'Advances in Neural Information Processing Systems 37, 29324-29353',
-    venueShort: "NEURIPS '24",
+    venueShort: "NeurIPS '24",
     year: '2024',
     links: [
       { label: 'Paper', url: 'https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html' },
