@@ -1,0 +1,39 @@
+---
+import '../style.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Duo Zhou - Trustworthy AI',
+  description = 'Duo Zhou is a Computer Science Ph.D. student at UIUC working on trustworthy AI, optimization, self-improving agents, and neural network verification.',
+} = Astro.props;
+
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Duo Zhou" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f3efe4" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

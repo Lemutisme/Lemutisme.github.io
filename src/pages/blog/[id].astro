@@ -1,0 +1,45 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const formatDate = (date: Date) => new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+}).format(date);
+---
+
+<BaseLayout
+  title={`${post.data.title} - Duo Zhou`}
+  description={post.data.description}
+  active="blog"
+>
+  <article class="article-shell">
+    <header class="article-header">
+      <a class="back-link" href="/blog/">← All research notes</a>
+      <p class="section-index">RESEARCH NOTE / {formatDate(post.data.publishedAt)}</p>
+      <h1>{post.data.title}</h1>
+      <p class="article-deck">{post.data.description}</p>
+      <div class="tag-row">
+        {post.data.tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

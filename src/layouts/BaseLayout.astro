@@ -1,0 +1,39 @@
+---
+import Document from './Document.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: 'projects' | 'blog';
+}
+
+const { title, description, active } = Astro.props;
+---
+
+<Document title={title} description={description}>
+  <div class="site-shell">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="Duo Zhou, home">
+        <span class="brand-mark">DZ</span>
+        <span class="brand-path">~/duo-zhou</span>
+      </a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="/#research">Research</a>
+        <a href="/#papers">Publications</a>
+        <a href="/projects/" aria-current={active === 'projects' ? 'page' : undefined}>Projects</a>
+        <a href="/blog/" aria-current={active === 'blog' ? 'page' : undefined}>Blog</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <p><span class="footer-mark">DZ</span> Built for the open web · {new Date().getFullYear()}</p>
+      <a href="/">back_to_home ↑</a>
+    </footer>
+  </div>
+</Document>

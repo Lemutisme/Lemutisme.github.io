@@ -1,16 +1,40 @@
-# Duo Zhou
+# Duo Zhou Academic Site
 
-Source code for [www.duo-zhou.com](https://www.duo-zhou.com), a personal academic website built with Vue 3 and Vite.
+An Astro-powered academic portfolio with a Vue homepage and Markdown content
+collections for research notes and project pages.
 
 ## Local development
 
-Requires Node.js 20.19+ and npm.
-
-```bash
-npm ci
+```sh
+npm install
 npm run dev
 ```
 
-Edit site content in `src/data.js`, the page layout in `src/App.vue`, and styles in `src/style.css`.
+Build the production site with:
 
-Run `npm run build` to create a production build in `dist/`. Pushes to `main` are deployed to GitHub Pages by GitHub Actions.
+```sh
+npm run build
+```
+
+## Publish a blog post
+
+Copy `src/content/blog/_template.md`, rename it with a URL-safe slug, complete
+the frontmatter and body, then set `draft: false`.
+
+```text
+src/content/blog/my-new-research-note.md
+```
+
+The post will appear at `/blog/my-new-research-note/` after the next deployment.
+
+## Add a project
+
+Create a Markdown file in `src/content/projects/`. Required metadata is
+validated by `src/content.config.ts`, and the project is automatically added to
+the Projects index.
+
+```text
+src/content/projects/my-project.md
+```
+
+GitHub Actions builds and deploys the static `dist/` directory to GitHub Pages.

@@ -3,15 +3,15 @@
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="topbar" aria-label="Primary navigation">
-      <a class="brand" href="#top" aria-label="Duo Zhou, home">
+      <a class="brand" href="/" aria-label="Duo Zhou, home">
         <span class="brand-mark">DZ</span>
         <span class="brand-path">~/duo-zhou</span>
       </a>
       <nav class="nav-links" aria-label="Page sections">
-        <a href="#research">01 / research</a>
-        <a href="#news">02 / news</a>
-        <a href="#papers">03 / papers</a>
-        <a href="#service">04 / service</a>
+        <a href="/#research">Research</a>
+        <a href="/#papers">Publications</a>
+        <a href="/projects/">Projects</a>
+        <a href="/blog/">Blog</a>
       </nav>
     </header>
 
