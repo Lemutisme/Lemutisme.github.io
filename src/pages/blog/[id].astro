@@ -3,6 +3,7 @@ import { getCollection, render, type CollectionEntry } from 'astro:content';
 import Citation from '../../components/Citation.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { buildBibTeX } from '../../lib/citation';
+import 'katex/dist/katex.min.css';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
