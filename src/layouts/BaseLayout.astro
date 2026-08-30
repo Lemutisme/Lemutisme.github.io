@@ -1,0 +1,51 @@
+---
+import Document from './Document.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: 'home' | 'projects' | 'blog';
+  citationHref?: string;
+}
+
+const { title, description, active, citationHref } = Astro.props;
+
+const repoUrl = 'https://github.com/Lemutisme/Lemutisme.github.io';
+const lastUpdated = new Date().toISOString().slice(0, 10);
+---
+
+<Document title={title} description={description} citationHref={citationHref}>
+  <div class="site-shell">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar" aria-label="Primary navigation">
+      <a class="brand" href="/" aria-label="Duo Zhou, home">
+        <span class="brand-mark">DZ</span>
+        <span class="brand-path">~/duo-zhou</span>
+      </a>
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="/#research">Research</a>
+        <a href="/#papers">Publications</a>
+        <a href="/projects/" aria-current={active === 'projects' ? 'page' : undefined}>Projects</a>
+        <a href="/blog/" aria-current={active === 'blog' ? 'page' : undefined}>Blog</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <p>
+        <span class="footer-mark">DZ</span>
+        <span>
+          Last updated <time datetime={lastUpdated}>{lastUpdated}</time> ·{' '}
+          <a href={repoUrl} target="_blank" rel="noopener">source ↗</a>
+        </span>
+      </p>
+      {active === 'home'
+        ? <a href="#top">back_to_top ↑</a>
+        : <a href="/">back_to_home ↑</a>}
+    </footer>
+  </div>
+</Document>

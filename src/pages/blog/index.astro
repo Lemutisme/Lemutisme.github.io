@@ -1,0 +1,68 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const formatDate = (date: Date) => new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'short',
+  day: '2-digit',
+}).format(date);
+---
+
+<BaseLayout
+  title="Research Notes - Duo Zhou"
+  description="Technical notes from Duo Zhou on trustworthy AI, optimization, self-improving agents, and formal verification."
+  active="blog"
+>
+  <header class="page-hero">
+    <p class="section-index">BLOG / RESEARCH LOG</p>
+    <h1>Research Notes<span class="cursor" aria-hidden="true">_</span></h1>
+    <p>
+      Working notes on trustworthy AI - from optimization and post-training to
+      agentic systems, recursive self-improvement, and formal verification.
+    </p>
+  </header>
+
+  {posts.length > 0 ? (
+    <section class="content-index" aria-label="Blog posts">
+      {posts.map((post, index) => (
+        <article class="index-entry">
+          <div class="entry-index">{String(index + 1).padStart(2, '0')}</div>
+          <div class="entry-body">
+            <div class="entry-meta">
+              <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+              {post.data.tags.map((tag) => <span>{tag}</span>)}
+            </div>
+            <h2><a href={`/blog/${post.id}/`}>{post.data.title}</a></h2>
+            <p>{post.data.description}</p>
+          </div>
+          <a class="entry-arrow" href={`/blog/${post.id}/`} aria-label={`Read ${post.data.title}`}>↗</a>
+        </article>
+      ))}
+    </section>
+  ) : (
+    <section class="empty-state pixel-window" aria-labelledby="empty-blog-title">
+      <div class="window-bar" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <p>drafts/</p>
+      </div>
+      <div class="empty-state-copy">
+        <p class="section-index">STATUS / WRITING</p>
+        <h2 id="empty-blog-title">Notes in progress.</h2>
+        <p>
+          Long-form technical notes will appear here. The Markdown publishing
+          system is ready; drafts remain private until explicitly published.
+        </p>
+      </div>
+    </section>
+  )}
+
+  <section class="topic-strip" aria-label="Research note topics">
+    <span>01 / TRUSTWORTHY AGENTS</span>
+    <span>02 / OPTIMIZATION</span>
+    <span>03 / FORMAL VERIFICATION</span>
+  </section>
+</BaseLayout>

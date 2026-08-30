@@ -1,0 +1,91 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import Citation from '../../components/Citation.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { countEntries, resolveCitation } from '../../lib/citation';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const citationHref = `/projects/${project.id}/citation.bib`;
+const citationUrl = new URL(`/projects/${project.id}/`, Astro.site ?? Astro.url);
+const bibtex = resolveCitation(project.data.bibtex, {
+  id: project.id,
+  title: project.data.title,
+  year: project.data.citationYear,
+  url: citationUrl.toString(),
+  note: 'Project page',
+});
+const citationLabel = project.data.bibtex
+  ? (countEntries(bibtex) > 1 ? 'Cite the papers' : 'Cite the paper')
+  : 'Cite this project';
+---
+
+<BaseLayout
+  title={`${project.data.title} - Duo Zhou`}
+  description={project.data.description}
+  active="projects"
+  citationHref={citationHref}
+>
+  <article class="project-detail">
+    <header class="project-detail-header">
+      <a class="back-link" href="/projects/">← All projects</a>
+      <div class="project-detail-title">
+        <div>
+          <p class="section-index">PROJECT FILE / {project.data.status}</p>
+          <h1>{project.data.title}</h1>
+          <p class="article-deck">{project.data.tagline}</p>
+        </div>
+        <span class="project-period project-period-large">{project.data.period}</span>
+      </div>
+    </header>
+
+    <div class="project-detail-grid">
+      <div class="project-main">
+        <div class="prose project-prose">
+          <Content />
+        </div>
+        <Citation
+          bibtex={bibtex}
+          downloadHref={citationHref}
+          filename={`${project.id}.bib`}
+          label={citationLabel}
+        />
+      </div>
+
+      <aside class="project-sidebar" aria-label="Project metadata">
+        <div class="sidebar-block">
+          <p class="section-index">STATUS</p>
+          <strong>{project.data.status}</strong>
+        </div>
+        <div class="sidebar-block">
+          <p class="section-index">TOPICS</p>
+          <div class="tag-row">
+            {project.data.tags.map((tag) => <span>{tag}</span>)}
+          </div>
+        </div>
+        {project.data.links.length > 0 && (
+          <div class="sidebar-block">
+            <p class="section-index">RESOURCES</p>
+            <ul class="resource-list">
+              {project.data.links.map((link) => (
+                <li><a href={link.url} target="_blank" rel="noopener">{link.label} ↗</a></li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

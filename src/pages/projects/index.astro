@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Projects - Duo Zhou"
+  description="Research programs by Duo Zhou spanning trustworthy agents, scalable neural network verification, and language model unlearning."
+  active="projects"
+>
+  <header class="page-hero project-hero">
+    <p class="section-index">PROJECTS / RESEARCH PROGRAMS</p>
+    <h1>Selected Projects<span class="cursor" aria-hidden="true">_</span></h1>
+    <p>
+      Research programs that connect individual papers, systems, and theoretical
+      questions into longer technical agendas for trustworthy AI.
+    </p>
+  </header>
+
+  <section class="project-grid" aria-label="Selected projects">
+    {projects.map((project, index) => (
+      <article class="project-card">
+        <div class="project-card-topline">
+          <span class="project-number">P{String(index + 1).padStart(2, '0')}</span>
+          <span class="status-chip">{project.data.status}</span>
+        </div>
+        <p class="project-period">{project.data.period}</p>
+        <h2><a href={`/projects/${project.id}/`}>{project.data.title}</a></h2>
+        <p class="project-tagline">{project.data.tagline}</p>
+        <p class="project-description">{project.data.description}</p>
+        <div class="tag-row">
+          {project.data.tags.map((tag) => <span>{tag}</span>)}
+        </div>
+        <a class="project-link" href={`/projects/${project.id}/`}>
+          Open project file <span aria-hidden="true">↗</span>
+        </a>
+      </article>
+    ))}
+  </section>
+</BaseLayout>
