@@ -394,7 +394,7 @@ h1 {
   font-size: 1.08rem;
 }
 
-.project-hero > p:last-child { background: var(--yellow); box-shadow-color: var(--ink); }
+.project-hero > p:last-child { background: var(--yellow); box-shadow: 5px 5px 0 var(--ink); }
 
 .content-index {
   margin: 64px 0 80px;
