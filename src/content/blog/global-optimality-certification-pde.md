@@ -170,9 +170,46 @@ $$
 where the last line projects out the center-of-inertia angle.
 
 - **Decisions** ($u \in \mathbb{R}^2$): two normalized dispatch levels.
-- **Objective:** normalized reserve activation - how much reserve the chosen dispatch has to call on, scaled to the available range. Unlike the other six instances, the audit states this in words and does not give the closed form, so none is reproduced here.
 - **Constraints:** generator power limits, frequency limits, pairwise angle separation, terminal frequency limits, and bus-voltage limits.
 - **Output head:** $m = 1{,}243$ for Case9 (objective plus 1,242 scalar inequalities); $m = 8$ for Case57 after aggregation, below.
+
+The objective is normalized reserve activation - the weighted quadratic cost of
+the secondary-frequency action the dispatch has to call on:
+
+$$
+Y_0(u) = \Vert u \Vert_W^2 = \sum_{g=1}^{N_{\text{ctrl}}} w_g\, u_g^2 = u^T W u,
+$$
+
+which under the standard weighting $W = I$ on the two normalized inputs is
+simply $Y_0(u) = u_1^2 + u_2^2$. Over the admissible dispatch box
+$\mathcal{U} = [\underline{u},\, \overline{u}] \subset \mathbb{R}^2$ given above,
+the whole problem is
+
+$$
+\min_{u \in \mathcal{U}} \; Y_0(u) = \Vert u \Vert_2^2
+\qquad \text{s.t.} \qquad
+\begin{cases}
+V_{\min} \le v_b(t; u) \le V_{\max} \\
+\vert \delta_i(t; u) - \delta_j(t; u) \vert \le \theta_{\max} \\
+\omega_{\min} \le \omega(t; u) \le \omega_{\max}
+\end{cases}
+$$
+
+The trade-off is what makes it a real optimization rather than a feasibility
+question. Do nothing ($u = 0$, so $Y_0 = 0$) and the rotor swing goes
+unchecked: angle separation or transient bus voltage leaves its limits and the
+machines fall out of step. Act hard and the grid holds, but the reserve called
+on is expensive and the dispatch can run into the generators' own output
+limits. What is being searched for is the cheapest control action that keeps
+frequency, voltage, and angle inside their envelopes across all forty steps of
+the two-second swing.
+
+**This instance is the note's thesis in miniature.** The objective is
+structurally trivial - two `Sqr` nodes and an addition, evaluated one step from
+the inputs - while the difficulty sits entirely in the 1,242 (Case9) or 6,998
+(Case57) nonlinear transient-safety rows, each reached only after forty
+semi-implicit AC-DAE steps and the Schur reduction. Light objective, heavy
+constraints, which is precisely why the output head governs cost here.
 
 The reduced Gurobi reference encodings contain 1,841 variables / 2,823 rows (Case9) and 7,245 variables / 13,639 rows (Case57). The ABCROWN graph substitutes the complete rollout and leaves only $u \in \mathbb{R}^2$ free.
 
