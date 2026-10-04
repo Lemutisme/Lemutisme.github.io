@@ -56,6 +56,7 @@ export const profileData: Profile = {
 };
 
 export const newsData: NewsItem[] = [
+  { date: 'Oct. 2026', body: '<strong><a href="/projects/gear/">GEAR</a></strong>, our GPU-accelerated global solver for nonlinear programs via linear bound propagation, accepted to <strong>NeurIPS 2026</strong>. <a href="/blog/gear/">Read the research note</a>.' },
   { date: 'Aug. 2026', body: '<strong>Geometric-Disentanglement Language Model Unlearning</strong> accepted to EMNLP 2026 Main.' },
   { date: 'Jul. 2026', body: 'Won VNN-COMP 2026 on CAV 2026.' },
   { date: 'May 2026', body: '<strong>InvSTG-PLM</strong> accepted to KDD 2026.' },
@@ -69,6 +70,20 @@ export const newsData: NewsItem[] = [
 ];
 
 export const publicationsData: Publication[] = [
+  {
+    title: 'GEAR: A GPU-Accelerated Global Solver for Nonlinear Programs via Linear Bound Propagation',
+    authors: '<strong>Duo Zhou</strong>, Hesun Chen, Xiangru Zhong, Grani A. Hanasusanto, Huan Zhang',
+    venue: 'Advances in Neural Information Processing Systems · NeurIPS 2026',
+    venueShort: "NeurIPS '26",
+    year: '2026',
+    featured: true,
+    links: [
+      { label: 'Download PDF', url: 'https://drive.google.com/file/d/1BFk00R0f4ARasqnQLLde5q1xA_Ssf41c/view?usp=sharing' },
+      { label: 'OpenReview', url: 'https://openreview.net/forum?id=3WdBmyLLLC' },
+      { label: 'Project', url: '/projects/gear/' },
+      { label: 'Blog', url: '/blog/gear/' },
+    ],
+  },
   {
     title: 'Geometric-Disentanglement Language Model Unlearning',
     authors: '<strong>Duo Zhou*</strong>, Yuji Zhang*, Tianxin Wei, Ruizhong Qiu, Ke Yang, Xiao Lin, Cheng Qian, Jingrui He, Hanghang Tong, Heng Ji, Huan Zhang',
@@ -137,10 +152,11 @@ export const publicationsData: Publication[] = [
   {
     title: 'Agentic Reasoning for Large Language Models',
     authors: 'Tianxin Wei, Ting-Wei Li, Zhining Liu, Xuying Ning, Ze Yang, Jiaru Zou, Zhichen Zeng, Ruizhong Qiu, Xiao Lin, Dongqi Fu, Zihao Li, Mengting Ai, <strong>Duo Zhou</strong>, Wenxuan Bao, Yunzhe Li, Gaotang Li, Cheng Qian, Yu Wang, Xiangru Tang, Yin Xiao, Liri Fang, Hui Liu, Xianfeng Tang, Yuji Zhang, Chi Wang, Jiaxuan You, Heng Ji, Hanghang Tong, Jingrui He',
-    venue: 'arXiv preprint arXiv:2601.12538',
-    venueShort: 'SURVEY',
+    venue: 'Transactions on Machine Learning Research',
+    venueShort: "TMLR '26",
     year: '2026',
     links: [
+      { label: 'Paper', url: 'https://openreview.net/forum?id=2HIxxXIq2u' },
       { label: 'arXiv', url: 'https://arxiv.org/abs/2601.12538' },
       { label: 'Project', url: 'https://github.com/weitianxin/Awesome-Agentic-Reasoning' },
     ],
