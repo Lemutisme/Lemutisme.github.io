@@ -90,7 +90,6 @@ export const publicationsData: Publication[] = [
     venue: 'Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing · Main Conference',
     venueShort: "EMNLP '26",
     year: '2026',
-    featured: true,
     links: [
       { label: 'arXiv', url: 'https://arxiv.org/abs/2511.17100' },
       { label: 'Code', url: 'https://github.com/Lemutisme/Geometric-Unlearning' },
