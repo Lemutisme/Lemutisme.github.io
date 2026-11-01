@@ -86,7 +86,7 @@ export const publicationsData: Publication[] = [
   },
   {
     title: 'Where the Policy Moves Matters: Capability Preservation via Cumulative Fisher Protection in RLHF',
-    authors: '<strong>Duo Zhou</strong>',
+    authors: 'Yuming, Lu, <strong>Duo Zhou</strong>, Lanran Fang, Grani A. Hanasusanto',
     venue: 'Under review',
     venueShort: 'UNDER REVIEW',
     year: '2027',
@@ -97,7 +97,7 @@ export const publicationsData: Publication[] = [
   },
   {
     title: 'ProContract: Decoupling Responsibility and Progress from the Harness in Long-Horizon Agents',
-    authors: '<strong>Duo Zhou</strong>',
+    authors: '<strong>Duo Zhou</strong>, Ruizhong Qiu, Yuji Zhang, Hanghang Tong, Eddie Zhang, Jerry Bai',
     venue: 'Under review',
     venueShort: 'UNDER REVIEW',
     year: '2027',
@@ -129,6 +129,7 @@ export const publicationsData: Publication[] = [
     links: [
       { label: 'arXiv', url: 'https://arxiv.org/abs/2511.17100' },
       { label: 'Code', url: 'https://github.com/Lemutisme/Geometric-Unlearning' },
+      { label: 'Project', url: '/projects/geometric-unlearning/' },
     ],
   },
   {
@@ -161,6 +162,7 @@ export const publicationsData: Publication[] = [
     year: '2026',
     links: [
       { label: 'Paper', url: 'https://openreview.net/forum?id=lX9Eto4L1O' },
+      { label: 'Project', url: '/projects/neural-network-verification/' },
     ],
   },
   {
@@ -172,6 +174,7 @@ export const publicationsData: Publication[] = [
     links: [
       { label: 'Paper', url: 'https://openreview.net/forum?id=a19MA0ksbc' },
       { label: 'Code', url: 'https://github.com/Lemutisme/DR-SAC' },
+      { label: 'Project', url: '/projects/distributionally-robust-control/' },
     ],
   },
   {
@@ -205,6 +208,7 @@ export const publicationsData: Publication[] = [
     links: [
       { label: 'Paper', url: 'https://ojs.aaai.org/index.php/AAAI/article/view/41172' },
       { label: 'Code', url: 'https://github.com/Lemutisme/ShortageSim' },
+      { label: 'Project', url: '/projects/shortagesim/' },
     ],
   },
   {
@@ -216,6 +220,7 @@ export const publicationsData: Publication[] = [
     links: [
       { label: 'Paper', url: 'https://neurips.cc/virtual/2025/poster/118862' },
       { label: 'Code', url: 'https://github.com/Verified-Intelligence/Clip_and_Verify' },
+      { label: 'Project', url: '/projects/neural-network-verification/' },
     ],
   },
   {
@@ -227,6 +232,7 @@ export const publicationsData: Publication[] = [
     links: [
       { label: 'Paper', url: 'https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html' },
       { label: 'Code', url: 'https://github.com/Lemutisme/BICCOS' },
+      { label: 'Project', url: '/projects/neural-network-verification/' },
     ],
   },
   {
@@ -238,6 +244,7 @@ export const publicationsData: Publication[] = [
     links: [
       { label: 'Paper', url: 'https://ieeexplore.ieee.org/abstract/document/10644179' },
       { label: 'Code', url: 'https://github.com/Lemutisme/Distributionally-Robust-Path-Integral-Control' },
+      { label: 'Project', url: '/projects/distributionally-robust-control/' },
     ],
   },
   {

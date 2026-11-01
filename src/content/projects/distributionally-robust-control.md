@@ -42,47 +42,53 @@ bibtex: |
   }
 ---
 
-## Research question
+**DR-SAC (ICLR 2026) · Distributionally Robust Path Integral Control (ACC 2024)**
 
-A controller or a policy is almost always synthesized against a model that was fit to a finite dataset. Which guarantees survive when the environment it is deployed into differs from the one the data described?
+[DR-SAC Paper](https://openreview.net/forum?id=a19MA0ksbc) · [DR-SAC Code](https://github.com/Lemutisme/DR-SAC) · [DRPI Paper](https://ieeexplore.ieee.org/abstract/document/10644179) · [DRPI Code](https://github.com/Lemutisme/Distributionally-Robust-Path-Integral-Control)
 
-Classical stochastic control and modern offline reinforcement learning share this failure mode. The nominal model is an estimate, the estimate carries sampling error, and a policy optimized aggressively against that estimate can degrade sharply under small perturbations of the true dynamics.
+## Point-estimate dynamics fail where data are scarce
 
-## Core idea
+A controller or reinforcement learning policy is almost always synthesized against a transition model fit to a finite dataset. When that nominal model carries sampling error or faces environment shift at deployment, a policy optimized aggressively against the point estimate exploits errors in the fit and degrades sharply under small perturbations of the true dynamics.
 
-Distributionally robust optimization replaces the point estimate with an ambiguity set - a neighborhood of distributions around the empirical model - and optimizes against the worst case inside that set rather than against the estimate itself.
+Distributionally robust optimization (DRO) replaces the single empirical transition model $\hat{P}$ with an ambiguity set of plausible distributions around $\hat{P}$ and optimizes against the worst case inside that neighborhood. The central obstacle is computational: an inner minimization over an infinite-dimensional family of transition kernels generally destroys the Bellman or path-integral structure that makes the nominal problem solvable.
 
-The difficulty is that the robust problem is usually much harder than the nominal one. This line of work looks for the cases where robustness stays affordable: where the robust formulation reduces to a structure that already has an efficient solution scheme, or where the inner worst-case problem admits a form that can be solved directly.
+## Make worst-case expectations tractable via KL duality
 
-## Distributionally Robust Path Integral Control
+This line of work isolates the cases where distributional robustness stays computationally affordable. When the ambiguity set is a Kullback–Leibler (KL) divergence ball of radius $\varepsilon$ around the empirical distribution $\hat{P}$, strong duality collapses the infinite-dimensional inner worst-case expectation of a cost $J$ into a scalar convex optimization over a temperature multiplier $\tau > 0$:
 
-The continuous-time, continuous-space setting, where the controller does not know the underlying diffusion process and has only a finite set of historical disturbance trajectories. When data collection is limited, a controller synthesized from the empirical distribution alone performs poorly.
+$$\sup_{P : \, D_{\mathrm{KL}}(P \,\Vert\, \hat{P}) \le \varepsilon} \mathbb{E}_P[J] = \inf_{\tau > 0} \left\{ \tau \log \mathbb{E}_{\hat{P}}\!\left[\exp\!\left(\frac{J}{\tau}\right)\right] + \tau \varepsilon \right\}.$$
 
-DRPI applies distributionally robust optimization to robustify the policy against the unknown diffusion. The resulting scheme turns out to resemble risk-sensitive control, and that resemblance is what makes it practical: the path integral control framework then applies as an efficient solution method. The performance guarantees derived for DRPI align closely with the choice of a risk parameter in the risk-sensitive formulation.
+Instead of solving for an adversarial transition kernel explicitly, the solver evaluates an exponentially tilted expectation under the nominal model $\hat{P}$. Both papers below exploit this exact reduction, first in continuous-time stochastic control and then in continuous-action offline reinforcement learning.
 
-The picture is a robot that has to go around an obstacle with a misspecified noise model. Path integral control on the nominal diffusion fills the free space, including paths that clip the obstacle. The distributionally robust controller keeps a corridor on the safe side of the same obstacle. Robustness here is a change in which trajectories are typical, bought by treating the empirical noise as one distribution inside a neighborhood.
+## DRPI: KL robustness preserves path-integral linearizability
+
+In continuous-time, continuous-space stochastic control, the controller often does not know the underlying diffusion process and observes only a finite set of historical disturbance trajectories. Synthesizing a controller directly from the empirical disturbance distribution leaves it brittle when trajectories are scarce.
+
+[Distributionally Robust Path Integral Control (DRPI)](https://ieeexplore.ieee.org/abstract/document/10644179) applies the KL-DRO reduction across diffusion trajectories. Because the dual objective takes the form of an exponential cumulant generating function, the robust control problem becomes mathematically isomorphic to risk-sensitive stochastic control, with the dual variable $\tau$ setting the effective risk sensitivity. In stochastic control, that exponential tilting is the exact structure required by the Feynman–Kac lemma to transform the nonlinear Hamilton–Jacobi–Bellman PDE into a linear PDE solvable by Monte Carlo path integrals. DRPI therefore buys worst-case distributional guarantees without giving up sampling-based path-integral synthesis.
+
+The physical effect appears when a robot navigates around an obstacle under a misspecified noise model. Nominal path integral control fills the free space up to the boundary, so model mismatch pushes rollouts into the obstacle. DRPI shifts typical trajectories into a wider safety corridor whose sample cloud clears the obstacle across all 100 rollouts.
 
 <figure>
   <img src="/figures/distributionally-robust/drpi-traj.png" alt="Simulated trajectories for a double integrator and a unicycle. Nominal path integral control spreads around an obstacle, including into it. Distributionally robust path integral control stays in a channel that clears the obstacle.">
   <figcaption>One hundred rollouts. Blue is path integral control on the empirical diffusion. Green is DRPI. The obstacle is the black box. The robust policy is the one whose sample cloud clears it.</figcaption>
 </figure>
 
-## DR-SAC
+## DR-SAC: robust actor-critic learning in continuous action spaces
 
-Distributionally robust reinforcement learning had been largely restricted to value-based methods in tabular settings. DR-SAC is an actor-critic distributionally robust algorithm for offline learning in continuous action spaces.
+In reinforcement learning, distributionally robust methods had been largely confined to tabular MDPs or discrete action spaces where every state-action transition can be enumerated. [DR-SAC](https://openreview.net/forum?id=a19MA0ksbc) (ICLR 2026) extends distributionally robust offline learning to continuous state and action spaces within an actor-critic architecture.
 
-The objective maximizes entropy-regularized reward against the worst transition model within a KL-divergence constrained uncertainty set. Two components make it work:
+DR-SAC maximizes entropy-regularized return against the worst transition kernel inside a KL-constrained ambiguity set. Two components make the algorithm practical on continuous control benchmarks:
 
-- a distributionally robust form of soft policy iteration, with a convergence guarantee; and
-- a generative modeling step that estimates the unknown nominal transition model from the offline dataset.
+- a distributionally robust soft policy iteration scheme with a formal contraction and convergence guarantee, where the inner worst-case Bellman backup reduces to a tractable scalar dual problem; and
+- a conditional generative transition model that estimates the nominal dynamics $\hat{P}(\cdot \mid s, a)$ from the static offline dataset so the dual expectation can be evaluated off-policy.
 
-Across continuous control benchmarks under common perturbations, the resulting policies reach up to 9.8 times the average reward of the SAC baseline. That multiple is the 30% parameter reduction on the pendulum length. The more useful picture is the slope: as the perturbation grows, SAC's return falls faster, and DR-SAC stays above it across length, action noise, engine, observation noise, damping, and back-damping shifts.
+Across continuous control tasks under environment shifts, DR-SAC reaches up to 9.8 times the average return of standard SAC (measured at a 30% pendulum length reduction). The broader signature is the degradation slope: as pendulum length, action noise, engine power, observation noise, joint damping, or HalfCheetah back-damping move away from nominal values, SAC's return falls steeply while DR-SAC holds a much flatter plateau.
 
 <figure>
   <img src="/figures/distributionally-robust/drsac-robust.png" alt="Six plots of average reward against a perturbation. DR-SAC stays above SAC as pendulum length, action noise, engine power, observation noise, joint damping, and HalfCheetah back damping move away from the nominal value.">
   <figcaption>Offline policies evaluated off the nominal dynamics. Each curve is mean return over 50 episodes. The robust actor is trained against the worst transition model inside a KL ball around a generative estimate of the data, so a shift in length or damping is a direction the objective already paid for.</figcaption>
 </figure>
 
-## Open directions
+## What the ambiguity set buys and what it hides
 
-The two results sit at different points on the same trade-off: how much conservatism to buy, and how much structure to give up to keep the robust problem solvable. The choice of ambiguity set is the lever - KL divergence is convenient but couples the radius to the nominal model in ways that are hard to interpret. How to select a set that reflects an actual data budget, and how these guarantees behave when the policy keeps collecting data rather than learning offline once, both remain open.
+KL divergence is what makes both DRPI and DR-SAC computationally tractable, and it also sets their main limitation: a KL ball only reweights transitions inside the support of the nominal model $\hat{P}$, so it cannot protect against unseen transitions where $\hat{P}$ assigns zero density without a smoothed generative prior. Choosing an ambiguity radius $\varepsilon$ that reflects an actual finite-sample data budget, and adapting that radius online as an agent collects fresh trajectories rather than remaining fixed offline, are the open problems next.

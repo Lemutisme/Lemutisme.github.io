@@ -25,53 +25,50 @@ bibtex: |
   }
 ---
 
-## Research question
+**Geometric-Disentanglement Language Model Unlearning**
 
-Language model unlearning asks a model to remove the influence of selected data while retaining behavior that should remain intact. These objectives interact through shared parameters, so optimizing forgetting alone can damage unrelated capabilities, while strong preservation penalties can prevent effective forgetting.
+**Duo Zhou\***, Yuji Zhang\*, Tianxin Wei, Ruizhong Qiu, Ke Yang, Xiao Lin, Cheng Qian, Jingrui He, Hanghang Tong, Heng Ji, Huan Zhang
 
-The key question is therefore geometric: which update directions remove targeted behavior while minimally interfering with the subspace needed for retention?
+Accepted to **EMNLP 2026 Main**. [arXiv](https://arxiv.org/abs/2511.17100) · [Code](https://github.com/Lemutisme/Geometric-Unlearning)
 
-## Core idea
+## Scalar loss weights cannot separate shared parameters
 
-Geometric-disentanglement treats forgetting and preservation as structured directions in the model's optimization landscape. Rather than balancing two scalar losses with a single fixed weight, the method reasons about how their update geometry interacts.
+Language model unlearning asks a model to erase the influence of a targeted forget set while leaving retained knowledge and general utility intact. Standard methods combine a forgetting loss $\mathcal{L}_f$ and a retention loss $\mathcal{L}_r$ into a single scalar objective $\mathcal{L}_f + \lambda \mathcal{L}_r$.
 
-This view makes the central tradeoff explicit:
+When the two gradients $g_f = \nabla_\theta \mathcal{L}_f$ and $g_r = \nabla_\theta \mathcal{L}_r$ share parameter coordinates and point into opposing half-spaces ($g_f^\top g_r < 0$), tuning a scalar weight $\lambda$ only slides along a one-dimensional conflict: a small $\lambda$ damages retained capabilities, while a large $\lambda$ stalls forgetting. Resolving that interference requires operating on the direction of the update rather than on the weight of the loss.
 
-- move strongly in directions that support forgetting;
-- suppress components that conflict with retained behavior; and
-- use the optimizer-induced geometry instead of assuming every parameter direction has the same scale.
+## Euclidean orthogonality fails under adaptive optimizers
 
-## Why optimizer geometry matters
+A natural fix from multi-task learning is to project the forget gradient onto the orthogonal complement of the retain gradient so that $g_\perp^\top g_r = 0$. In language model fine-tuning, that Euclidean projection fails because modern adaptive optimizers (such as AdamW) rescale coordinates by an accumulated diagonal preconditioner $D_t^{-1}$ before applying the step:
 
-Modern optimizers rescale parameter directions using accumulated state. A Euclidean projection can therefore be misaligned with the update that the optimizer will actually apply. Modeling the optimizer-induced metric makes the constraint on retention consistent with the effective step taken during training.
+$$\Delta \theta_t = -\eta \, D_t^{-1} \tilde{g}_t.$$
 
-The resulting procedure aims for the steepest feasible forgetting update under a geometry-aware trust region for preservation.
+Even if a projected gradient $g_\perp$ satisfies $g_\perp^\top g_r = 0$ in Euclidean space, the actual parameter step $\Delta \theta_t = -\eta D_t^{-1} g_\perp$ changes the retain loss to first order by
+
+$$\mathcal{L}_r(\theta_t + \Delta \theta_t) - \mathcal{L}_r(\theta_t) \approx -\eta \, g_r^\top D_t^{-1} g_\perp \neq 0.$$
+
+Coordinate-wise adaptive scaling rotates the update back into the retain subspace. Geometric-Disentanglement Unlearning (GU) instead defines the trust region and the orthogonal projection inside the metric induced by the optimizer's own preconditioner $D_t^{-1}$, ensuring that the forgetting component of the actual step $\Delta \theta_t$ is first-order non-interfering with retained behavior.
 
 <figure>
   <img src="/figures/geometric-unlearning/geometry.png" alt="Diagram comparing ordinary gradient unlearning with geometric unlearning. The ordinary step adds forget and retain gradients that are not orthogonal. Geometric unlearning projects the forget gradient onto the complement of the retain subspace before the step.">
   <figcaption>The training loss stays the same. The step changes. A baseline adds the forget and retain gradients even when they point into each other. GU routes the forget gradient through the orthogonal complement of the retain subspace, in the metric the optimizer actually uses, and leaves the retain component to do its own work.</figcaption>
 </figure>
 
-## Research contribution
+## Moving off the one-dimensional forget-retain frontier
 
-The project connects machine unlearning to constrained optimization in a way that is both algorithmic and interpretable. It provides a vocabulary for distinguishing three questions that are often conflated:
+Because GU modifies the update geometry rather than the loss function, it attaches directly to existing unlearning objectives (such as GradDiff, NPO, and SimNPO). It separates three questions that scalarized objectives conflate:
 
 1. whether the forget objective decreases;
 2. whether retained behavior is preserved; and
-3. whether the optimizer's actual update respects the intended separation.
+3. whether the optimizer's preconditioned step respects the separation between the two.
 
-The work was accepted to the EMNLP 2026 Main Conference. On TOFU, adding the projection to SimNPO improves forgetting by up to 62%. Across all 72 model, deletion-rate, and objective configurations, retain quality is preserved or improved in 66, and model utility in 62. The arrows in the figure are that shift: forgetting moves left, and retain, privacy, and utility are not asked to pay for it on a one-dimensional tradeoff.
+Accepted to the **EMNLP 2026 Main Conference**, the method was evaluated across 72 configurations spanning multiple LLM backbones, deletion scales, and base objectives. On the TOFU benchmark, attaching the optimizer-metric projection to SimNPO improves forgetting efficacy by up to 62%. Across all 72 configurations, retain quality is preserved or improved in 66, and general model utility in 62. In the tradeoff plots below, each arrow compares a baseline objective before and after adding the geometric projection: arrows move left (stronger forgetting) without dropping vertically (no sacrifice in retain performance, privacy, or utility).
 
 <figure>
   <img src="/figures/geometric-unlearning/tradeoff.png" alt="Three scatter plots on TOFU. Arrows run from a baseline circle to a GU triangle. The horizontal axis is forgetting, lower better. The vertical axes are retained knowledge, privacy, and model utility, higher better.">
   <figcaption>TOFU. Each arrow is one baseline before and after the same projection. A useful arrow moves left without falling. The projection is attached to the existing method. It does not replace the forget loss.</figcaption>
 </figure>
 
-Code and the preprint are available through the project resources.
+## Scope and open questions
 
-## Current directions
-
-- Understanding when local gradient geometry predicts long-horizon forgetting behavior.
-- Extending geometric separation beyond a single forget and retain pair.
-- Relating empirical unlearning metrics to stronger guarantees about information removal.
-- Applying the same constrained-update viewpoint to post-training safety interventions.
+GU enforces local first-order orthogonality at each step using the current retain batch. Over long unlearning horizons, small higher-order curvature errors can still accumulate if the retain subspace rotates, a problem addressed from a global path perspective in [Cumulative Fisher Protection](/projects/cumulative-fisher/). Together with [Gradient Interference in Group-Aware RLHF](/projects/gradient-interference-rlhf/), these works show that post-training tradeoffs in language models are governed by the geometry of parameter updates rather than scalar loss weights.

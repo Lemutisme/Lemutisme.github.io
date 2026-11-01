@@ -49,60 +49,55 @@ bibtex: |
   }
 ---
 
-## Research question
+**BICCOS (NeurIPS 2024) · Clip-and-Verify (NeurIPS 2025) · Lookahead Branching (IJCAI 2026)**
 
-Complete neural network verification can certify that every input in a specified region satisfies a safety property. The challenge is not the definition of the guarantee, but scaling the proof search to realistic networks and difficult specifications.
+Winner of the Regular and Extended tracks at **VNN-COMP 2024, 2025, and 2026**.
 
-This project studies a common bottleneck: a branch-and-bound verifier repeatedly spends computation on domains whose relaxations are too weak or whose branching choices reveal too little about the remaining search space.
+## Three levers on branch-and-bound complexity
 
-## A progression of methods
+Complete neural network verification certifies that every input in a specified region satisfies a safety property. Because exact certification over nonlinear activations is NP-hard, modern verifiers combine linear bound propagation with spatial or activation branch-and-bound (BaB).
 
-### BICCOS: learning useful cutting planes from search
+When a verifier times out on a realistic network, the bottleneck sits in one of three places: the per-node convex relaxation is too loose to prune, the input box still contains large regions that already violate linear constraints, or the branching heuristic splits neurons that barely move the lower bound. This research program attacks those three axes inside the $\alpha,\beta$-CROWN ecosystem:
 
-[BICCOS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html) extracts cutting planes from branch-and-bound conflicts. Instead of treating explored branches as discarded computation, it converts them into globally useful constraints that strengthen later relaxations.
+| Bottleneck in branch-and-bound | Mechanism | Effect on proof search |
+| --- | --- | --- |
+| Weak relaxations re-explore the same conflicts | [BICCOS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html) (NeurIPS 2024) | Extracts reduced conflict cores from verified subtrees and shares them as global cutting planes. |
+| Expensive bounding runs over irrelevant box volume | [Clip-and-Verify](https://neurips.cc/virtual/2025/poster/118862) (NeurIPS 2025) | Uses existing linear bounds to clip the input domain on the GPU before further splitting. |
+| Local branching scores mispredict downstream progress | [Lookahead Branching](https://openreview.net/forum?id=lX9Eto4L1O) (IJCAI 2026) | Evaluates how candidate splits tighten multi-step downstream bounds. |
 
-The central perspective is that the search tree is also a source of proof structure. A scalable verifier should learn from infeasible or dominated subproblems rather than repeatedly rediscovering the same geometry.
+## BICCOS: turn dead-end branches into global cutting planes
 
-A cut read off one infeasible path is often already implied by every other open subproblem, so recording it does not move the bound. BICCOS checks the reduced path and, when the cut is not redundant, shares it across the other branches that are being searched at the same time.
+A standard branch-and-bound verifier treats a verified or infeasible leaf as finished work and discards it. [BICCOS](https://proceedings.neurips.cc/paper_files/paper/2024/hash/33d93e4dc57453e7667b20f62e7c0681-Abstract-Conference.html) treats that leaf as a proof certificate about which activation patterns cannot coexist.
+
+The technical obstacle is that a constraint read directly off a full root-to-leaf path only excludes that exact leaf, which is already closed: every other open subproblem satisfies it trivially, so adding it as a cut does not move any bound. BICCOS shrinks the path to a minimal conflict core by dropping splits whose removal leaves the subproblem verifiable. That shorter clause rules out an entire combination of neuron states and strengthens the relaxation across all remaining sibling subtrees.
 
 <figure>
   <img src="/figures/neural-network-verification/biccos-cuts.png" alt="Diagram of branch-and-bound cuts. One panel shows a cut inferred from an unsatisfiable path that does not improve bounds because other subproblems already satisfy it. Another shows a reduced path that is still verifiable and yields a new cut. A third shows that cut shared across subtrees.">
   <figcaption>An infeasible path is a candidate cut, not yet a useful one. The cut is kept when the path with the redundant splits removed is still infeasible, and it is then applied to the other subtrees rather than only to the branch that found it.</figcaption>
 </figure>
 
-### Clip-and-Verify: reduce the domain before expensive search
+## Clip-and-Verify: remove infeasible volume before splitting
 
-[Clip-and-Verify](https://neurips.cc/virtual/2025/poster/118862) uses linear constraints to clip away regions that cannot contain a counterexample. The verifier first invests in tightening the feasible domain, then runs complete verification on the smaller residual problem.
+Bound propagation produces linear inequalities over the input box at every node, yet standard verifiers use those inequalities only to compute a scalar lower bound at the output. [Clip-and-Verify](https://neurips.cc/virtual/2025/poster/118862) turns those same linear constraints back onto the input domain to shave off regions that cannot contain a counterexample.
 
-This changes where computation is spent: remove irrelevant volume early so that later bounding and branching operate on a more informative domain. The linear constraints that do the clipping are already produced by bound propagation. Split constraints and output constraints both cut the input box, and the cut is applied with a GPU procedure instead of a call to an external LP solver. On some VNN-COMP instances the number of branch-and-bound subproblems falls by 96%.
+Relaxed clipping trims coordinate intervals directly; complete clipping solves the linear program over the box and the active linear constraints to contract each input dimension before the next propagation pass. Because maximizing or minimizing a linear function over a hyperrectangle admits a closed-form coordinate reduction in the Lagrangian dual, complete clipping reduces to a low-dimensional dual update that batches natively on the GPU without calling an external CPU LP solver. The tighter input box immediately shrinks intermediate pre-activation intervals and reduces branch-and-bound subproblems on hard VNN-COMP instances by up to 96%.
 
 <figure>
   <img src="/figures/neural-network-verification/clip-idea.png" alt="Diagram of domain clipping. Linear bounds and split or output constraints cut the input box. Relaxed clipping removes part of the box. Complete clipping removes the entire region on the infeasible side of the constraint, which tightens a neuron bound.">
   <figcaption>Clipping uses constraints the verifier already has. Relaxed clipping removes a corner. Complete clipping removes everything on the wrong side of a constraint, and the neuron bound tightens because the remaining box is smaller.</figcaption>
 </figure>
 
-### Lookahead Branching: evaluate the consequence of a split
+## Lookahead Branching: split for downstream bound movement
 
-[Lookahead Branching](https://openreview.net/forum?id=lX9Eto4L1O) improves branching by estimating how candidate splits change downstream verification bounds. Rather than using only a local proxy score, it asks which branch is likely to produce the most useful proof progress. On α-β-CROWN and on Marabou, the lookahead curves sit under the standard branching heuristic: same instances, less time, and up to 57% more instances solved.
+Standard branching heuristics score a candidate neuron by its single-step bound change. In deep networks, a split that moves the bound slightly at step one can unlock a cascade of stable neurons two steps later, while a locally large split stalls. [Lookahead Branching](https://openreview.net/forum?id=lX9Eto4L1O) estimates multi-step downstream bound tightening before committing to a split. Across both $\alpha,\beta$-CROWN and Marabou, the lookahead curves sit below the standard Filtered Smart Branching (FSB) heuristic: less verification time per instance, and up to 57% more instances certified within the timeout.
 
 <figure>
   <img src="/figures/neural-network-verification/lookahead-cactus.png" alt="Six cactus plots comparing lookahead branching with FSB on alpha-beta-CROWN. Lookahead's curve is below FSB on CIFAR, TinyImageNet, and MNIST benchmarks.">
   <figcaption>α-β-CROWN. Each curve is instances sorted by the time to verify them. Lookahead is the lower curve: it spends its first splits on the branch that changes the bound, instead of on the locally largest score.</figcaption>
 </figure>
 
-Together, these methods attack three complementary dimensions of verification complexity:
+## From neural verifiers to general nonlinear solvers
 
-1. strengthen the relaxation;
-2. shrink the feasible domain; and
-3. make better search decisions.
+These methods ship in the open-source $\alpha,\beta$-CROWN verifier, which won both the Regular and Extended tracks at the International Verification of Neural Networks Competition (VNN-COMP) in 2024, 2025, and 2026.
 
-## Systems impact
-
-The work is developed in the alpha-beta-CROWN ecosystem and targets end-to-end complete verification. The resulting verifier won both the Regular and Extended tracks at VNN-COMP in 2024, 2025, and 2026.
-
-## Current directions
-
-- Unifying domain clipping, cutting planes, and branching under a shared measure of proof progress.
-- Making lookahead decisions cheaper through bound reuse and batched GPU computation.
-- Extending complete verification to richer nonlinear and structured specifications.
-- Connecting solver performance improvements to interpretable guarantees about search reduction.
+The deeper takeaway of this line of work is that GPU-batched linear bound propagation and constraint-driven domain clipping are not restricted to ReLU networks. Any factorable nonlinear program or discretized physical system is a computation graph. [GEAR](/projects/gear/) extends this machinery into a general-purpose GPU global solver for nonlinear programming, and a companion [research note](/blog/global-optimality-certification-pde/) studies what happens when discretized spatiotemporal PDEs are compiled into verification graphs via exact equality elimination.

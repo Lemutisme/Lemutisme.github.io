@@ -56,7 +56,7 @@ The benchmark is a controlled IMDb review task with a fixed 80/20 population spl
   <figcaption>Correlation between the majority and minority rewards, computed on a fixed pool of sentiment and conciseness scores. The curve is still positive near $\alpha = 0.75$, where vanilla RLHF collapses, and crosses zero only at $\alpha = 1$.</figcaption>
 </figure>
 
-Single-reward RLHF keeps a high majority reward across this sweep. The minority reward drops sharply as $\alpha$ moves from $0.7$ to $0.75$. At that collapse the group rewards are still positively correlated, with Pearson $r = 0.65$, and the sampled text is long, repetitive, and strongly positive. The pooled objective has locked onto the majority attribute.
+Single-reward RLHF keeps a high majority reward across this sweep. The minority reward drops sharply as $\alpha$ moves from $0.7$ to $0.75$. At that collapse the group rewards are still positively correlated across the completion pool, with Pearson $r = 0.65$, because short, positive reviews satisfy both groups. The failure is that global reward correlation on a static pool does not imply local gradient alignment around the current policy. Under an 80/20 split, the steepest direction for the pooled reward is to pad generations with extra positive phrasing, which lengthens the output and points directly against the minority conciseness gradient. The sampled text becomes long, repetitive, and strongly positive as the pooled objective locks onto the majority attribute.
 
 <figure>
   <img src="/figures/gradient-interference-rlhf/fig2-vanilla-groups.png" alt="Vanilla RLHF minority and majority reward versus preference divergence. Minority reward collapses between alpha 0.7 and 0.8 while majority reward stays high and then rises.">
@@ -74,7 +74,7 @@ Near the collapse, cosine similarity between the KL-regularized PPO update and t
   <figcaption>Cosine similarity between the KL-regularized PPO update and the minority reward gradient. At $\alpha = 0.75$ and $\alpha = 0.8$ the update points against the minority gradient early, then the similarity comes back toward positive while the minority reward stays low.</figcaption>
 </figure>
 
-The same early anti-alignment remains when the KL term is left out of the cosine, so the regularizer does not account for the whole effect. Later in training the similarity turns positive again. An update that eventually points toward the minority gradient does not recover a run that already left that group behind.
+The same early anti-alignment remains when the KL term is left out of the cosine, so the regularizer does not account for the whole effect. Later in training the similarity turns positive again, yet the minority reward stays low. Once early conflicting steps push the generator into long, repetitive completions, on-policy rollout loses support on concise text; local gradients that stop opposing conciseness inside that collapsed region cannot recover a mode the policy no longer samples.
 
 <figure>
   <img src="/figures/gradient-interference-rlhf/fig5-cosine-no-kl.png" alt="Cosine similarity between the vanilla PPO gradient without the KL term and the minority gradient. The early negative dip at alpha 0.75 and 0.8 remains.">
@@ -119,10 +119,14 @@ Worst-group reward on the sweep:
 
 At $\alpha = 1.2$, SumGrad's worst-group reward is $-0.106$. PCGrad-PPO reaches $0.835$ and MGDA-PPO reaches $0.842$ from the same group gradients. MGDA is a second way of combining those gradients, a minimum-norm convex combination, so the recovery is not tied to PCGrad's projection. The line plots above do not include MGDA.
 
+That minority collapse is easy to miss on an aggregate dashboard. Weighted by the 80/20 population split, overall utility dips briefly between $\alpha = 0.7$ and $0.9$ and then climbs back up as the policy over-optimizes the majority sentiment reward, masking the minority collapse behind a rising population mean.
+
 <figure>
   <img src="/figures/gradient-interference-rlhf/fig8-overall.png" alt="Population utility, 80 percent majority reward plus 20 percent minority reward, versus preference divergence. Vanilla dips between alpha 0.7 and 0.9, then climbs back as the majority reward rises.">
   <figcaption>Population score, weighted 80% majority and 20% minority. Vanilla dips where the minority collapses, then climbs again because the majority reward keeps rising. The aggregate can look repaired while the minority score is still down.</figcaption>
 </figure>
+
+The training trajectories of MaxMin-RLHF at $\alpha = 1.2$ and $\alpha = 1.3$ show why scalar objective switching still breaks down under strong divergence. By always training on whichever group is currently behind, MaxMin successfully pulls the lagging group toward the leading group so that the two batch scores track each other. However, because each step still applies a single group's unprojected gradient, strongly opposing updates undo each other's progress and lock both groups at a low plateau ($0.181$ at $\alpha = 1.2$ and $-0.272$ at $\alpha = 1.3$), whereas projecting out the conflicting gradient component in PCGrad or MGDA keeps worst-group reward above $0.83$ at $\alpha = 1.2$.
 
 <div class="figure-row">
   <figure>
@@ -150,4 +154,4 @@ On one evaluation prompt at $\alpha = 1.2$, vanilla RLHF writes a 301-token repe
 
 ## Scope
 
-The groups are synthetic attributes on IMDb reviews, sentiment against conciseness, at an 80/20 split. They are task attributes. The main experiments use GPT-2 and two groups. The result is a diagnostic of one optimization failure in aggregated RLHF: a minority group can be left behind by the update rule while the group rewards are still compatible. Larger models, preference data collected from people, and settings with more than two groups remain open.
+The groups are synthetic attributes on IMDb reviews, sentiment against conciseness, at an 80/20 split. They are task attributes. The main experiments use GPT-2 and two groups. The result is a diagnostic of one optimization failure in aggregated RLHF: a minority group can be left behind by the update rule while the group rewards are still compatible. Larger models, preference data collected from people, and settings with more than two groups remain open. Together with [Cumulative Fisher Protection](/projects/cumulative-fisher/) and [Geometric Unlearning](/projects/geometric-unlearning/), this work treats post-training tradeoffs as directional conflicts in parameter space rather than scalar weights in the loss.

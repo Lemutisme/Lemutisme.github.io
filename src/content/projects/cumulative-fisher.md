@@ -36,7 +36,7 @@ Cumulative Fisher Protection (CFP) builds the penalty from the capability. At th
 
 $$\theta_{t+1,i} = \theta_{0,i} + \frac{\theta_{t,i} - \theta_{0,i} + d_{t,i}}{1 + \lambda_t f_{d,i}}.$$
 
-A sensitive coordinate is shrunk. A coordinate the capability barely uses keeps the optimizer's proposal. The base optimizer can be PPO or DPO. The Fisher is estimated once, from 128 calibration sequences, and then held fixed.
+A sensitive coordinate is pulled back toward $\theta_{0,i}$, while a coordinate the capability barely uses keeps the optimizer's proposal $d_{t,i}$. Writing $\Delta_{t,i} = \theta_{t,i} - \theta_{0,i}$, the update is $\Delta_{t+1,i} = (\Delta_{t,i} + d_{t,i}) / (1 + \lambda_t f_{d,i})$: under a persistent alignment bias $d$, preconditioning only the step $d_{t,i}$ still lets displacement grow linearly with $t$, whereas shrinking the cumulative path acts as a restoring force with a bounded fixed point $\Delta_{\infty,i} = d / (\lambda f_{d,i})$. The base optimizer can be PPO or DPO. The Fisher is estimated once, from 128 calibration sequences, and then held fixed.
 
 <figure>
   <img src="/figures/cumulative-fisher/cfp-fig1-geometry.png" alt="A loss surface for a protected capability. Standard RLHF climbs into a high-loss region. KL shortens that path. A Fisher-shaped update bends along the low-sensitivity direction and stays near the initial capability. A top view shows a round KL ball against an elongated Fisher ellipse.">
@@ -52,7 +52,7 @@ Successive updates can reinforce or cancel. A single gradient that looks safe ca
   <figcaption>Cumulative displacement on Qwen2.5-7B-Instruct. Vertical is Fisher-weighted drift under the training anchor. Horizontal is movement on the low-weight coordinates. Points are initialization, step 64, and the final checkpoint. The anchored runs stay lower at a comparable free drift. KL barely separates from the unregularized path.</figcaption>
 </figure>
 
-At step 64 the quadratic version of that drift, relative to the unregularized run of the same optimizer, splits the methods cleanly. Each anchor suppresses its own domain the most. It also suppresses the others. A math anchor, built with no code prompts, still cuts code-sensitive drift by 40%.
+At step 64 the quadratic version of that drift, relative to the unregularized run of the same optimizer, splits the methods cleanly. Each anchor suppresses its own domain the most. It also suppresses the others: a math anchor, built with no code prompts, still cuts code-sensitive drift by 40%, showing that structured reasoning skills share a large fraction of their high-curvature parameter directions.
 
 | Training arm | Math Fisher | Safety Fisher | Code Fisher |
 | --- | ---: | ---: | ---: |
@@ -66,7 +66,7 @@ KL is the control that shows why the shape matters. It changes the math drift by
 
 ## The scoreboard moves by a point. The path moves by a lot.
 
-On Qwen2.5-7B-Instruct, unregularized PPO takes OlympiadBench from the initial 39.56% to 37.33%. The three anchors land between 37.93% and 38.96%. The math anchor reaches 38.5% and moves MATH from 75.30% to 75.48%. That is a partial recovery, and it should be read as one: the initial Olympiad score is 39.56%, and PPO with a KL penalty reaches 40.1% on that one benchmark while barely bending the sensitive path. A single cell can rise for a reason that has little to do with staying off the capability's sensitive directions.
+Pass-rate benchmarks are thresholded step functions of the model's log-probabilities; Fisher-weighted drift measures the continuous parameter motion that precedes a score drop. On Qwen2.5-7B-Instruct, unregularized PPO takes OlympiadBench from the initial 39.56% to 37.33%. The three anchors land between 37.93% and 38.96%; the math anchor reaches 38.5%, moves MATH from 75.30% to 75.48%, and lifts GSM8K from 82.0% under PPO (81.3% initially) to 84.5–85.3% across the anchored runs. On OlympiadBench that is a partial recovery, and it should be read as one: PPO with a KL penalty reaches 40.1% on that single column while barely bending the sensitive path (−10% math drift against −67% for the anchor). A single benchmark cell can rise from variance or length shifts without staying off the capability's sensitive directions.
 
 Under DPO the geometry and the score move together. Math anchoring brings MATH from 74.88% back to the initial 75.36%, and OlympiadBench from 38.96% to 40.15%, above the initial 39.56%.
 
@@ -79,9 +79,9 @@ Safety is learned by PPO, and the anchors keep it. Harmful compliance on SORRY-B
 
 <figure>
   <img src="/figures/cumulative-fisher/cfp-fig4-heatmap.png" alt="Heatmap of final MATH, GSM8K, OlympiadBench, MMLU, LiveCodeBench, and SORRY-Bench scores for the base model, PPO with and without KL and three Fisher anchors, and DPO with and without a math anchor. Color is the within-row rank.">
-  <figcaption>Final checkpoints. Color is the rank within a row, not a significance mark. SORRY-Bench is harmful compliance, and lower is better on that row. GSM8K is where the PPO anchors move the most, from 81.3% initially and 82.0% after PPO to 84.5–85.3%. MATH and MMLU barely move.</figcaption>
+  <figcaption>Final checkpoints. Color is the rank within a row, not a significance mark. SORRY-Bench is harmful compliance, and lower is better on that row. GSM8K shows the largest positive shift under the PPO anchors, while MATH and MMLU remain stable.</figcaption>
 </figure>
 
 ## What this geometry leaves out
 
-The experiments use a diagonal Fisher, so interactions between coordinates are invisible, and a sensitive direction that lives in those interactions is missed. The 128 calibration prompts overlap the corresponding evaluation sets, so these numbers do not establish the same protection on unseen prompts. The correction can also be the wrong one when the initial policy is weak and the alignment update is trying to repair that same skill: shrinking the sensitive directions then protects the error. The claim the runs support is narrower. On this model, controlling cumulative displacement in the initial policy's output-sensitive coordinates preserves a selected capability while PPO still learns most of its safety reduction.
+The experiments use a diagonal Fisher, so interactions between coordinates are invisible, and a sensitive direction that lives in those interactions is missed. The 128 calibration prompts overlap the corresponding evaluation sets, so these numbers do not establish the same protection on unseen prompts. The correction can also be the wrong one when the initial policy is weak and the alignment update is trying to repair that same skill: shrinking the sensitive directions then protects the error. The claim the runs support is narrower. On this model, controlling cumulative displacement in the initial policy's output-sensitive coordinates preserves a selected capability while PPO still learns most of its safety reduction. Related projects study the same directional view of post-training for [targeted unlearning](/projects/geometric-unlearning/) and [multi-group gradient interference](/projects/gradient-interference-rlhf/).

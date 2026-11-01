@@ -36,15 +36,17 @@ Accepted to **NeurIPS 2026**. [Download the PDF](https://drive.google.com/file/d
 
 ## Two ways to make global search scale
 
-A global optimizer may need to examine millions of subdomains before it can certify a solution. Its runtime depends on both the cost of processing each domain and the number of domains that survive its bounds. GEAR improves both: it processes domains in GPU batches, then uses the resulting linear coefficients to make each batch remove more of the search space.
+A global optimizer may need to examine millions of subdomains before it can certify a solution. Its runtime depends on both the cost of processing each domain and the number of domains that survive its bounds:
 
-This requires the solver's operations to share a representation. For every subdomain, a bound on the objective must interact with nonlinear constraints, feasible solution search, and branching. GEAR makes affine lower bounds the common interface between these operations.
+$$T_{\mathrm{search}} \approx N_{\mathrm{visited}} \frac{T_{\mathrm{batch}}}{K} + T_{\mathrm{queue}}.$$
+
+Classical solvers reduce $N_{\mathrm{visited}}$ by solving polyhedral LP relaxations at each node, but variable cut counts and irregular active sets keep those subproblems on the CPU. GEAR makes the opposite architectural trade: it propagates a single affine lower bound per nonlinear operator so that a frontier of $K$ heterogeneous boxes shares a fixed tensor shape $K \times (m+1) \times n$. It then recovers relaxation strength by making every stage of node processing reuse those same linear coefficients.
 
 ## Turn the search frontier into a tensor workload
 
-GEAR compiles the objective and all constraints into one multi-output computation graph. A backward propagation pass is vectorized over both outputs and branch-and-bound nodes. Each node retains its own bounds while sharing the graph's computational structure.
+GEAR compiles the objective and all $m$ constraints into one multi-output computation graph. A backward propagation pass is vectorized over both outputs and branch-and-bound nodes. Each node retains its own interval bounds and linear coefficients while sharing the graph's computational structure.
 
-The resulting coefficient tensors support several operations without constructing a separate LP solver for each node:
+The resulting coefficient tensors support the rest of the solver without constructing or solving a separate LP at each node:
 
 | Reuse of the same coefficients | Effect on scalability |
 | --- | --- |
@@ -73,12 +75,13 @@ The paper's cumulative ablation makes the effect on search visible:
 | Configuration, all at an 80-second cap | Solved / 505 | Average visited domains |
 | --- | ---: | ---: |
 | Basic linear bound propagation + ALM-PGD | 248 | 7.94 million |
-| Through complete clipping | 361 | 1.58 million |
-| Full GEAR | 383 | 1.30 million |
+| + Constraint-aware objective bounds and clipping | 361 | 1.58 million |
+| + Refined operator envelopes and branching | 381 | 1.04 million |
+| Full GEAR (+ linear-constraint ALM) | 383 | 1.30 million |
 
-The full method solves more instances while reducing the average visited-domain count by about 84%. These measurements connect scalability to the quality of search, alongside the ability to process nodes in parallel. [Paper, Table 2](https://drive.google.com/file/d/1BFk00R0f4ARasqnQLLde5q1xA_Ssf41c/view?usp=sharing).
+The full method solves 135 more instances while cutting the average visited-domain count by about 84%. Constraint-aware dual mixing and domain clipping account for the fivefold drop in search volume; refined operator envelopes and constraint-weighted branching push the domain count down further while solving 20 more problems. [Paper, Table 2](https://drive.google.com/file/d/1BFk00R0f4ARasqnQLLde5q1xA_Ssf41c/view?usp=sharing).
 
-## Extend the set of problems that can be certified
+## Where throughput beats root strength, and where it does not
 
 At a 180-second cap, GEAR solves **399 of 505** bounded continuous instances from GAMS and MINLPLib, compared with **334** for the paired SCIP-Nonlinear baseline. In that matched comparison, 295 are solved by both, 104 by GEAR only, and 39 by SCIP only. Their union is 438. GEAR uses the CPU and GPU; SCIP uses the CPU.
 
@@ -87,8 +90,6 @@ At a 180-second cap, GEAR solves **399 of 505** bounded continuous instances fro
   <figcaption>Coverage at 180 seconds. The cactus sorts instances by the time each solver needed. The bars are pairwise exclusive solves: orange is solved by GEAR and not by that solver, and the other color is the reverse. The controlled SCIP pair in the text, 104 against 39, is the matched comparison. The bars place that kind of non-overlap against the rest of the portfolio.</figcaption>
 </figure>
 
-These exclusive solves show where the architecture is useful: difficult search can benefit from processing many graph-based relaxations and reusing their geometry throughout the solver.
-
-The single affine bound propagated through each nonlinear operation keeps this computation regular, with a tradeoff in relaxation strength. A full LP relaxation can retain several useful facets simultaneously, which helps SCIP close some problems at the root. GEAR's advantage depends on how well bound quality and GPU throughput work together on the problem's structure.
+The split between the 104 GEAR-only solves and the 39 SCIP-only solves reflects the core relaxation trade-off. A polyhedral LP relaxation can retain several facets of a nonlinear constraint at once; 23 of SCIP's 39 exclusive solves close at the root node, where parallel tree search has little work to exploit. GEAR propagates a single affine bound per operator to keep backward passes regular and tensorized, and wins on the 104 instances where certification requires exploring and pruning a large search tree.
 
 GEAR targets bounded continuous programs over supported factorable operators. Pruning uses valid lower bounds, and primal candidates are checked against the original constraints before they update the incumbent. The [research note](/blog/gear/) develops the scaling argument, the coefficient reuse, and the memory tradeoffs in more detail; the [verification project](/projects/neural-network-verification/) traces the bound propagation and clipping machinery this solver builds on.
