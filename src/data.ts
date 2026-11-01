@@ -79,7 +79,6 @@ export const publicationsData: Publication[] = [
     venue: 'Manuscript',
     venueShort: 'MANUSCRIPT',
     year: '2026',
-    featured: true,
     pending: ['arXiv coming soon', 'Code coming soon'],
     links: [
       { label: 'Project', url: '/projects/gradient-interference-rlhf/' },
@@ -263,5 +262,6 @@ export const honorsData: string[] = [
 ];
 
 export const servicesData: string[] = [
+  'Session Chair: Informs, EMNLP.',
   'Reviewer: JMLR, NeurIPS, ICLR, ICML, AAAI, IJCAI, KDD, and ARR.',
 ];
