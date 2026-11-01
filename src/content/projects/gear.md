@@ -61,6 +61,13 @@ An inexpensive bound becomes valuable when it can retire a domain. GEAR uses non
 
 Inherited constraint rows remain valid on child boxes. After a child computes its own bounds, locally derived rows replace the inherited rows. This carries useful geometry into the next batch while keeping the active row set bounded with respect to search depth.
 
+The same propagation is also where the bound gets its strength. A fixed-vertex envelope for a product can certify a lower bound of −10 on a box where a coefficient-aware envelope certifies +2. For a quotient, fusing the reciprocal with the numerator lifts the lower bound from 0.32 to 0.50. Those are local gaps. They matter because every later clip, dual mix, and branch score consumes the same coefficients.
+
+<figure>
+  <img src="/figures/gear/envelopes.png" alt="Four surface plots. A fixed-vertex product envelope has lower bound -10. A coefficient-aware envelope on the same box has lower bound 2. A decomposed quotient envelope has lower bound 0.32. A fused quotient envelope has lower bound 0.50.">
+  <figcaption>Lower envelopes for a product and a quotient. The coefficient-aware and fused forms are the ones GEAR propagates. A tighter envelope is a higher floor under the same box, and that floor is reused everywhere downstream.</figcaption>
+</figure>
+
 The paper's cumulative ablation makes the effect on search visible:
 
 | Configuration, all at an 80-second cap | Solved / 505 | Average visited domains |
@@ -73,7 +80,12 @@ The full method solves more instances while reducing the average visited-domain 
 
 ## Extend the set of problems that can be certified
 
-At a 180-second cap, GEAR solves **399 of 505** bounded continuous instances from GAMS and MINLPLib, compared with **334** for the paired SCIP-Nonlinear baseline. GEAR adds **104** instances on which SCIP reaches the time limit. SCIP adds 39 instances, and their combined coverage is 438. GEAR uses the CPU and GPU; SCIP uses the CPU. [Paper, Section 4 and Appendix C](https://drive.google.com/file/d/1BFk00R0f4ARasqnQLLde5q1xA_Ssf41c/view?usp=sharing).
+At a 180-second cap, GEAR solves **399 of 505** bounded continuous instances from GAMS and MINLPLib, compared with **334** for the paired SCIP-Nonlinear baseline. In that matched comparison, 295 are solved by both, 104 by GEAR only, and 39 by SCIP only. Their union is 438. GEAR uses the CPU and GPU; SCIP uses the CPU.
+
+<figure>
+  <img src="/figures/gear/cactus.png" alt="A cactus plot of runtime against solved instances for GEAR and several global solvers, and a bar chart of pairwise exclusive solves. GEAR's curve reaches 399 instances. The bars show instances solved by GEAR only against each other solver.">
+  <figcaption>Coverage at 180 seconds. The cactus sorts instances by the time each solver needed. The bars are pairwise exclusive solves: orange is solved by GEAR and not by that solver, and the other color is the reverse. The controlled SCIP pair in the text, 104 against 39, is the matched comparison. The bars place that kind of non-overlap against the rest of the portfolio.</figcaption>
+</figure>
 
 These exclusive solves show where the architecture is useful: difficult search can benefit from processing many graph-based relaxations and reusing their geometry throughout the solver.
 

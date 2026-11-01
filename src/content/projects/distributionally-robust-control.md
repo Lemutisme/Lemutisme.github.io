@@ -5,7 +5,7 @@ description: "Applying distributionally robust optimization to stochastic contro
 status: "ICLR 2026"
 period: "2023 - 2026"
 citationYear: 2026
-order: 4
+order: 6
 tags:
   - Distributionally Robust Optimization
   - Reinforcement Learning
@@ -60,6 +60,13 @@ The continuous-time, continuous-space setting, where the controller does not kno
 
 DRPI applies distributionally robust optimization to robustify the policy against the unknown diffusion. The resulting scheme turns out to resemble risk-sensitive control, and that resemblance is what makes it practical: the path integral control framework then applies as an efficient solution method. The performance guarantees derived for DRPI align closely with the choice of a risk parameter in the risk-sensitive formulation.
 
+The picture is a robot that has to go around an obstacle with a misspecified noise model. Path integral control on the nominal diffusion fills the free space, including paths that clip the obstacle. The distributionally robust controller keeps a corridor on the safe side of the same obstacle. Robustness here is a change in which trajectories are typical, bought by treating the empirical noise as one distribution inside a neighborhood.
+
+<figure>
+  <img src="/figures/distributionally-robust/drpi-traj.png" alt="Simulated trajectories for a double integrator and a unicycle. Nominal path integral control spreads around an obstacle, including into it. Distributionally robust path integral control stays in a channel that clears the obstacle.">
+  <figcaption>One hundred rollouts. Blue is path integral control on the empirical diffusion. Green is DRPI. The obstacle is the black box. The robust policy is the one whose sample cloud clears it.</figcaption>
+</figure>
+
 ## DR-SAC
 
 Distributionally robust reinforcement learning had been largely restricted to value-based methods in tabular settings. DR-SAC is an actor-critic distributionally robust algorithm for offline learning in continuous action spaces.
@@ -69,7 +76,12 @@ The objective maximizes entropy-regularized reward against the worst transition 
 - a distributionally robust form of soft policy iteration, with a convergence guarantee; and
 - a generative modeling step that estimates the unknown nominal transition model from the offline dataset.
 
-Across continuous control benchmarks under common perturbations, the resulting policies reach up to 9.8 times the average reward of the SAC baseline.
+Across continuous control benchmarks under common perturbations, the resulting policies reach up to 9.8 times the average reward of the SAC baseline. That multiple is the 30% parameter reduction on the pendulum length. The more useful picture is the slope: as the perturbation grows, SAC's return falls faster, and DR-SAC stays above it across length, action noise, engine, observation noise, damping, and back-damping shifts.
+
+<figure>
+  <img src="/figures/distributionally-robust/drsac-robust.png" alt="Six plots of average reward against a perturbation. DR-SAC stays above SAC as pendulum length, action noise, engine power, observation noise, joint damping, and HalfCheetah back damping move away from the nominal value.">
+  <figcaption>Offline policies evaluated off the nominal dynamics. Each curve is mean return over 50 episodes. The robust actor is trained against the worst transition model inside a KL ball around a generative estimate of the data, so a shift in length or damping is a direction the objective already paid for.</figcaption>
+</figure>
 
 ## Open directions
 

@@ -133,6 +133,9 @@ const services = servicesData;
           </div>
           {pub.links && pub.links.length > 0 && (
             <div class="pub-links" aria-label="Publication resources">
+              {pub.pending?.map((label) => (
+                <span>{label}</span>
+              ))}
               {pub.links.map((link) => (
                 <a href={link.url} target="_blank" rel="noopener">{link.label} ↗</a>
               ))}

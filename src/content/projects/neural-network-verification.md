@@ -5,7 +5,7 @@ description: "A research program on stronger relaxations, tighter domain reducti
 status: "Active research"
 period: "2024 - Present"
 citationYear: 2026
-order: 2
+order: 4
 tags:
   - Formal Methods
   - Neural Networks
@@ -63,15 +63,32 @@ This project studies a common bottleneck: a branch-and-bound verifier repeatedly
 
 The central perspective is that the search tree is also a source of proof structure. A scalable verifier should learn from infeasible or dominated subproblems rather than repeatedly rediscovering the same geometry.
 
+A cut read off one infeasible path is often already implied by every other open subproblem, so recording it does not move the bound. BICCOS checks the reduced path and, when the cut is not redundant, shares it across the other branches that are being searched at the same time.
+
+<figure>
+  <img src="/figures/neural-network-verification/biccos-cuts.png" alt="Diagram of branch-and-bound cuts. One panel shows a cut inferred from an unsatisfiable path that does not improve bounds because other subproblems already satisfy it. Another shows a reduced path that is still verifiable and yields a new cut. A third shows that cut shared across subtrees.">
+  <figcaption>An infeasible path is a candidate cut, not yet a useful one. The cut is kept when the path with the redundant splits removed is still infeasible, and it is then applied to the other subtrees rather than only to the branch that found it.</figcaption>
+</figure>
+
 ### Clip-and-Verify: reduce the domain before expensive search
 
 [Clip-and-Verify](https://neurips.cc/virtual/2025/poster/118862) uses linear constraints to clip away regions that cannot contain a counterexample. The verifier first invests in tightening the feasible domain, then runs complete verification on the smaller residual problem.
 
-This changes where computation is spent: remove irrelevant volume early so that later bounding and branching operate on a more informative domain.
+This changes where computation is spent: remove irrelevant volume early so that later bounding and branching operate on a more informative domain. The linear constraints that do the clipping are already produced by bound propagation. Split constraints and output constraints both cut the input box, and the cut is applied with a GPU procedure instead of a call to an external LP solver. On some VNN-COMP instances the number of branch-and-bound subproblems falls by 96%.
+
+<figure>
+  <img src="/figures/neural-network-verification/clip-idea.png" alt="Diagram of domain clipping. Linear bounds and split or output constraints cut the input box. Relaxed clipping removes part of the box. Complete clipping removes the entire region on the infeasible side of the constraint, which tightens a neuron bound.">
+  <figcaption>Clipping uses constraints the verifier already has. Relaxed clipping removes a corner. Complete clipping removes everything on the wrong side of a constraint, and the neuron bound tightens because the remaining box is smaller.</figcaption>
+</figure>
 
 ### Lookahead Branching: evaluate the consequence of a split
 
-[Lookahead Branching](https://openreview.net/forum?id=lX9Eto4L1O) improves branching by estimating how candidate splits change downstream verification bounds. Rather than using only a local proxy score, it asks which branch is likely to produce the most useful proof progress.
+[Lookahead Branching](https://openreview.net/forum?id=lX9Eto4L1O) improves branching by estimating how candidate splits change downstream verification bounds. Rather than using only a local proxy score, it asks which branch is likely to produce the most useful proof progress. On α-β-CROWN and on Marabou, the lookahead curves sit under the standard branching heuristic: same instances, less time, and up to 57% more instances solved.
+
+<figure>
+  <img src="/figures/neural-network-verification/lookahead-cactus.png" alt="Six cactus plots comparing lookahead branching with FSB on alpha-beta-CROWN. Lookahead's curve is below FSB on CIFAR, TinyImageNet, and MNIST benchmarks.">
+  <figcaption>α-β-CROWN. Each curve is instances sorted by the time to verify them. Lookahead is the lower curve: it spends its first splits on the branch that changes the bound, instead of on the locally largest score.</figcaption>
+</figure>
 
 Together, these methods attack three complementary dimensions of verification complexity:
 

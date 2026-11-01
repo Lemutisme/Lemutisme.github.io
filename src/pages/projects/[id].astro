@@ -75,12 +75,15 @@ const citationLabel = project.data.bibtex
             {project.data.tags.map((tag) => <span>{tag}</span>)}
           </div>
         </div>
-        {project.data.links.length > 0 && (
+        {(project.data.links.length > 0 || project.data.pending.length > 0) && (
           <div class="sidebar-block">
             <p class="section-index">RESOURCES</p>
             <ul class="resource-list">
               {project.data.links.map((link) => (
                 <li><a href={link.url} target="_blank" rel="noopener">{link.label} ↗</a></li>
+              ))}
+              {project.data.pending.map((label) => (
+                <li><span>{label}</span></li>
               ))}
             </ul>
           </div>

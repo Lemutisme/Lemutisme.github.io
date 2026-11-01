@@ -29,6 +29,7 @@ interface Publication {
   year: string;
   featured?: boolean;
   links?: Link[];
+  pending?: string[];
 }
 
 export const scholarUrl = 'https://scholar.google.com/citations?user=QnBzRsIAAAAJ&hl=en';
@@ -56,6 +57,8 @@ export const profileData: Profile = {
 };
 
 export const newsData: NewsItem[] = [
+  { date: 'Nov. 2026', body: '<strong><a href="/projects/cumulative-fisher/">Cumulative Fisher Protection</a></strong>: during RLHF, what matters is which directions the policy moves, not how far. <strong><a href="/projects/procontract/">ProContract</a></strong> keeps a long-horizon agent\'s responsibilities outside the harness. Both under review. arXiv and code coming soon.' },
+  { date: 'Nov. 2026', body: '<strong><a href="/projects/gradient-interference-rlhf/">Gradient Interference in Group-Aware RLHF</a></strong>: single-reward RLHF can collapse for a minority group while the group rewards stay positively correlated. arXiv and code coming soon.' },
   { date: 'Oct. 2026', body: '<strong><a href="/projects/gear/">GEAR</a></strong>, our GPU-accelerated global solver for nonlinear programs via linear bound propagation, accepted to <strong>NeurIPS 2026</strong>. <a href="/blog/gear/">Read the research note</a>.' },
   { date: 'Aug. 2026', body: '<strong>Geometric-Disentanglement Language Model Unlearning</strong> accepted to EMNLP 2026 Main.' },
   { date: 'Jul. 2026', body: 'Won VNN-COMP 2026 on CAV 2026.' },
@@ -71,12 +74,46 @@ export const newsData: NewsItem[] = [
 
 export const publicationsData: Publication[] = [
   {
+    title: 'Not All Reward Heterogeneity is Value Conflict: Gradient Interference in Group-Aware RLHF',
+    authors: 'Mingxuan Cui, Yuji Zhang, <strong>Duo Zhou</strong>',
+    venue: 'Manuscript',
+    venueShort: 'MANUSCRIPT',
+    year: '2026',
+    featured: true,
+    pending: ['arXiv coming soon', 'Code coming soon'],
+    links: [
+      { label: 'Project', url: '/projects/gradient-interference-rlhf/' },
+    ],
+  },
+  {
+    title: 'Where the Policy Moves Matters: Capability Preservation via Cumulative Fisher Protection in RLHF',
+    authors: '<strong>Duo Zhou</strong>',
+    venue: 'Under review',
+    venueShort: 'UNDER REVIEW',
+    year: '2027',
+    pending: ['arXiv coming soon', 'Code coming soon'],
+    links: [
+      { label: 'Project', url: '/projects/cumulative-fisher/' },
+    ],
+  },
+  {
+    title: 'ProContract: Decoupling Responsibility and Progress from the Harness in Long-Horizon Agents',
+    authors: '<strong>Duo Zhou</strong>',
+    venue: 'Under review',
+    venueShort: 'UNDER REVIEW',
+    year: '2027',
+    pending: ['arXiv coming soon', 'Code coming soon'],
+    links: [
+      { label: 'Project', url: '/projects/procontract/' },
+      { label: 'Prototype', url: 'https://github.com/Lemutisme/opencode/tree/capability-rsi' },
+    ],
+  },
+  {
     title: 'GEAR: A GPU-Accelerated Global Solver for Nonlinear Programs via Linear Bound Propagation',
     authors: '<strong>Duo Zhou</strong>, Hesun Chen, Xiangru Zhong, Grani A. Hanasusanto, Huan Zhang',
     venue: 'Advances in Neural Information Processing Systems · NeurIPS 2026',
     venueShort: "NeurIPS '26",
     year: '2026',
-    featured: true,
     links: [
       { label: 'Download PDF', url: 'https://drive.google.com/file/d/1BFk00R0f4ARasqnQLLde5q1xA_Ssf41c/view?usp=sharing' },
       { label: 'OpenReview', url: 'https://openreview.net/forum?id=3WdBmyLLLC' },

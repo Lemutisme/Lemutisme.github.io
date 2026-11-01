@@ -5,7 +5,7 @@ description: "A geometric approach to language model unlearning that controls in
 status: "EMNLP 2026 Main"
 period: "2025 - 2026"
 citationYear: 2026
-order: 3
+order: 5
 tags:
   - Machine Unlearning
   - Language Models
@@ -47,6 +47,11 @@ Modern optimizers rescale parameter directions using accumulated state. A Euclid
 
 The resulting procedure aims for the steepest feasible forgetting update under a geometry-aware trust region for preservation.
 
+<figure>
+  <img src="/figures/geometric-unlearning/geometry.png" alt="Diagram comparing ordinary gradient unlearning with geometric unlearning. The ordinary step adds forget and retain gradients that are not orthogonal. Geometric unlearning projects the forget gradient onto the complement of the retain subspace before the step.">
+  <figcaption>The training loss stays the same. The step changes. A baseline adds the forget and retain gradients even when they point into each other. GU routes the forget gradient through the orthogonal complement of the retain subspace, in the metric the optimizer actually uses, and leaves the retain component to do its own work.</figcaption>
+</figure>
+
 ## Research contribution
 
 The project connects machine unlearning to constrained optimization in a way that is both algorithmic and interpretable. It provides a vocabulary for distinguishing three questions that are often conflated:
@@ -55,7 +60,14 @@ The project connects machine unlearning to constrained optimization in a way tha
 2. whether retained behavior is preserved; and
 3. whether the optimizer's actual update respects the intended separation.
 
-The work was accepted to the EMNLP 2026 Main Conference. Code and the preprint are available through the project resources.
+The work was accepted to the EMNLP 2026 Main Conference. On TOFU, adding the projection to SimNPO improves forgetting by up to 62%. Across all 72 model, deletion-rate, and objective configurations, retain quality is preserved or improved in 66, and model utility in 62. The arrows in the figure are that shift: forgetting moves left, and retain, privacy, and utility are not asked to pay for it on a one-dimensional tradeoff.
+
+<figure>
+  <img src="/figures/geometric-unlearning/tradeoff.png" alt="Three scatter plots on TOFU. Arrows run from a baseline circle to a GU triangle. The horizontal axis is forgetting, lower better. The vertical axes are retained knowledge, privacy, and model utility, higher better.">
+  <figcaption>TOFU. Each arrow is one baseline before and after the same projection. A useful arrow moves left without falling. The projection is attached to the existing method. It does not replace the forget loss.</figcaption>
+</figure>
+
+Code and the preprint are available through the project resources.
 
 ## Current directions
 

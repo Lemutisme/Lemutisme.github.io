@@ -450,7 +450,9 @@ h1 {
   padding-top: 1.9rem;
 }
 
-.pub-links a { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; }
+.pub-links a,
+.pub-links span { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; }
+.pub-links span { color: var(--ink-soft); }
 .pub-links a:hover { color: var(--green); }
 .bottom-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px; }
 
@@ -678,6 +680,7 @@ h1 {
 .resource-list { list-style: none; }
 .resource-list li + li { margin-top: 0.55rem; }
 .resource-list a { color: var(--green); font-family: var(--mono); font-size: 0.72rem; font-weight: 600; }
+.resource-list span { color: var(--ink-soft); font-family: var(--mono); font-size: 0.72rem; font-weight: 600; }
 
 .project-main { min-width: 0; }
 
@@ -728,6 +731,41 @@ h1 {
 
 .prose .katex-display > .katex { text-align: center; }
 .prose th { background: var(--paper-deep); font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; }
+
+.prose figure { margin: 1.8rem 0 0.35rem; }
+
+.prose figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  border: 2px solid var(--line);
+}
+
+.prose figcaption {
+  margin-top: 0.6rem;
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1.5;
+  text-transform: none;
+}
+
+.prose .figure-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem 1rem;
+  margin-top: 1.8rem;
+}
+
+.prose .figure-row figure { margin: 0; }
+
+@media (max-width: 720px) {
+  .prose .figure-row { grid-template-columns: 1fr; }
+  .prose .figure-row figure + figure { margin-top: 1.2rem; }
+}
 
 .citation-panel {
   margin-top: 3rem;
