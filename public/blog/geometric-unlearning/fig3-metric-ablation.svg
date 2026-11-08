@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" width="920" height="340" role="img" aria-labelledby="fig3-title fig3-desc">
+  <title id="fig3-title">Metric geometry ablation: Euclidean projection versus Adam-diagonal projection on Llama-3.2-1B and Llama-3.2-3B</title>
+  <desc id="fig3-desc">Two-panel grouped bar chart of Table 5 from the paper, comparing Euclidean projection (H = I) against Adam-diagonal projection (H = W_t^T W_t) for SimNPO + GU on TOFU. Left panel (Llama-3.2-1B): ES Re. 0.63 vs 0.65, ES Un. 0.26 vs 0.21 (lower is better), Priv. 0.70 vs 0.73, MU 0.59 vs 0.60. Right panel (Llama-3.2-3B): ES Re. 0.76 vs 0.78, ES Un. 0.21 vs 0.17 (lower is better), Priv. 0.76 vs 0.78, MU 0.64 vs 0.65.</desc>
+  <style>
+    .bg { fill: #fffdf7; }
+    .header-bar { fill: #e8e1d1; stroke: #222a24; stroke-width: 2; }
+    .panel-box { fill: #faf6eb; stroke: #222a24; stroke-width: 1.5; }
+    .panel-label { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.5px; font-weight: 600; fill: #1f6b4f; letter-spacing: 0.07em; }
+    .panel-title { font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-weight: 700; fill: #1c211d; }
+    .mono { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.5px; fill: #1c211d; }
+    .mono-muted { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10px; fill: #495148; }
+    .mono-bold { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.5px; font-weight: 600; fill: #1c211d; }
+    .bar-euclid { fill: #9aa89c; stroke: #222a24; stroke-width: 1; }
+    .bar-adam { fill: #1f6b4f; stroke: #222a24; stroke-width: 1; }
+    .grid { stroke: #ded7c5; stroke-width: 1; stroke-dasharray: 3 3; }
+    .axis { stroke: #222a24; stroke-width: 1.2; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="920" height="340" />
+
+  <!-- Top window bar -->
+  <rect class="header-bar" x="1" y="1" width="918" height="36" />
+  <rect x="14" y="14" width="9" height="9" fill="#bd5b4a" stroke="#222a24" stroke-width="1" />
+  <rect x="29" y="14" width="9" height="9" fill="#f0c35a" stroke="#222a24" stroke-width="1" />
+  <rect x="44" y="14" width="9" height="9" fill="#1f6b4f" stroke="#222a24" stroke-width="1" />
+  <text x="66" y="23" class="mono-bold">FIG. 3 / METRIC GEOMETRY ABLATION: EUCLIDEAN (H = I) VS. ADAM-DIAGONAL (PAPER TABLE 5)</text>
+  <text x="904" y="23" class="mono-muted" text-anchor="end">SIMNPO + GU</text>
+
+  <!-- ==================== LEFT PANEL: LLAMA-3.2-1B ==================== -->
+  <rect class="panel-box" x="22" y="52" width="432" height="270" />
+  <text x="36" y="72" class="panel-label">PANEL A / LLAMA-3.2-1B (SIMNPO + GU)</text>
+  <text x="36" y="91" class="panel-title">Adam-diagonal metric improves all four axes at 1B</text>
+
+  <!-- Legend in Panel A -->
+  <rect class="bar-euclid" x="36" y="103" width="12" height="12" />
+  <text x="54" y="113" class="mono-muted">Euclidean (H = I)</text>
+  <rect class="bar-adam" x="184" y="103" width="12" height="12" />
+  <text x="202" y="113" class="mono-bold" fill="#1f6b4f">Adam-diagonal (H = W<tspan dy="2" font-size="8">t</tspan><tspan dy="-5" font-size="8">&#8868;</tspan><tspan dy="3"> W</tspan><tspan dy="2" font-size="8">t</tspan><tspan dy="-2">)</tspan></text>
+
+  <!-- Y-axis scale: y=284 (0.0) to y=132 (0.95); 1.0 unit = 160 px (0.8 = 128 px -> y=156, 0.6 = 96 px -> y=188, 0.4 = 64 px -> y=220, 0.2 = 32 px -> y=252) -->
+  <line class="grid" x1="68" y1="156" x2="434" y2="156" />
+  <line class="grid" x1="68" y1="188" x2="434" y2="188" />
+  <line class="grid" x1="68" y1="220" x2="434" y2="220" />
+  <line class="grid" x1="68" y1="252" x2="434" y2="252" />
+  <line class="axis" x1="68" y1="136" x2="68" y2="284" />
+  <line class="axis" x1="68" y1="284" x2="434" y2="284" />
+
+  <text x="60" y="160" class="mono-muted" text-anchor="end">0.8</text>
+  <text x="60" y="192" class="mono-muted" text-anchor="end">0.6</text>
+  <text x="60" y="224" class="mono-muted" text-anchor="end">0.4</text>
+  <text x="60" y="256" class="mono-muted" text-anchor="end">0.2</text>
+  <text x="60" y="288" class="mono-muted" text-anchor="end">0.0</text>
+
+  <!-- 1B ES Re. (higher better): 0.63 (h=100.8, y=183.2) vs 0.65 (h=104.0, y=180.0) -->
+  <rect class="bar-euclid" x="86" y="183.2" width="28" height="100.8" />
+  <text x="100" y="178" class="mono-muted" text-anchor="middle">0.63</text>
+  <rect class="bar-adam" x="116" y="180.0" width="28" height="104.0" />
+  <text x="130" y="174" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.65</text>
+  <text x="115" y="302" class="mono-bold" text-anchor="middle">ES Re. &#8593;</text>
+
+  <!-- 1B ES Un. (lower better): 0.26 (h=41.6, y=242.4) vs 0.21 (h=33.6, y=250.4) -->
+  <rect class="bar-euclid" x="176" y="242.4" width="28" height="41.6" />
+  <text x="190" y="237" class="mono-muted" text-anchor="middle">0.26</text>
+  <rect class="bar-adam" x="206" y="250.4" width="28" height="33.6" />
+  <text x="220" y="245" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.21</text>
+  <text x="205" y="302" class="mono-bold" text-anchor="middle">ES Un. &#8595;</text>
+  <text x="205" y="314" class="mono-muted" text-anchor="middle">(lower better)</text>
+
+  <!-- 1B Priv. (higher better): 0.70 (h=112.0, y=172.0) vs 0.73 (h=116.8, y=167.2) -->
+  <rect class="bar-euclid" x="266" y="172.0" width="28" height="112.0" />
+  <text x="280" y="167" class="mono-muted" text-anchor="middle">0.70</text>
+  <rect class="bar-adam" x="296" y="167.2" width="28" height="116.8" />
+  <text x="310" y="161" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.73</text>
+  <text x="295" y="302" class="mono-bold" text-anchor="middle">Priv. &#8593;</text>
+
+  <!-- 1B MU (higher better): 0.59 (h=94.4, y=189.6) vs 0.60 (h=96.0, y=188.0) -->
+  <rect class="bar-euclid" x="356" y="189.6" width="28" height="94.4" />
+  <text x="370" y="184" class="mono-muted" text-anchor="middle">0.59</text>
+  <rect class="bar-adam" x="386" y="188.0" width="28" height="96.0" />
+  <text x="400" y="182" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.60</text>
+  <text x="385" y="302" class="mono-bold" text-anchor="middle">MU &#8593;</text>
+
+  <!-- ==================== RIGHT PANEL: LLAMA-3.2-3B ==================== -->
+  <rect class="panel-box" x="466" y="52" width="432" height="270" />
+  <text x="480" y="72" class="panel-label">PANEL B / LLAMA-3.2-3B (SIMNPO + GU)</text>
+  <text x="480" y="91" class="panel-title">Consistent gains on retention, forgetting, and privacy at 3B</text>
+
+  <!-- Legend in Panel B -->
+  <rect class="bar-euclid" x="480" y="103" width="12" height="12" />
+  <text x="498" y="113" class="mono-muted">Euclidean (H = I)</text>
+  <rect class="bar-adam" x="628" y="103" width="12" height="12" />
+  <text x="646" y="113" class="mono-bold" fill="#1f6b4f">Adam-diagonal (H = W<tspan dy="2" font-size="8">t</tspan><tspan dy="-5" font-size="8">&#8868;</tspan><tspan dy="3"> W</tspan><tspan dy="2" font-size="8">t</tspan><tspan dy="-2">)</tspan></text>
+
+  <line class="grid" x1="512" y1="156" x2="878" y2="156" />
+  <line class="grid" x1="512" y1="188" x2="878" y2="188" />
+  <line class="grid" x1="512" y1="220" x2="878" y2="220" />
+  <line class="grid" x1="512" y1="252" x2="878" y2="252" />
+  <line class="axis" x1="512" y1="136" x2="512" y2="284" />
+  <line class="axis" x1="512" y1="284" x2="878" y2="284" />
+
+  <text x="504" y="160" class="mono-muted" text-anchor="end">0.8</text>
+  <text x="504" y="192" class="mono-muted" text-anchor="end">0.6</text>
+  <text x="504" y="224" class="mono-muted" text-anchor="end">0.4</text>
+  <text x="504" y="256" class="mono-muted" text-anchor="end">0.2</text>
+  <text x="504" y="288" class="mono-muted" text-anchor="end">0.0</text>
+
+  <!-- 3B ES Re. (higher better): 0.76 (h=121.6, y=162.4) vs 0.78 (h=124.8, y=159.2) -->
+  <rect class="bar-euclid" x="530" y="162.4" width="28" height="121.6" />
+  <text x="544" y="157" class="mono-muted" text-anchor="middle">0.76</text>
+  <rect class="bar-adam" x="560" y="159.2" width="28" height="124.8" />
+  <text x="574" y="153" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.78</text>
+  <text x="559" y="302" class="mono-bold" text-anchor="middle">ES Re. &#8593;</text>
+
+  <!-- 3B ES Un. (lower better): 0.21 (h=33.6, y=250.4) vs 0.17 (h=27.2, y=256.8) -->
+  <rect class="bar-euclid" x="620" y="250.4" width="28" height="33.6" />
+  <text x="634" y="245" class="mono-muted" text-anchor="middle">0.21</text>
+  <rect class="bar-adam" x="650" y="256.8" width="28" height="27.2" />
+  <text x="664" y="251" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.17</text>
+  <text x="649" y="302" class="mono-bold" text-anchor="middle">ES Un. &#8595;</text>
+  <text x="649" y="314" class="mono-muted" text-anchor="middle">(lower better)</text>
+
+  <!-- 3B Priv. (higher better): 0.76 (h=121.6, y=162.4) vs 0.78 (h=124.8, y=159.2) -->
+  <rect class="bar-euclid" x="710" y="162.4" width="28" height="121.6" />
+  <text x="724" y="157" class="mono-muted" text-anchor="middle">0.76</text>
+  <rect class="bar-adam" x="740" y="159.2" width="28" height="124.8" />
+  <text x="754" y="153" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.78</text>
+  <text x="739" y="302" class="mono-bold" text-anchor="middle">Priv. &#8593;</text>
+
+  <!-- 3B MU (higher better): 0.64 (h=102.4, y=181.6) vs 0.65 (h=104.0, y=180.0) -->
+  <rect class="bar-euclid" x="800" y="181.6" width="28" height="102.4" />
+  <text x="814" y="176" class="mono-muted" text-anchor="middle">0.64</text>
+  <rect class="bar-adam" x="830" y="180.0" width="28" height="104.0" />
+  <text x="844" y="174" class="mono-bold" fill="#1f6b4f" text-anchor="middle">0.65</text>
+  <text x="829" y="302" class="mono-bold" text-anchor="middle">MU &#8593;</text>
+</svg>

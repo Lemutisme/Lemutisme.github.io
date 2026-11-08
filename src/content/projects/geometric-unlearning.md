@@ -16,6 +16,8 @@ links:
     url: "https://arxiv.org/abs/2511.17100"
   - label: "Code"
     url: "https://github.com/Lemutisme/Geometric-Unlearning"
+  - label: "Research note"
+    url: "https://www.duo-zhou.com/blog/geometric-unlearning/"
 bibtex: |
   @inproceedings{zhou2026geometric,
     author    = {Zhou, Duo and Zhang, Yuji and Wei, Tianxin and Qiu, Ruizhong and Yang, Ke and Lin, Xiao and Qian, Cheng and He, Jingrui and Tong, Hanghang and Ji, Heng and Zhang, Huan},
@@ -29,7 +31,7 @@ bibtex: |
 
 **Duo Zhou\***, Yuji Zhang\*, Tianxin Wei, Ruizhong Qiu, Ke Yang, Xiao Lin, Cheng Qian, Jingrui He, Hanghang Tong, Heng Ji, Huan Zhang
 
-Accepted to **EMNLP 2026 Main**. [arXiv](https://arxiv.org/abs/2511.17100) · [Code](https://github.com/Lemutisme/Geometric-Unlearning)
+Accepted to **EMNLP 2026 Main**. [arXiv](https://arxiv.org/abs/2511.17100) · [Code](https://github.com/Lemutisme/Geometric-Unlearning) · [Research Note](/blog/geometric-unlearning/)
 
 ## Scalar loss weights cannot separate shared parameters
 
