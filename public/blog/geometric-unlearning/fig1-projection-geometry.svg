@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 450" width="920" height="450" role="img" aria-labelledby="fig1-title fig1-desc">
+  <title id="fig1-title">Euclidean projection versus optimizer-metric projection in Geometric-Disentanglement Unlearning</title>
+  <desc id="fig1-desc">Two-panel diagram. Left: 2D geometric schematic showing the retain-gradient subspace T_r, the Euclidean unit circle, the anisotropic H-metric unit ellipse induced by AdamW's diagonal preconditioner, the raw forget gradient g_f, its Euclidean-orthogonal projection (which still leaks into retain loss under H), and GU's H-orthogonal projection P_perp^(H) g_f (which produces zero first-order retain change). Right: comparison of scalar loss weighting, Euclidean projection, and optimizer-metric projection.</desc>
+  <style>
+    .bg { fill: #fffdf7; }
+    .header-bar { fill: #e8e1d1; stroke: #222a24; stroke-width: 2; }
+    .panel-box { fill: #faf6eb; stroke: #222a24; stroke-width: 1.5; }
+    .card-red { fill: #fbf4f1; stroke: #bd5b4a; stroke-width: 1.5; }
+    .card-green { fill: #eef5f0; stroke: #1f6b4f; stroke-width: 1.75; }
+    .card-neutral { fill: #f5efe0; stroke: #495148; stroke-width: 1.5; }
+    .panel-label { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.5px; font-weight: 600; fill: #1f6b4f; letter-spacing: 0.07em; }
+    .panel-title { font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-weight: 700; fill: #1c211d; }
+    .mono { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.8px; fill: #1c211d; }
+    .mono-muted { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10px; fill: #495148; }
+    .mono-bold { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.8px; font-weight: 600; fill: #1c211d; }
+    .serif-label { font-family: 'Newsreader', Georgia, serif; font-size: 12.5px; fill: #1c211d; }
+    .serif-bold { font-family: 'Newsreader', Georgia, serif; font-size: 13px; font-weight: 700; fill: #1c211d; }
+    .math-eq { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 13.5px; font-weight: 600; fill: #1c211d; }
+    .it { font-style: italic; }
+    .sub { font-size: 9.5px; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="920" height="450" />
+
+  <!-- Top window bar -->
+  <rect class="header-bar" x="1" y="1" width="918" height="36" />
+  <rect x="14" y="14" width="9" height="9" fill="#bd5b4a" stroke="#222a24" stroke-width="1" />
+  <rect x="29" y="14" width="9" height="9" fill="#f0c35a" stroke="#222a24" stroke-width="1" />
+  <rect x="44" y="14" width="9" height="9" fill="#1f6b4f" stroke="#222a24" stroke-width="1" />
+  <text x="66" y="23" class="mono-bold">FIG. 1 / OPTIMIZER-METRIC PROJECTION VS. EUCLIDEAN ORTHOGONALITY</text>
+  <text x="904" y="23" class="mono-muted" text-anchor="end">EMNLP 2026 MAIN</text>
+
+  <!-- ==================== LEFT PANEL: 2D GEOMETRY ==================== -->
+  <rect class="panel-box" x="22" y="52" width="490" height="378" />
+  <text x="36" y="73" class="panel-label">PANEL A / UPDATE GEOMETRY UNDER ANISOTROPIC PRECONDITIONING</text>
+  <text x="36" y="92" class="panel-title">Euclidean orthogonality rotates back into the retain subspace under D<tspan dy="-5" font-size="10">&#8722;1</tspan><tspan dy="8" font-size="10">t</tspan></text>
+
+  <!-- Origin at (256, 286). Retain subspace T_r along unit vector u = (0.9439, -0.3304) in SVG coords (up-right) -->
+  <!-- Euclidean unit circle (r = 78) -->
+  <circle cx="256" cy="286" r="78" fill="none" stroke="#849487" stroke-width="1.3" stroke-dasharray="4 4" />
+  <text x="312" y="362" class="mono-muted" fill="#495148">Euclidean ball (&#8214;v&#8214;<tspan dy="3" font-size="8">2</tspan><tspan dy="-3"> = 1)</tspan></text>
+
+  <!-- H-metric unit ellipse (rx = 78, ry = 35) -->
+  <ellipse cx="256" cy="286" rx="78" ry="35" fill="none" stroke="#c89d28" stroke-width="2" />
+  <text x="338" y="314" class="mono-bold" fill="#8f6c10">H-metric ball (&#8214;v&#8214;<tspan dy="3" font-size="8">H</tspan><tspan dy="-3"> = 1)</tspan></text>
+
+  <!-- Retain-gradient subspace line T_r through (256, 286) with slope -0.35 -->
+  <line x1="68" y1="351.8" x2="478" y2="208.3" stroke="#495148" stroke-width="1.8" />
+  <text x="378" y="232" class="serif-bold" fill="#495148">Retain subspace <tspan class="it">T</tspan><tspan dy="3" class="sub"><tspan class="it">r</tspan></tspan></text>
+
+  <!-- Tangential projection vector P_{T_r}^{(H)} g_f along T_r from (256, 286) to (412, 231.4) -->
+  <line x1="256" y1="286" x2="404" y2="234.2" stroke="#8f6c10" stroke-width="2.2" stroke-dasharray="3 2" />
+  <polygon points="412,231.4 401,230.5 404.2,239.2" fill="#8f6c10" />
+  <text x="352" y="271" class="mono-muted" fill="#7a5b0c"><tspan class="it">P</tspan><tspan dy="-4" font-size="8">(<tspan class="it">H</tspan>)</tspan><tspan dy="7" font-size="8"><tspan class="it">T</tspan><tspan dy="2" font-size="6.5"><tspan class="it">r</tspan></tspan></tspan><tspan dy="-5"> <tspan class="it">g</tspan></tspan><tspan dy="3" font-size="8"><tspan class="it">f</tspan></tspan><tspan dy="-3"> (entanglement)</tspan></text>
+
+  <!-- Dashed drop line from raw g_f (412, 146) to Euclidean projection P_E (229, 209) -->
+  <line x1="412" y1="146" x2="229" y2="209" stroke="#bd5b4a" stroke-width="1.3" stroke-dasharray="2.5 2.5" />
+
+  <!-- Dashed drop line from raw g_f (412, 146) to H-orthogonal projection P_H (156, 235.6) -->
+  <line x1="412" y1="146" x2="156" y2="235.6" stroke="#1f6b4f" stroke-width="1.3" stroke-dasharray="2.5 2.5" />
+
+  <!-- Vector 1: Raw forget gradient g_f from (256, 286) to (412, 146) -->
+  <line x1="256" y1="286" x2="405" y2="152" stroke="#1c211d" stroke-width="2.5" />
+  <polygon points="412,146 400.5,150.2 406.8,157.2" fill="#1c211d" />
+  <text x="366" y="136" class="serif-bold" fill="#1c211d">Raw forget gradient <tspan class="it">g</tspan><tspan dy="3" class="sub"><tspan class="it">f</tspan></tspan></text>
+
+  <!-- Vector 2: Euclidean projection g_perp from (256, 286) to (229, 209) -->
+  <line x1="256" y1="286" x2="231.8" y2="217" stroke="#bd5b4a" stroke-width="2.5" />
+  <polygon points="229,209 227.8,219.8 236.6,216.7" fill="#bd5b4a" />
+  <text x="228" y="166" class="serif-bold" fill="#bd5b4a" text-anchor="middle">Euclidean projection <tspan class="it">g</tspan><tspan dy="3" class="sub">&#8869;</tspan></text>
+  <text x="228" y="182" class="mono-muted" fill="#bd5b4a" text-anchor="middle">g<tspan dy="2" font-size="8">&#8869;</tspan><tspan dy="-6" font-size="8">&#8868;</tspan><tspan dy="4"> g</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2"> = 0, but g</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-6" font-size="8">&#8868;</tspan><tspan dy="4"> D</tspan><tspan dy="-4" font-size="8">&#8722;1</tspan><tspan dy="6" font-size="8">t</tspan><tspan dy="-2"> g</tspan><tspan dy="2" font-size="8">&#8869;</tspan><tspan dy="-2"> &#8800; 0</tspan></text>
+  <text x="228" y="196" class="mono-muted" fill="#bd5b4a" text-anchor="middle">(leaks into L<tspan dy="2" font-size="8">r</tspan><tspan dy="-2"> after AdamW)</tspan></text>
+
+  <!-- Vector 3: Optimizer-metric projection P_perp^(H) g_f from (256, 286) to (156, 235.6) -->
+  <line x1="256" y1="286" x2="163.5" y2="239.4" stroke="#1f6b4f" stroke-width="2.7" />
+  <polygon points="156,235.6 163.2,244.4 167.4,236.1" fill="#1f6b4f" />
+  <text x="148" y="216" class="serif-bold" fill="#1f6b4f" text-anchor="end">GU: <tspan class="it">P</tspan><tspan dy="-4" font-size="9">(<tspan class="it">H</tspan>)</tspan><tspan dy="7" font-size="9">&#8869;</tspan><tspan dy="-3"> <tspan class="it">g</tspan></tspan><tspan dy="3" class="sub"><tspan class="it">f</tspan></tspan></text>
+  <text x="148" y="232" class="mono-bold" fill="#1f6b4f" text-anchor="end">&#10216;g<tspan dy="2" font-size="8">r</tspan><tspan dy="-2">, &#916;&#952;</tspan><tspan dy="2" font-size="8">t</tspan><tspan dy="-2">&#10217;</tspan><tspan dy="3" font-size="8">H</tspan><tspan dy="-3"> = 0</tspan></text>
+  <text x="148" y="246" class="mono-muted" fill="#1f6b4f" text-anchor="end">(&#916;<tspan dy="-4" font-size="8">(1)</tspan><tspan dy="4"> L</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2"> = 0)</tspan></text>
+
+  <!-- Origin dot -->
+  <circle cx="256" cy="286" r="3.5" fill="#1c211d" />
+  <text x="256" y="304" class="mono-muted" text-anchor="middle">&#952;<tspan dy="2" font-size="8">t</tspan></text>
+
+  <text x="36" y="414" class="mono-muted">Conceptual 2D cross-section with diagonal optimizer metric H = diag(1, 5); adapted from Figure 1 of the paper.</text>
+
+  <!-- ==================== RIGHT PANEL: STEP COMPARISON ==================== -->
+  <rect class="panel-box" x="528" y="52" width="370" height="378" />
+  <text x="542" y="73" class="panel-label">PANEL B / THREE UPDATE RULES</text>
+  <text x="542" y="92" class="panel-title">Why the projection must live in the optimizer metric</text>
+
+  <!-- Card 1: Scalarized objective -->
+  <rect class="card-neutral" x="542" y="108" width="342" height="92" />
+  <text x="554" y="126" class="mono-bold" fill="#495148">01 / SCALARIZED SUM (L<tspan dy="2" font-size="8">f</tspan><tspan dy="-2"> + &#955; L</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2">)</tspan></text>
+  <text x="554" y="148" class="math-eq">&#916;&#952;<tspan dy="3" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-3"> = &#8722;&#951; <tspan class="it">D</tspan></tspan><tspan dy="-5" font-size="9.5">&#8722;1</tspan><tspan dy="8" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-3"> ( <tspan class="it">g</tspan></tspan><tspan dy="3" class="sub"><tspan class="it">f</tspan></tspan><tspan dy="-3"> + &#955; <tspan class="it">g</tspan></tspan><tspan dy="3" class="sub"><tspan class="it">r</tspan></tspan><tspan dy="-3"> )</tspan></text>
+  <text x="554" y="170" class="mono-muted">When g<tspan dy="2" font-size="8">f</tspan><tspan dy="-5" font-size="8">&#8868;</tspan><tspan dy="3"> g</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2"> &lt; 0, scalar &#955; only slides along a 1D line:</tspan></text>
+  <text x="554" y="186" class="mono-muted">small &#955; damages retain loss; large &#955; stalls forgetting.</text>
+
+  <!-- Card 2: Euclidean projection -->
+  <rect class="card-red" x="542" y="212" width="342" height="96" />
+  <text x="554" y="230" class="mono-bold" fill="#bd5b4a">02 / EUCLIDEAN PROJECTION (H = I)</text>
+  <text x="554" y="252" class="math-eq">&#916;<tspan dy="-5" font-size="9.5">(1)</tspan><tspan dy="5"> <tspan class="it">L</tspan></tspan><tspan dy="3" class="sub"><tspan class="it">r</tspan></tspan><tspan dy="-3"> = &#8722;&#951; <tspan class="it">g</tspan></tspan><tspan dy="3" class="sub"><tspan class="it">r</tspan></tspan><tspan dy="-8" font-size="9.5">&#8868;</tspan><tspan dy="5"> <tspan class="it">D</tspan></tspan><tspan dy="-5" font-size="9.5">&#8722;1</tspan><tspan dy="8" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-3"> <tspan class="it">g</tspan></tspan><tspan dy="3" class="sub">&#8869;</tspan><tspan dy="-3"> &#8800; 0</tspan></text>
+  <text x="554" y="274" class="mono-muted">Enforces g<tspan dy="2" font-size="8">&#8869;</tspan><tspan dy="-5" font-size="8">&#8868;</tspan><tspan dy="3"> g</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2"> = 0 on the raw gradient, before AdamW</tspan></text>
+  <text x="554" y="290" class="mono-muted">rescales coordinates by D<tspan dy="-4" font-size="8">&#8722;1</tspan><tspan dy="6" font-size="8">t</tspan><tspan dy="-2"> and rotates the step into T</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2">.</tspan></text>
+
+  <!-- Card 3: GU optimizer-metric projection -->
+  <rect class="card-green" x="542" y="320" width="342" height="96" />
+  <text x="554" y="338" class="mono-bold" fill="#1f6b4f">03 / OPTIMIZER-METRIC GU (PROPOSITION 3.1 &amp; 3.3)</text>
+  <text x="554" y="360" class="math-eq">&#916;&#952;<tspan dy="3" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-3"> = &#8722;&#961; ( <tspan class="it">P</tspan></tspan><tspan dy="-5" font-size="9.5">(<tspan class="it">H</tspan>)</tspan><tspan dy="8" class="sub">&#8869;</tspan><tspan dy="-3"> <tspan class="it">g</tspan></tspan><tspan dy="3" class="sub"><tspan class="it">f</tspan></tspan><tspan dy="-3"> + &#946; <tspan class="it">P</tspan></tspan><tspan dy="-5" font-size="9.5">(<tspan class="it">H</tspan>)</tspan><tspan dy="8" class="sub"><tspan class="it">T</tspan><tspan dy="2" font-size="7.5"><tspan class="it">r</tspan></tspan></tspan><tspan dy="-5"> <tspan class="it">g</tspan></tspan><tspan dy="3" class="sub"><tspan class="it">r</tspan></tspan><tspan dy="-3"> )</tspan></text>
+  <text x="554" y="382" class="mono-bold" fill="#1f6b4f">&#916;<tspan dy="-4" font-size="8">(1)</tspan><tspan dy="4"> L</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2"> = &#8722;&#961; &#946; &#8214;g</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-2">&#8214;</tspan><tspan dy="-4" font-size="8">2</tspan><tspan dy="6" font-size="8">H</tspan><tspan dy="-2"> &#8804; 0  (exact first-order retain safety)</tspan></text>
+  <text x="554" y="400" class="mono-muted">Whitens by W<tspan dy="2" font-size="8">t</tspan><tspan dy="-2"> = (v&#770;</tspan><tspan dy="2" font-size="8">t</tspan><tspan dy="-2"> + &#949;)</tspan><tspan dy="-4" font-size="8">&#8722;1/2</tspan><tspan dy="4">, projects onto T</tspan><tspan dy="2" font-size="8">r</tspan><tspan dy="-6" font-size="8">&#8869;</tspan><tspan dy="4">, then steps.</tspan></text>
+</svg>

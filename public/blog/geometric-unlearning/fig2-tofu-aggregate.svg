@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" width="920" height="340" role="img" aria-labelledby="fig2-title fig2-desc">
+  <title id="fig2-title">Aggregate effect of adding Geometric-Disentanglement Unlearning across all 72 TOFU configurations</title>
+  <desc id="fig2-desc">Horizontal stacked bar chart across all 72 TOFU configurations (3 Llama-3 backbones x 3 forget ratios x 8 base objectives) from Tables 3 and 4 of the paper. ES Re. improves in 66/72 (91.7% non-degraded), MU improves in 62/72 (86.1% non-degraded), ES Un. improves in 38/72 and is unchanged in 13/72 (51/72 or 70.8% non-degraded), and Privacy improves in 49/72 (68.1% non-degraded). 29/72 configurations are strictly Pareto-dominant across all four metrics, and 0/72 degrade on all four metrics.</desc>
+  <style>
+    .bg { fill: #fffdf7; }
+    .header-bar { fill: #e8e1d1; stroke: #222a24; stroke-width: 2; }
+    .panel-box { fill: #faf6eb; stroke: #222a24; stroke-width: 1.5; }
+    .panel-label { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.5px; font-weight: 600; fill: #1f6b4f; letter-spacing: 0.07em; }
+    .panel-title { font-family: 'Newsreader', Georgia, serif; font-size: 15px; font-weight: 700; fill: #1c211d; }
+    .mono { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11px; fill: #1c211d; }
+    .mono-muted { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.2px; fill: #495148; }
+    .mono-bold { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11px; font-weight: 600; fill: #1c211d; }
+    .mono-light { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11px; font-weight: 600; fill: #fffdf7; }
+    .bar-imp { fill: #1f6b4f; stroke: #222a24; stroke-width: 1; }
+    .bar-same { fill: #f0c35a; stroke: #222a24; stroke-width: 1; }
+    .bar-worse { fill: #bd5b4a; stroke: #222a24; stroke-width: 1; }
+    .grid { stroke: #ded7c5; stroke-width: 1; stroke-dasharray: 3 3; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="920" height="340" />
+
+  <!-- Top window bar -->
+  <rect class="header-bar" x="1" y="1" width="918" height="36" />
+  <rect x="14" y="14" width="9" height="9" fill="#bd5b4a" stroke="#222a24" stroke-width="1" />
+  <rect x="29" y="14" width="9" height="9" fill="#f0c35a" stroke="#222a24" stroke-width="1" />
+  <rect x="44" y="14" width="9" height="9" fill="#1f6b4f" stroke="#222a24" stroke-width="1" />
+  <text x="66" y="23" class="mono-bold">FIG. 2 / AGGREGATE OUTCOMES ACROSS ALL 72 TOFU CONFIGURATIONS (TABLES 3 &amp; 4)</text>
+  <text x="904" y="23" class="mono-muted" text-anchor="end">3 MODELS &#215; 3 SPLITS &#215; 8 LOSSES</text>
+
+  <rect class="panel-box" x="22" y="52" width="876" height="270" />
+  <text x="38" y="73" class="panel-label">DIRECTIONAL OUTCOME WHEN ATTACHING GU TO EXISTING OBJECTIVES (OF 72 CONFIGURATIONS)</text>
+
+  <!-- Legend -->
+  <rect class="bar-imp" x="560" y="62" width="12" height="12" />
+  <text x="578" y="72" class="mono-bold">Improved</text>
+  <rect class="bar-same" x="654" y="62" width="12" height="12" />
+  <text x="672" y="72" class="mono-muted">Unchanged</text>
+  <rect class="bar-worse" x="756" y="62" width="12" height="12" />
+  <text x="774" y="72" class="mono-muted">Degraded</text>
+
+  <!-- Bar chart x-range: x=190 to x=694 (width = 504 px for 72 configs -> 7 px per config) -->
+  <line class="grid" x1="190" y1="90" x2="190" y2="246" />
+  <line class="grid" x1="316" y1="90" x2="316" y2="246" />
+  <line class="grid" x1="442" y1="90" x2="442" y2="246" />
+  <line class="grid" x1="568" y1="90" x2="568" y2="246" />
+  <line class="grid" x1="694" y1="90" x2="694" y2="246" />
+
+  <!-- Row 1: ES Re. (66 improved, 0 same, 6 worse) -->
+  <text x="178" y="114" class="mono-bold" text-anchor="end">ES Re. &#8593; (Retain)</text>
+  <rect class="bar-imp" x="190" y="96" width="462" height="26" />
+  <rect class="bar-worse" x="652" y="96" width="42" height="26" />
+  <text x="421" y="114" class="mono-light" text-anchor="middle">66 improved</text>
+  <text x="673" y="114" class="mono-light" text-anchor="middle">6</text>
+  <text x="708" y="114" class="mono-bold" fill="#1f6b4f">66 / 72 (91.7% non-degraded)</text>
+
+  <!-- Row 2: MU (62 improved, 0 same, 10 worse) -->
+  <text x="178" y="152" class="mono-bold" text-anchor="end">MU &#8593; (Model Utility)</text>
+  <rect class="bar-imp" x="190" y="134" width="434" height="26" />
+  <rect class="bar-worse" x="624" y="134" width="70" height="26" />
+  <text x="407" y="152" class="mono-light" text-anchor="middle">62 improved</text>
+  <text x="659" y="152" class="mono-light" text-anchor="middle">10</text>
+  <text x="708" y="152" class="mono-bold" fill="#1f6b4f">62 / 72 (86.1% non-degraded)</text>
+
+  <!-- Row 3: ES Un. (38 improved, 13 same, 21 worse) -->
+  <text x="178" y="190" class="mono-bold" text-anchor="end">ES Un. &#8595; (Forget)</text>
+  <rect class="bar-imp" x="190" y="172" width="266" height="26" />
+  <rect class="bar-same" x="456" y="172" width="91" height="26" />
+  <rect class="bar-worse" x="547" y="172" width="147" height="26" />
+  <text x="323" y="190" class="mono-light" text-anchor="middle">38 improved</text>
+  <text x="501.5" y="190" class="mono-bold" text-anchor="middle">13</text>
+  <text x="620.5" y="190" class="mono-light" text-anchor="middle">21</text>
+  <text x="708" y="190" class="mono-bold" fill="#1c211d">51 / 72 (70.8% non-degraded)</text>
+
+  <!-- Row 4: Priv. (49 improved, 0 same, 23 worse) -->
+  <text x="178" y="228" class="mono-bold" text-anchor="end">Priv. &#8593; (MIA Closeness)</text>
+  <rect class="bar-imp" x="190" y="210" width="343" height="26" />
+  <rect class="bar-worse" x="533" y="210" width="161" height="26" />
+  <text x="361.5" y="228" class="mono-light" text-anchor="middle">49 improved</text>
+  <text x="613.5" y="228" class="mono-light" text-anchor="middle">23</text>
+  <text x="708" y="228" class="mono-bold" fill="#1c211d">49 / 72 (68.1% non-degraded)</text>
+
+  <!-- X-axis ticks -->
+  <text x="190" y="262" class="mono-muted" text-anchor="middle">0</text>
+  <text x="316" y="262" class="mono-muted" text-anchor="middle">18</text>
+  <text x="442" y="262" class="mono-muted" text-anchor="middle">36</text>
+  <text x="568" y="262" class="mono-muted" text-anchor="middle">54</text>
+  <text x="694" y="262" class="mono-muted" text-anchor="middle">72 configurations</text>
+
+  <!-- Bottom callout bar for Table 4 multi-metric summary -->
+  <rect x="38" y="276" width="844" height="32" fill="#eef5f0" stroke="#1f6b4f" stroke-width="1.25" />
+  <text x="50" y="296" class="mono-bold" fill="#1f6b4f">MULTI-METRIC PARETO SUMMARY (TABLE 4):</text>
+  <text x="330" y="296" class="mono">29 / 72 (40.3%) strictly Pareto-dominant  &#183;  58 / 72 (80.6%) preserve both ES Re. &amp; MU  &#183;  0 / 72 degrade on all 4</text>
+</svg>

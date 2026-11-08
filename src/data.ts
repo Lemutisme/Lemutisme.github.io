@@ -57,11 +57,12 @@ export const profileData: Profile = {
 };
 
 export const newsData: NewsItem[] = [
+  { date: 'Nov. 2026', body: 'New research note on <strong><a href="/projects/geometric-unlearning/">Geometric-Disentanglement Unlearning</a></strong> (<strong>EMNLP 2026 Main</strong>): why Euclidean orthogonality is not retain invariance under adaptive optimizers, and how projecting in the optimizer\'s metric separates forgetting from capability preservation. <a href="/blog/geometric-unlearning/">Read the research note</a>.' },
   { date: 'Nov. 2026', body: 'New research note on <strong><a href="/projects/distributionally-robust-control/">DR-SAC</a></strong> (<strong>ICLR 2026</strong>): making worst-case soft Bellman backups tractable in offline continuous control via KL duality and functional optimization. <a href="/blog/dr-sac/">Read the research note</a>.' },
   { date: 'Nov. 2026', body: '<strong><a href="/projects/cumulative-fisher/">Cumulative Fisher Protection</a></strong>: during RLHF, what matters is which directions the policy moves, not how far. <strong><a href="/projects/procontract/">ProContract</a></strong> keeps a long-horizon agent\'s responsibilities outside the harness. Both under review. arXiv and code coming soon.' },
   { date: 'Nov. 2026', body: '<strong><a href="/projects/gradient-interference-rlhf/">Gradient Interference in Group-Aware RLHF</a></strong>: single-reward RLHF can collapse for a minority group while the group rewards stay positively correlated. arXiv and code coming soon.' },
   { date: 'Oct. 2026', body: '<strong><a href="/projects/gear/">GEAR</a></strong>, our GPU-accelerated global solver for nonlinear programs via linear bound propagation, accepted to <strong>NeurIPS 2026</strong>. <a href="/blog/gear/">Read the research note</a>.' },
-  { date: 'Aug. 2026', body: '<strong>Geometric-Disentanglement Language Model Unlearning</strong> accepted to EMNLP 2026 Main.' },
+  { date: 'Aug. 2026', body: '<strong><a href="/projects/geometric-unlearning/">Geometric-Disentanglement Language Model Unlearning</a></strong> accepted to EMNLP 2026 Main. <a href="/blog/geometric-unlearning/">Read the research note</a>.' },
   { date: 'Jul. 2026', body: 'Won VNN-COMP 2026 on CAV 2026.' },
   { date: 'May 2026', body: '<strong>InvSTG-PLM</strong> accepted to KDD 2026.' },
   { date: 'Apr. 2026', body: '<strong>Lookahead Branching</strong> accepted to IJCAI 2026.' },
@@ -131,6 +132,7 @@ export const publicationsData: Publication[] = [
       { label: 'arXiv', url: 'https://arxiv.org/abs/2511.17100' },
       { label: 'Code', url: 'https://github.com/Lemutisme/Geometric-Unlearning' },
       { label: 'Project', url: '/projects/geometric-unlearning/' },
+      { label: 'Blog', url: '/blog/geometric-unlearning/' },
     ],
   },
   {
