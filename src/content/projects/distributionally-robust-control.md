@@ -18,6 +18,8 @@ links:
     url: "https://arxiv.org/abs/2506.12622"
   - label: "DR-SAC code"
     url: "https://github.com/Lemutisme/DR-SAC"
+  - label: "DR-SAC research note"
+    url: "https://www.duo-zhou.com/blog/dr-sac/"
   - label: "DRPI - ACC 2024"
     url: "https://ieeexplore.ieee.org/abstract/document/10644179"
   - label: "DRPI - arXiv"
@@ -44,7 +46,7 @@ bibtex: |
 
 **DR-SAC (ICLR 2026) · Distributionally Robust Path Integral Control (ACC 2024)**
 
-[DR-SAC Paper](https://openreview.net/forum?id=a19MA0ksbc) · [DR-SAC Code](https://github.com/Lemutisme/DR-SAC) · [DRPI Paper](https://ieeexplore.ieee.org/abstract/document/10644179) · [DRPI Code](https://github.com/Lemutisme/Distributionally-Robust-Path-Integral-Control)
+[DR-SAC Paper](https://openreview.net/forum?id=a19MA0ksbc) · [DR-SAC Code](https://github.com/Lemutisme/DR-SAC) · [DR-SAC Research Note](/blog/dr-sac/) · [DRPI Paper](https://ieeexplore.ieee.org/abstract/document/10644179) · [DRPI Code](https://github.com/Lemutisme/Distributionally-Robust-Path-Integral-Control)
 
 ## Point-estimate dynamics fail where data are scarce
 
