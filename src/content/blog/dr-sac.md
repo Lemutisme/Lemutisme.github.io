@@ -30,7 +30,7 @@ DR-SAC makes **the worst-case soft Bellman backup computable at actor-critic sca
 Consider a discounted continuous-state, continuous-action Markov Decision Process $\mathcal{M} = (\mathcal{S}, \mathcal{A}, R, P, \gamma)$ with bounded reward $r = R(s,a) \in [0, R_{\max}]$, transition kernel $p_{s,a} = P(\cdot \mid s,a) \in \Delta(\mathcal{S})$, discount factor $\gamma \in [0, 1)$, and stochastic policy $\pi : \mathcal{S} \to \Delta(\mathcal{A})$. Maximum entropy reinforcement learning augments reward with policy entropy $\mathcal{H}(\pi(s)) = \mathbb{E}_{a \sim \pi(\cdot \mid s)}[-\log \pi(a \mid s)]$ weighted by temperature $\alpha \ge 0$, defining the soft value function
 
 $$
-V_{\mathcal{M}}^\pi(s) = \mathbb{E}\!\left[\, \sum_{t=1}^{\infty} \gamma^{t-1}\!\left(r_t + \alpha \, \mathcal{H}(\pi(s_t))\right) \;\middle|\; \pi,\, s_1 = s \,\right]
+V_{\mathcal{M}}^\pi(s) = \mathbb{E}\!\left[\, \sum_{t=1}^{\infty} \gamma^{t-1}\!\left(r_t + \alpha \, \mathcal{H}(\pi(s_t))\right) \;\mid\; \pi,\, s_1 = s \,\right]
 $$
 
 and soft action-value function $Q_{\mathcal{M}}^\pi(s,a)$. Soft Actor-Critic (SAC) alternates policy evaluation under the nominal soft Bellman operator
@@ -39,7 +39,7 @@ $$
 \mathcal{T}^\pi Q(s,a) = \mathbb{E}[r] + \gamma \, \mathbb{E}_{s' \sim p_{s,a},\, a' \sim \pi(\cdot \mid s')}\!\left[Q(s',a') - \alpha \log \pi(a' \mid s')\right]
 $$
 
-with Boltzmann policy improvement $\pi_{k+1} = \operatorname*{arg\,min}_{\pi \in \Pi} D_{\mathrm{KL}}\!\left(\pi(\cdot \mid s) \,\Vert\, \exp(\frac{1}{\alpha}Q_{\mathcal{M}}^{\pi_k}(s,\cdot)) / Z(s)\right)$. [Paper, Section 2.1, Equations (1)–(5)](https://arxiv.org/abs/2506.12622).
+with Boltzmann policy improvement $\pi_{k+1} = \operatorname{argmin}_{\pi \in \Pi} D_{\mathrm{KL}}\!\left(\pi(\cdot \mid s) \,\Vert\, \exp(\frac{1}{\alpha}Q_{\mathcal{M}}^{\pi_k}(s,\cdot)) / Z(s)\right)$. [Paper, Section 2.1, Equations (1)–(5)](https://arxiv.org/abs/2506.12622).
 
 In offline RL, the agent has access only to a static dataset $\mathcal{D} = \{(s_i, a_i, r_i, s_i')\}_{i=1}^N$ of $N = 10^6$ transitions drawn from a nominal environment $P^0 = \{p_{s,a}^0\}_{(s,a)\in\mathcal{S}\times\mathcal{A}}$ under a behavior policy distribution $\mu$. Because $\mathcal{T}^\pi$ trusts $p_{s,a}^0$ as exact, the critic and actor tune actions to the nominal dynamics. When deployment shifts the physical plant—changing pendulum length or mass, joint damping or stiffness in MuJoCo locomotion, thruster power or wind on a lander, or injecting sensor and actuator noise—trajectories visit transitions where the nominal value estimate was overly optimistic, and return degrades steeply. [Paper, Sections 1, 2.2, and 4.2](https://arxiv.org/abs/2506.12622).
 
@@ -61,11 +61,11 @@ $$
 The distributionally robust soft value and soft $Q$-function evaluate a policy $\pi$ against the worst transition kernel $p \in \mathcal{P}(\delta)$:
 
 $$
-V_{\mathcal{M}_\delta}^\pi(s) = \inf_{p \in \mathcal{P}(\delta)} \mathbb{E}_p\!\left[\, \sum_{t=1}^{\infty} \gamma^{t-1}\!\left(r_t + \alpha \, \mathcal{H}(\pi(s_t))\right) \;\middle|\; \pi,\, s_1 = s \,\right],
+V_{\mathcal{M}_\delta}^\pi(s) = \inf_{p \in \mathcal{P}(\delta)} \mathbb{E}_p\!\left[\, \sum_{t=1}^{\infty} \gamma^{t-1}\!\left(r_t + \alpha \, \mathcal{H}(\pi(s_t))\right) \;\mid\; \pi,\, s_1 = s \,\right],
 $$
 
 $$
-Q_{\mathcal{M}_\delta}^\pi(s,a) = \inf_{p \in \mathcal{P}(\delta)} \mathbb{E}_p\!\left[\, r_1 + \sum_{t=2}^{\infty} \gamma^{t-1}\!\left(r_t + \alpha \, \mathcal{H}(\pi(s_t))\right) \;\middle|\; \pi,\, s_1 = s,\, a_1 = a \,\right].
+Q_{\mathcal{M}_\delta}^\pi(s,a) = \inf_{p \in \mathcal{P}(\delta)} \mathbb{E}_p\!\left[\, r_1 + \sum_{t=2}^{\infty} \gamma^{t-1}\!\left(r_t + \alpha \, \mathcal{H}(\pi(s_t))\right) \;\mid\; \pi,\, s_1 = s,\, a_1 = a \,\right].
 $$
 
 By $(s,a)$-rectangularity, dynamic programming holds and $Q_{\mathcal{M}_\delta}^\pi$ is the fixed point of the **distributionally robust soft Bellman operator**:
@@ -105,10 +105,12 @@ Despite the nonlinear log-moment-generating-function form, the operator preserve
 
 - **$\gamma$-contraction (Proposition 3.4):** For any two bounded critics $Q_1, Q_2$ with soft values $V_1, V_2$, monotonicity of the log-exponential functional $F_\beta(V) = -\beta \log \mathbb{E}_{p_{s,a}^0}[\exp(-V(s')/\beta)] - \beta\delta$ ensures $\vert F_\beta(V_1) - F_\beta(V_2)\vert \le \Vert V_1 - V_2 \Vert_\infty$ for every $\beta > 0$, while at the boundary $\beta^\star = 0$ (which occurs if and only if $p_{s,a}^0$ places sufficient mass $\kappa > 0$ with $\log \kappa + \delta \ge 0$ on $\operatorname{ess\,inf}_{s'\sim p_{s,a}^0} V(s')$, by Lemma B.2) the objective reduces to the essential infimum. Across all three optimality cases ($\beta_1^\star = \beta_2^\star = 0$; one zero and one positive; both positive), $\Vert \mathcal{T}_\delta^\pi Q_1 - \mathcal{T}_\delta^\pi Q_2 \Vert_\infty \le \gamma \Vert Q_1 - Q_2 \Vert_\infty$. Iterative application $Q^{k+1} = \mathcal{T}_\delta^\pi Q^k$ therefore converges globally to $Q_{\mathcal{M}_\delta}^\pi$. [Paper, Proposition 3.4 and Appendix B.2](https://arxiv.org/abs/2506.12622).
 - **Monotonic policy improvement and convergence (Proposition 3.5 and Theorem 3.6):** Updating the policy via the KL projection
-  $$
-  \pi_{k+1} = \operatorname*{arg\,min}_{\pi \in \Pi} D_{\mathrm{KL}}\!\left(\pi(\cdot \mid s) \;\middle\Vert\; \frac{\exp\!\left(\frac{1}{\alpha} Q_{\mathcal{M}_\delta}^{\pi_k}(s,\cdot)\right)}{Z^{\pi_k}(s)}\right)
-  $$
-  guarantees $Q_{\mathcal{M}_\delta}^{\pi_{k+1}}(s,a) \ge Q_{\mathcal{M}_\delta}^{\pi_k}(s,a)$ for all $(s,a) \in \mathcal{S}\times\mathcal{A}$ under $\vert \mathcal{A}\vert < \infty$, and alternating DR soft policy evaluation with DR soft policy improvement converges to the distributionally robust optimal policy $\pi^\star$. [Paper, Section 3.1, Equations (13)–(14), and Appendices B.3–B.4](https://arxiv.org/abs/2506.12622).
+
+$$
+\pi_{k+1} = \operatorname{argmin}_{\pi \in \Pi} D_{\mathrm{KL}}\!\left(\pi(\cdot \mid s) \;\Vert\; \frac{\exp\!\left(\frac{1}{\alpha} Q_{\mathcal{M}_\delta}^{\pi_k}(s,\cdot)\right)}{Z^{\pi_k}(s)}\right)
+$$
+
+guarantees $Q_{\mathcal{M}_\delta}^{\pi_{k+1}}(s,a) \ge Q_{\mathcal{M}_\delta}^{\pi_k}(s,a)$ for all $(s,a) \in \mathcal{S}\times\mathcal{A}$ under $\vert \mathcal{A}\vert < \infty$, and alternating DR soft policy evaluation with DR soft policy improvement converges to the distributionally robust optimal policy $\pi^\star$. [Paper, Section 3.1, Equations (13)–(14), and Appendices B.3–B.4](https://arxiv.org/abs/2506.12622).
 
 ### 3.2 Decomposable functional optimization removes the per-sample inner loop
 
@@ -150,18 +152,21 @@ In offline RL, $p_{s,a}^0$ is unknown; we only observe transitions $(s_i, a_i, r
 
 Under a KL ambiguity set, the dual objective $f((s,a), g(s,a))$ applies a nonlinear $-\log(\cdot)$ *outside* the inner expectation $\mathbb{E}_{s' \sim p_{s,a}^0}[\exp(-V(s')/g(s,a))]$. Attempting to estimate both the outer dataset expectation and the inner transition expectation directly from $\mathcal{D}$ triggers the classic **double-sampling issue** (Baird, 1995):
 
-- Suppose we split the dataset into $\mathcal{D}_{\mathrm{out}}$ and $\mathcal{D}_{\mathrm{in}}$ and form the conditional sample set $\mathcal{D}_{(s,a)} = \{(\bar{s}, \bar{a}, \bar{s}') \in \mathcal{D} : (\bar{s}, \bar{a}) = (s,a)\}$ to write the plug-in estimator
-  $$
-  \widehat{J}(g) := \frac{1}{\vert\mathcal{D}_{\mathrm{out}}\vert} \sum_{(s,a,s') \in \mathcal{D}_{\mathrm{out}}} \left[ -g(s,a) \log\!\left(\frac{1}{\vert\mathcal{D}_{(s,a)}\vert} \sum_{(\bar{s},\bar{a},\bar{s}') \in \mathcal{D}_{(s,a)}} \exp\!\left(-\frac{V(\bar{s}')}{g(s,a)}\right)\right) - g(s,a)\delta \right].
-  $$
-- In continuous state and action spaces, the probability of visiting the exact same $(s,a)$ pair twice in a finite dataset is zero. Thus $\mathcal{D}_{(s,a)}$ is either empty (if split disjointly) or contains only the single recorded transition $s_i'$ ($m_i = 1$).
-- With a single sample $s_i'$ inside the logarithm, $\log$ and $\exp$ cancel identically:
-  $$
-  -g(s_i, a_i) \log\!\left(\exp\!\left(-\frac{V(s_i')}{g(s_i, a_i)}\right)\right) - g(s_i, a_i)\delta = V(s_i') - g(s_i, a_i)\delta.
-  $$
-  Because $g(s_i, a_i) \ge 0$ and $\delta > 0$, maximizing $V(s_i') - g(s_i, a_i)\delta$ drives the dual multiplier to $g^\star(s_i, a_i) = 0$ everywhere, **collapsing the robust operator back into the non-robust Bellman backup**. As Equation (25) of the paper shows, the exact per-sample operator $\mathcal{T}_\delta^\pi$ suffers from the identical cancellation if estimated with one next state per $(s,a)$. [Paper, Section 3.2 and Appendix A.1, Equations (23)–(25)](https://arxiv.org/abs/2506.12622).
+- **Disjoint conditional sample sets are empty in continuous spaces.** Splitting the dataset into $\mathcal{D}_{\mathrm{out}}$ and $\mathcal{D}_{\mathrm{in}}$ and forming the conditional sample set $\mathcal{D}_{(s,a)} = \{(\bar{s}, \bar{a}, \bar{s}') \in \mathcal{D} : (\bar{s}, \bar{a}) = (s,a)\}$ yields the plug-in estimator:
 
-### 4.2 Conditional transition VAE and the explicit $V$-network
+$$
+\widehat{J}(g) := \frac{1}{\vert\mathcal{D}_{\mathrm{out}}\vert} \sum_{(s,a,s') \in \mathcal{D}_{\mathrm{out}}} \left[ -g(s,a) \log\!\left(\frac{1}{\vert\mathcal{D}_{(s,a)}\vert} \sum_{(\bar{s},\bar{a},\bar{s}') \in \mathcal{D}_{(s,a)}} \exp\!\left(-\frac{V(\bar{s}')}{g(s,a)}\right)\right) - g(s,a)\delta \right].
+$$
+
+- **Single-sample evaluation cancels the logarithm and exponential.** In continuous state and action spaces, the probability of visiting the exact same $(s,a)$ pair twice in a finite dataset is zero, so $\mathcal{D}_{(s,a)}$ is either empty (if split disjointly) or contains only the single recorded transition $s_i'$ ($m_i = 1$). With a single sample $s_i'$ inside the logarithm, $\log$ and $\exp$ cancel identically:
+
+$$
+-g(s_i, a_i) \log\!\left(\exp\!\left(-\frac{V(s_i')}{g(s_i, a_i)}\right)\right) - g(s_i, a_i)\delta = V(s_i') - g(s_i, a_i)\delta.
+$$
+
+Because $g(s_i, a_i) \ge 0$ and $\delta > 0$, maximizing $V(s_i') - g(s_i, a_i)\delta$ drives the dual multiplier to $g^\star(s_i, a_i) = 0$ everywhere, **collapsing the robust operator back into the non-robust Bellman backup**. As Equation (25) of the paper shows, the exact per-sample operator $\mathcal{T}_\delta^\pi$ suffers from the identical cancellation if estimated with one next state per $(s,a)$. [Paper, Section 3.2 and Appendix A.1, Equations (23)–(25)](https://arxiv.org/abs/2506.12622).
+
+### 4.2 Conditional transition VAE and the explicit V-network
 
 To evaluate the inner expectation without a simulator or repeated state-action visits, DR-SAC trains a conditional Variational Autoencoder (VAE) parameterized by $\varphi$ on $(s, a, s') \in \mathcal{D}$ to approximate $p_{s,a}^0$. With latent prior $p(z) = \mathcal{N}(0, I)$, encoder $q_\varphi(z \mid s, a, s')$, and decoder reconstructing $\hat{s}'$ from $(s, a, z)$, the VAE minimizes the ELBO loss:
 
@@ -190,13 +195,13 @@ Two architectural details in Section 3.3 and Appendix C.3.3 make this empirical 
 
 All methods are trained purely offline on $N = 10^6$ transitions collected in the nominal environment (via $\epsilon$-greedy rollouts around TD3 or SAC behavior policies, with $\epsilon = 0.5$ on `Pendulum`, `Cartpole`, and `LunarLander`, and $\epsilon = 0.3$ on `Reacher` and `HalfCheetah`) and evaluated over 50 episodes across parameter, actuator, and observation shifts. [Paper, Section 4.1 and Appendix C.1, Table 3](https://arxiv.org/abs/2506.12622).
 
-| Environment | Selected $\delta$ | Perturbation Axis | Headline Empirical Result |
+| Environment | Ambiguity Radius | Perturbation Axis | Headline Empirical Result |
 | --- | ---: | --- | --- |
-| `LunarLander` | $0.25$ | Joint main & side `engine_power`; linear `wind_power` | At $20\%$ engine power shift, DR-SAC averages **$240$** while SAC, CQL, FQI, and RFQI all drop below **$180$**; at $30\%$ engine power reduction, DR-SAC achieves **$9.8\times$** the average reward of SAC. |
-| `Pendulum` | $0.50$ | Pole `length`, `mass`, `gravity`, and heavy-tailed Cauchy state noise | **$35\%$** higher average reward than SAC at $20\%$ length shift; **$>40\%$** higher at $120\%$ mass shift; top curve across $40\%$ gravity shift and Cauchy noise scales. |
-| `Cartpole` (continuous) | $0.75$ | Random actuator probability and Gaussian observation noise | All models calibrated to $500$ nominal return; DR-SAC beats RFQI across random-action rates ($<50\%$) and improves return by **$>75\%$** over SAC and DDPG at observation noise $\sigma \in \{0.2, 0.3\}$. |
-| `Reacher` (MuJoCo) | $0.20$ | Gaussian state noise (dims 4–9) and `joint_damping` ($2.0\text{–}7.0$) | Highest mean return across all observation noise and joint damping levels, with lower or comparable variance (Table 4). |
-| `HalfCheetah` (MuJoCo) | $0.20$ | `back_damping`, `front_damping`, and `front_stiff` | Under up to $50\%$ `back_damping` shift, DR-SAC holds return **above $6{,}300$** while SAC falls **below $5{,}950$**; up to **$10\%$** gain at $80\%$ `front_stiff` shift. |
+| `LunarLander` | $\delta = 0.25$ | Joint main & side `engine_power`; linear `wind_power` | At $20\%$ engine power shift, DR-SAC averages **$240$** while SAC, CQL, FQI, and RFQI all drop below **$180$**; at $30\%$ engine power reduction, DR-SAC achieves **$9.8\times$** the average reward of SAC. |
+| `Pendulum` | $\delta = 0.50$ | Pole `length`, `mass`, `gravity`, and heavy-tailed Cauchy state noise | **$35\%$** higher average reward than SAC at $20\%$ length shift; **$>40\%$** higher at $120\%$ mass shift; top curve across $40\%$ gravity shift and Cauchy noise scales. |
+| `Cartpole` (continuous) | $\delta = 0.75$ | Random actuator probability and Gaussian observation noise | All models calibrated to $500$ nominal return; DR-SAC beats RFQI across random-action rates ($<50\%$) and improves return by **$>75\%$** over SAC and DDPG at observation noise $\sigma \in \{0.2, 0.3\}$. |
+| `Reacher` (MuJoCo) | $\delta = 0.20$ | Gaussian state noise (dims 4–9) and `joint_damping` (2.0–7.0) | Highest mean return across all observation noise and joint damping levels, with lower or comparable variance (Table 4). |
+| `HalfCheetah` (MuJoCo) | $\delta = 0.20$ | `back_damping`, `front_damping`, and `front_stiff` | Under up to $50\%$ `back_damping` shift, DR-SAC holds return **above $6{,}300$** while SAC falls **below $5{,}950$**; up to **$10\%$** gain at $80\%$ `front_stiff` shift. |
 
 [Paper, Section 4.2, Figure 1, and Appendix C.2, Figures 4–6 and Table 4](https://arxiv.org/abs/2506.12622).
 
@@ -214,9 +219,9 @@ The paper's ablation tables quantify exactly where the computational time goes o
   <figcaption>Wall-clock training times and inner dual optimization steps from Tables 1, 5, and 6 of the paper.</figcaption>
 </figure>
 
-First, replacing per-$(s,a)$ scalar SciPy solves (`DR-SAC-Accurate`) with the shared functional network $\mathcal{G}_\eta$ (`DR-SAC-Functional`) on `Pendulum` cuts training time by more than **98%** without losing robustness:
+First, replacing per-$(s,a)$ scalar SciPy solves (`DR-SAC-Accurate`) with the shared functional network $\mathcal{G}_\eta$ (`DR-SAC-Functional`, both with $\delta = 0.5$) on `Pendulum` cuts training time by more than **98%** without losing robustness:
 
-| `Pendulum` Variant ($\delta = 0.5$) | Training Steps | Wall Time (min) | Relative to `SAC` | Relative to `Accurate` |
+| `Pendulum` Variant | Training Steps | Wall Time (min) | Relative to `SAC` | Relative to `Accurate` |
 | --- | ---: | ---: | ---: | ---: |
 | `SAC` (non-robust baseline) | 10,000 | **1.7** | $1.0\times$ | $0.65\%$ |
 | `DR-SAC-Functional` (Algorithm 1) | 10,000 | **4.7** | $2.8\times$ | **$1.81\%$** |
@@ -224,7 +229,7 @@ First, replacing per-$(s,a)$ scalar SciPy solves (`DR-SAC-Accurate`) with the sh
 
 Even with 25% more gradient steps, `DR-SAC-Functional` finishes in under 2% of `DR-SAC-Accurate`'s wall time, matches its return across mass perturbations up to $120\%$, and outperforms it on length perturbations below $30\%$. [Paper, Section 4.3.1, Figure 2, and Appendix C.3.1, Table 5](https://arxiv.org/abs/2506.12622).
 
-Second, across the three environments where RFQI converges, DR-SAC requires at most **$2.6\times$** the training time of non-robust SAC, whereas RFQI requires **$11.3\times\text{–}14.0\times$** the time of FQI and up to **$23.2\times$** the time of DR-SAC (saving over $80\%$ of training time in every case):
+Second, across the three environments where RFQI converges, DR-SAC requires at most **$2.6\times$** the training time of non-robust SAC, whereas RFQI requires **11.3–14.0×** the time of FQI and up to **$23.2\times$** the time of DR-SAC (saving over $80\%$ of training time in every case):
 
 | Environment | `SAC` (min) | `DR-SAC` (min) | `FQI` (min) | `RFQI` (min) | `RFQI` / `DR-SAC` |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -278,4 +283,4 @@ Both the regret bound and the KL formulation point to the two structural costs o
 1. **The bottleneck in continuous-control DR-RL is the Bellman backup, not the minimax objective.** KL strong duality (Proposition 3.3) removes the infinite-dimensional transition kernel search and replaces it with an exponentially tilted expectation under the nominal model parameterized by a single scalar temperature $\beta \ge 0$, while preserving $\gamma$-contraction and monotonic soft policy improvement (Propositions 3.4–3.5, Theorem 3.6).
 2. **Decomposable functional optimization makes the dual backup batch-friendly.** By Rockafellar–Wets interchange on $L^1(\mathcal{S}\times\mathcal{A})$ (Proposition 3.7), replacing per-$(s,a)$ scalar solves with a shared dual network $\mathcal{G}_\eta$ cuts training time on `Pendulum` from 260 minutes (`DR-SAC-Accurate`) to 4.7 minutes (`DR-SAC-Functional`)—a $>50\times$ speedup with no loss of robustness.
 3. **Under KL duality, single-sample offline ERM silently degenerates to non-robust RL.** Because $-\beta \log \mathbb{E}[\exp(-V/\beta)]$ is nonlinear in the transition distribution, a single offline next-state draw cancels $\log$ and $\exp$, forcing the optimal dual multiplier to zero. Drawing $m$ synthetic next states from a conditional transition VAE—and scoring them with an explicit SAC-v1 target value network $V_{\bar{\psi}}$—resolves double sampling without a simulator and runs at least $4.5\times$ faster than diffusion-based transition models.
-4. **Smooth KL duals converge in 5 inner gradient steps where TV duals need 1,000.** Across continuous-control benchmarks, DR-SAC trains in $2.0\times\text{–}2.5\times$ the wall time of standard SAC and $5\times\text{–}23\times$ faster than RFQI, while achieving up to $9.8\times$ higher return than SAC under severe environment perturbations.
+4. **Smooth KL duals converge in 5 inner gradient steps where TV duals need 1,000.** Across continuous-control benchmarks, DR-SAC trains in **2.0–2.5×** the wall time of standard SAC and **5–23×** faster than RFQI, while achieving up to $9.8\times$ higher return than SAC under severe environment perturbations.

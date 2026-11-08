@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560" role="img" aria-labelledby="title desc">
   <title id="title">From intractable worst-case transition kernels to DR-SAC's offline actor-critic backup</title>
-  <desc id="desc">Three-stage reduction in DR-SAC: (1) KL strong duality collapses the infinite-dimensional inner infimum over transition kernels to a 1D scalar search over beta under the nominal distribution; (2) Rockafellar-Wets decomposable interchange replaces per-(s,a) scalar solves with a shared dual network g_eta updated in 5 gradient steps; (3) a conditional transition VAE draws m next-state samples per (s,a) to prevent the m=1 log-exp cancellation that collapses naive offline ERM to non-robust SAC.</desc>
+  <desc id="desc">Three-stage reduction in DR-SAC: (1) KL strong duality collapses the infinite-dimensional inner infimum over transition kernels to a 1D scalar search over beta under the nominal distribution; (2) Rockafellar-Wets decomposable interchange replaces per-(s,a) scalar solves with a shared dual network G_eta updated in 5 gradient steps; (3) a conditional transition VAE draws m next-state samples per (s,a) to prevent the m=1 log-exp cancellation that collapses naive offline ERM to non-robust SAC.</desc>
   <style>
     .bg { fill: #fffdf7; }
     .header-bar { fill: #e8e1d1; stroke: #222a24; stroke-width: 2; }
@@ -14,7 +14,9 @@
     .mono { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11.2px; fill: #1c211d; }
     .mono-muted { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.8px; fill: #495148; }
     .mono-bold { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11.2px; font-weight: 600; fill: #1c211d; }
-    .math-bold { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 700; fill: #1c211d; }
+    .math-eq { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 600; fill: #1c211d; }
+    .it { font-style: italic; }
+    .sub { font-size: 10.5px; }
     .arrow-line { stroke: #1f6b4f; stroke-width: 2.2; fill: none; }
     .arrow-head { fill: #1f6b4f; }
     .arrow-label { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10px; font-weight: 600; fill: #1f6b4f; text-anchor: middle; }
@@ -39,9 +41,9 @@
   <rect class="box-obstruction" x="26" y="96" width="364" height="96" />
   <rect class="badge-red" x="26" y="96" width="176" height="20" />
   <text x="34" y="110" class="badge-text">PRIMAL BACKUP (EQ. 10)</text>
-  <text x="40" y="139" class="math-bold">inf_{p ∈ P_{s,a}(δ)}  𝔼_{s' ∼ p(·|s,a)} [ V(s') ]</text>
-  <text x="40" y="161" class="mono-muted">Search space: all measures p_{s,a} ∈ Δ(S)</text>
-  <text x="40" y="178" class="mono-muted">with D_KL(p_{s,a} ‖ p⁰_{s,a}) ≤ δ  (infinite-dimensional)</text>
+  <text x="40" y="139" class="math-eq">inf<tspan dy="4" class="sub"><tspan class="it">p</tspan> &#8712; <tspan class="it">P</tspan><tspan dy="2" font-size="8.5">s,a</tspan><tspan dy="-2">(&#948;)</tspan></tspan><tspan dy="-4">  E</tspan><tspan dy="4" class="sub"><tspan class="it">s'</tspan> &#8764; <tspan class="it">p</tspan>(&#183; | <tspan class="it">s,a</tspan>)</tspan><tspan dy="-4"> [ <tspan class="it">V</tspan>(<tspan class="it">s'</tspan>) ]</tspan></text>
+  <text x="40" y="162" class="mono-muted">Search space: all transition kernels p<tspan dy="3" font-size="8.5">s,a</tspan><tspan dy="-3"> &#8712; &#916;(S)</tspan></text>
+  <text x="40" y="179" class="mono-muted">satisfying D<tspan dy="3" font-size="8.5">KL</tspan><tspan dy="-3">(p</tspan><tspan dy="3" font-size="8.5">s,a</tspan><tspan dy="-3"> &#8214; p</tspan><tspan dy="-4" font-size="8.5">0</tspan><tspan dy="7" font-size="8.5">s,a</tspan><tspan dy="-3">) &#8804; &#948;  (infinite-dim)</tspan></text>
 
   <!-- Arrow 1 -->
   <text x="448" y="131" class="arrow-label">KL DUALITY</text>
@@ -53,9 +55,9 @@
   <rect class="box-solution" x="506" y="96" width="388" height="96" />
   <rect class="badge-green" x="506" y="96" width="184" height="20" />
   <text x="514" y="110" class="badge-text">DUAL OPERATOR (EQ. 11)</text>
-  <text x="520" y="139" class="math-bold">sup_{β ≥ 0} { −β log 𝔼_{p⁰_{s,a}}[ exp(−V(s') / β) ] − βδ }</text>
-  <text x="520" y="161" class="mono">1D concave search over scalar temperature β ≥ 0</text>
-  <text x="520" y="178" class="mono-muted">Expectation uses ONLY nominal kernel p⁰_{s,a}; γ-contraction</text>
+  <text x="520" y="139" class="math-eq">sup<tspan dy="4" class="sub">&#946; &#8805; 0</tspan><tspan dy="-4"> [ &#8722;&#946; log E</tspan><tspan dy="4" class="sub"><tspan class="it">p</tspan><tspan dy="-4" font-size="8">0</tspan><tspan dy="6" font-size="8.5">s,a</tspan></tspan><tspan dy="-6"> ( exp(&#8722;<tspan class="it">V</tspan>(<tspan class="it">s'</tspan>) / &#946;) ) &#8722; &#946;&#948; ]</tspan></text>
+  <text x="520" y="162" class="mono">1D concave search over scalar temperature &#946; &#8805; 0</text>
+  <text x="520" y="179" class="mono-muted">Expectation uses ONLY nominal kernel p<tspan dy="-4" font-size="8.5">0</tspan><tspan dy="7" font-size="8.5">s,a</tspan><tspan dy="-3">; &#947;-contraction</tspan></text>
 
   <line class="divider" x1="26" y1="208" x2="894" y2="208" />
 
@@ -67,25 +69,25 @@
   <rect class="box-obstruction" x="26" y="264" width="364" height="102" />
   <rect class="badge-red" x="26" y="264" width="212" height="20" />
   <text x="34" y="278" class="badge-text">PER-(S,A) INNER SOLVE (TABLE 5)</text>
-  <text x="40" y="306" class="math-bold">𝔼_{(s,a) ∼ D} [ sup_{β ≥ 0} f((s,a), β) ]</text>
+  <text x="40" y="306" class="math-eq">E<tspan dy="4" class="sub">(<tspan class="it">s,a</tspan>) &#8764; <tspan class="it">D</tspan></tspan><tspan dy="-4"> [ sup</tspan><tspan dy="4" class="sub">&#946; &#8805; 0</tspan><tspan dy="-4"> <tspan class="it">f</tspan>((<tspan class="it">s,a</tspan>), &#946;) ]</tspan></text>
   <text x="40" y="328" class="mono-muted">Separate 1D SciPy optimization at every (s,a) in batch</text>
-  <text x="40" y="345" class="mono-bold">Pendulum (8k steps): 260 min  (&gt;150× SAC's 1.7 min)</text>
+  <text x="40" y="345" class="mono-bold">Pendulum (8k steps): 260 min  (&gt;150&#215; SAC's 1.7 min)</text>
   <text x="40" y="360" class="mono-muted">RFQI functional inner loop: 1,000 GD steps / update</text>
 
   <!-- Arrow 2 -->
-  <text x="448" y="302" class="arrow-label">L¹ INTERCHANGE</text>
-  <text x="448" y="315" class="mono-muted" text-anchor="middle" style="font-size:9.5px;">g(s,a) ∈ [0, V_max / δ]</text>
+  <text x="448" y="302" class="arrow-label">L&#185; INTERCHANGE</text>
+  <text x="448" y="315" class="mono-muted" text-anchor="middle" style="font-size:9.5px;">g(s,a) &#8712; [0, V<tspan dy="2" font-size="7.5">max</tspan><tspan dy="-2"> / &#948;]</tspan></text>
   <line class="arrow-line" x1="398" y1="323" x2="490" y2="323" />
   <polygon class="arrow-head" points="498,323 488,318 488,328" />
 
   <!-- Right box 2 -->
   <rect class="box-solution" x="506" y="264" width="388" height="102" />
   <rect class="badge-green" x="506" y="264" width="224" height="20" />
-  <text x="514" y="278" class="badge-text">FUNCTIONAL DUAL (EQ. 17–18, 22)</text>
-  <text x="520" y="306" class="math-bold">sup_{g ∈ G_η}  𝔼_{(s,a) ∼ D} [ f((s,a), g(s,a)) ]</text>
-  <text x="520" y="328" class="mono">Shared network g_η(s,a) trained jointly across batch</text>
+  <text x="514" y="278" class="badge-text">FUNCTIONAL DUAL (EQ. 17&#8211;18, 22)</text>
+  <text x="520" y="306" class="math-eq">sup<tspan dy="4" class="sub"><tspan class="it">g</tspan> &#8712; <tspan class="it">G</tspan><tspan dy="2" font-size="8.5">&#951;</tspan></tspan><tspan dy="-6">  E</tspan><tspan dy="4" class="sub">(<tspan class="it">s,a</tspan>) &#8764; <tspan class="it">D</tspan></tspan><tspan dy="-4"> [ <tspan class="it">f</tspan>((<tspan class="it">s,a</tspan>), <tspan class="it">g</tspan>(<tspan class="it">s,a</tspan>)) ]</tspan></text>
+  <text x="520" y="328" class="mono">Shared network g<tspan dy="3" font-size="8.5">&#951;</tspan><tspan dy="-3">(s,a) trained jointly across batch</tspan></text>
   <text x="520" y="345" class="mono-bold">Pendulum (10k steps): 4.7 min (&lt;2% of Accurate; 5 GD steps)</text>
-  <text x="520" y="360" class="mono-muted">4.97×–23.25× faster than RFQI across benchmarks (Table 1)</text>
+  <text x="520" y="360" class="mono-muted">4.97&#215;&#8211;23.25&#215; faster than RFQI across benchmarks (Table 1)</text>
 
   <line class="divider" x1="26" y1="382" x2="894" y2="382" />
 
@@ -97,9 +99,9 @@
   <rect class="box-obstruction" x="26" y="438" width="364" height="102" />
   <rect class="badge-red" x="26" y="438" width="218" height="20" />
   <text x="34" y="452" class="badge-text">SINGLE-SAMPLE ERM TRAP (EQ. 24)</text>
-  <text x="40" y="480" class="math-bold">−g log( exp(−V(s'_i) / g) ) − gδ  =  V(s'_i) − gδ</text>
-  <text x="40" y="502" class="mono-muted">Continuous S × A: each (s_i, a_i) visited once (m = 1)</text>
-  <text x="40" y="519" class="mono-bold">log and exp cancel  ⟹  optimal g*(s,a) = 0 everywhere</text>
+  <text x="40" y="480" class="math-eq">&#8722;<tspan class="it">g</tspan> log( exp(&#8722;<tspan class="it">V</tspan>(<tspan class="it">s'</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4">) / <tspan class="it">g</tspan>) ) &#8722; <tspan class="it">g</tspan>&#948;  =  <tspan class="it">V</tspan>(<tspan class="it">s'</tspan></tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4">) &#8722; <tspan class="it">g</tspan>&#948;</tspan></text>
+  <text x="40" y="502" class="mono-muted">Continuous S &#215; A: each (s<tspan dy="3" font-size="8.5">i</tspan><tspan dy="-3">, a</tspan><tspan dy="3" font-size="8.5">i</tspan><tspan dy="-3">) visited once (m = 1)</tspan></text>
+  <text x="40" y="519" class="mono-bold">log and exp cancel  &#8594;  optimal g*(s,a) = 0 everywhere</text>
   <text x="40" y="534" class="mono-muted">Robust backup degenerates into non-robust nominal SAC</text>
 
   <!-- Arrow 3 -->
@@ -111,9 +113,9 @@
   <!-- Right box 3 -->
   <rect class="box-solution" x="506" y="438" width="388" height="102" />
   <rect class="badge-green" x="506" y="438" width="236" height="20" />
-  <text x="514" y="452" class="badge-text">EMPIRICAL DR BACKUP (EQ. 19–20)</text>
-  <text x="520" y="480" class="math-bold">−g log( (1/m) ∑_{i=1}^m exp(−V_ψ̄(s̃'_i) / g) ) − gδ</text>
-  <text x="520" y="502" class="mono">VAE draws {s̃'_i}_{i=1}^m ∼ p̃⁰_{s,a} around each (s,a)</text>
-  <text x="520" y="519" class="mono-bold">Explicit V_ψ̄(s̃'_i) scores m next states directly</text>
-  <text x="520" y="534" class="mono-muted">4.5×+ faster than diffusion; stable on TD3 &amp; SAC offline data</text>
+  <text x="514" y="452" class="badge-text">EMPIRICAL DR BACKUP (EQ. 19&#8211;20)</text>
+  <text x="520" y="480" class="math-eq">&#8722;<tspan class="it">g</tspan> log( (1/<tspan class="it">m</tspan>) &#8721;<tspan dy="4" class="sub"><tspan class="it">i</tspan>=1..<tspan class="it">m</tspan></tspan><tspan dy="-4"> exp(&#8722;<tspan class="it">V</tspan></tspan><tspan dy="4" class="sub">target</tspan><tspan dy="-4">(<tspan class="it">s'</tspan></tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4">) / <tspan class="it">g</tspan>) ) &#8722; <tspan class="it">g</tspan>&#948;</tspan></text>
+  <text x="520" y="502" class="mono">VAE draws m synthetic next states s'<tspan dy="3" font-size="8.5">1..m</tspan><tspan dy="-3"> around each (s,a)</tspan></text>
+  <text x="520" y="519" class="mono-bold">Explicit target V-network scores m next states directly</text>
+  <text x="520" y="534" class="mono-muted">4.5&#215;+ faster than diffusion; stable on TD3 &amp; SAC offline data</text>
 </svg>
