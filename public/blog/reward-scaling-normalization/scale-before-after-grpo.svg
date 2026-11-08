@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" width="920" height="560" role="img" aria-labelledby="title desc">
+  <title id="title">Reward scaling before versus after within-group standardization in GRPO</title>
+  <desc id="desc">Comparison of three reward-shaping paths under GRPO within-group centering and standardization (Matrenok et al., 2026, Section 5.2 and Appendix G): (1) applying a positive per-prompt multiplier a_k(x) before standardization cancels in numerator and denominator; (2) multiplying after standardization preserves a_k(x) through positive homogeneity of the clipped surrogate; (3) for continuous rewards with k greater than 1, the nonlinear convex win-rate transform S_x^q warps relative spacing within the group and is not eliminated by affine standardization.</desc>
+  <style>
+    .bg { fill: #fffdf7; }
+    .header-bar { fill: #e8e1d1; stroke: #222a24; stroke-width: 2; }
+    .stage-num { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11px; font-weight: 600; fill: #1f6b4f; letter-spacing: 0.08em; }
+    .stage-title { font-family: 'Newsreader', Georgia, serif; font-size: 16px; font-weight: 700; fill: #1c211d; }
+    .box-neutral { fill: #f7f3e8; stroke: #222a24; stroke-width: 1.75; }
+    .box-obstruction { fill: #fbf4f1; stroke: #bd5b4a; stroke-width: 1.75; }
+    .box-solution { fill: #eef5f0; stroke: #1f6b4f; stroke-width: 2; }
+    .badge-dark { fill: #222a24; }
+    .badge-red { fill: #bd5b4a; }
+    .badge-green { fill: #1f6b4f; }
+    .badge-text { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10px; font-weight: 600; fill: #fffdf7; letter-spacing: 0.06em; }
+    .mono { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11.2px; fill: #1c211d; }
+    .mono-muted { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.8px; fill: #495148; }
+    .mono-bold { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11.2px; font-weight: 600; fill: #1c211d; }
+    .mono-red { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11.2px; font-weight: 600; fill: #9e3f30; }
+    .mono-green { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11.2px; font-weight: 600; fill: #1f6b4f; }
+    .math-eq { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 15px; font-weight: 600; fill: #1c211d; }
+    .it { font-style: italic; }
+    .sub { font-size: 10.5px; }
+    .arrow-line-red { stroke: #bd5b4a; stroke-width: 2.2; fill: none; }
+    .arrow-head-red { fill: #bd5b4a; }
+    .arrow-label-red { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10px; font-weight: 600; fill: #bd5b4a; text-anchor: middle; }
+    .arrow-line { stroke: #1f6b4f; stroke-width: 2.2; fill: none; }
+    .arrow-head { fill: #1f6b4f; }
+    .arrow-label { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10px; font-weight: 600; fill: #1f6b4f; text-anchor: middle; }
+    .divider { stroke: #d8d0be; stroke-width: 1; stroke-dasharray: 4 4; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="920" height="560" />
+
+  <!-- Top window bar -->
+  <rect class="header-bar" x="1" y="1" width="918" height="36" />
+  <rect x="14" y="14" width="9" height="9" fill="#bd5b4a" stroke="#222a24" stroke-width="1" />
+  <rect x="29" y="14" width="9" height="9" fill="#f0c35a" stroke="#222a24" stroke-width="1" />
+  <rect x="44" y="14" width="9" height="9" fill="#1f6b4f" stroke="#222a24" stroke-width="1" />
+  <text x="66" y="23" class="mono-bold">GRPO GROUP NORMALIZATION / SCALE-BEFORE VS. SCALE-AFTER STANDARDIZATION</text>
+  <text x="904" y="23" class="mono-muted" text-anchor="end">MATRENOK ET AL. (2026)</text>
+
+  <!-- ==================== STAGE 1 ==================== -->
+  <text x="26" y="64" class="stage-num">01 / SCALE BEFORE STANDARDIZATION: AFFINE CANCELLATION (APPENDIX G, EQ. 138&#8211;139)</text>
+  <text x="26" y="84" class="stage-title">A positive per-prompt multiplier applied to rewards vanishes inside within-group z-scoring</text>
+
+  <!-- Left box 1 -->
+  <rect class="box-neutral" x="26" y="96" width="356" height="98" />
+  <rect class="badge-dark" x="26" y="96" width="214" height="20" />
+  <text x="34" y="110" class="badge-text">PRE-SCALED GROUP REWARD (EQ. 7)</text>
+  <text x="40" y="139" class="math-eq"><tspan class="it">R&#771;</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> = </tspan><tspan class="it">a</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">x</tspan><tspan>) </tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> + </tspan><tspan class="it">b</tspan><tspan>(</tspan><tspan class="it">x</tspan><tspan>),   </tspan><tspan class="it">a</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">x</tspan><tspan>) = </tspan><tspan class="it">k</tspan><tspan>(1 &#8722; </tspan><tspan class="it">p</tspan><tspan>*)</tspan><tspan dy="-5" class="sub"><tspan class="it">k</tspan>&#8722;1</tspan><tspan dy="5"> &gt; 0</tspan></text>
+  <text x="40" y="162" class="mono-muted">Group mean shifts &amp; scales:  mean(R&#771;) = a<tspan dy="3" font-size="8.5">k</tspan><tspan dy="-3">(x)&#183;mean(R) + b(x)</tspan></text>
+  <text x="40" y="179" class="mono-muted">Group std scales homogeneously:  std(R&#771;) = a<tspan dy="3" font-size="8.5">k</tspan><tspan dy="-3">(x)&#183;s</tspan><tspan dy="3" font-size="8.5">R</tspan><tspan dy="-3">  (for s</tspan><tspan dy="3" font-size="8.5">R</tspan><tspan dy="-3"> &gt; 0)</tspan></text>
+
+  <!-- Arrow 1 -->
+  <text x="444" y="131" class="arrow-label-red">STANDARDIZE</text>
+  <text x="444" y="144" class="mono-muted" text-anchor="middle" style="font-size:9.5px;">a<tspan dy="2" font-size="7.5">k</tspan><tspan dy="-2">(x) / a</tspan><tspan dy="2" font-size="7.5">k</tspan><tspan dy="-2">(x) = 1</tspan></text>
+  <line class="arrow-line-red" x1="390" y1="152" x2="490" y2="152" />
+  <polygon class="arrow-head-red" points="498,152 488,147 488,157" />
+
+  <!-- Right box 1 -->
+  <rect class="box-obstruction" x="506" y="96" width="388" height="98" />
+  <rect class="badge-red" x="506" y="96" width="238" height="20" />
+  <text x="514" y="110" class="badge-text">EXACT CANCELLATION (EQ. 139)</text>
+  <text x="520" y="139" class="math-eq"><tspan>(</tspan><tspan class="it">R&#771;</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; mean(</tspan><tspan class="it">R&#771;</tspan><tspan>)) / std(</tspan><tspan class="it">R&#771;</tspan><tspan>) = </tspan><tspan class="it">a</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">x</tspan><tspan>)(</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; </tspan><tspan class="it">R&#772;</tspan><tspan>) / [</tspan><tspan class="it">a</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">x</tspan><tspan>)</tspan><tspan class="it">s</tspan><tspan dy="4" class="sub"><tspan class="it">R</tspan></tspan><tspan dy="-4">] = (</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; </tspan><tspan class="it">R&#772;</tspan><tspan>) / </tspan><tspan class="it">s</tspan><tspan dy="4" class="sub"><tspan class="it">R</tspan></tspan></text>
+  <text x="520" y="162" class="mono-red">Prompt multiplier a<tspan dy="3" font-size="8.5">k</tspan><tspan dy="-3">(x) disappears from the advantage</tspan></text>
+  <text x="520" y="179" class="mono-muted">Hard prompt (a<tspan dy="3" font-size="8.5">k</tspan><tspan dy="-3"> &#8776; k) and easy prompt (a</tspan><tspan dy="3" font-size="8.5">k</tspan><tspan dy="-3"> &#8594; 0) get identical weight</tspan></text>
+
+  <line class="divider" x1="26" y1="210" x2="894" y2="210" />
+
+  <!-- ==================== STAGE 2 ==================== -->
+  <text x="26" y="234" class="stage-num">02 / SCALE AFTER STANDARDIZATION: KAPPO BINARY FIX (APPENDIX G, EQ. 140)</text>
+  <text x="26" y="254" class="stage-title">Multiplying the standardized advantage outside the quotient restores cross-prompt pressure</text>
+
+  <!-- Left box 2 -->
+  <rect class="box-neutral" x="26" y="266" width="356" height="100" />
+  <rect class="badge-dark" x="26" y="266" width="226" height="20" />
+  <text x="34" y="280" class="badge-text">STEP 1: WITHIN-GROUP Z-SCORE</text>
+  <text x="40" y="308" class="math-eq"><tspan class="it">A&#770;</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> = (</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; </tspan><tspan class="it">R&#772;</tspan><tspan>) / </tspan><tspan class="it">s</tspan><tspan dy="4" class="sub"><tspan class="it">R</tspan></tspan><tspan dy="-4">,   </tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8712; {0, 1}</tspan></text>
+  <text x="40" y="330" class="mono-muted">Normalizes within-prompt variance across n completions</text>
+  <text x="40" y="347" class="mono-muted">Alternatives: drop s<tspan dy="3" font-size="8.5">R</tspan><tspan dy="-3"> division, or use KL weight &#946;</tspan><tspan dy="3" font-size="8.5">eff</tspan><tspan dy="-3">(x) (Cor. 4.3)</tspan></text>
+
+  <!-- Arrow 2 -->
+  <text x="444" y="302" class="arrow-label">POST-MULTIPLY</text>
+  <text x="444" y="315" class="mono-muted" text-anchor="middle" style="font-size:9.5px;">&#215; a<tspan dy="2" font-size="7.5">k</tspan><tspan dy="-2">(x) outside</tspan></text>
+  <line class="arrow-line" x1="390" y1="323" x2="490" y2="323" />
+  <polygon class="arrow-head" points="498,323 488,318 488,328" />
+
+  <!-- Right box 2 -->
+  <rect class="box-solution" x="506" y="266" width="388" height="100" />
+  <rect class="badge-green" x="506" y="266" width="250" height="20" />
+  <text x="514" y="280" class="badge-text">POST-STANDARDIZED ADVANTAGE (EQ. 140)</text>
+  <text x="520" y="308" class="math-eq"><tspan class="it">A&#770;</tspan><tspan dy="-5" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="9" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> = </tspan><tspan class="it">a</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">x</tspan><tspan>) &#183; (</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; </tspan><tspan class="it">R&#772;</tspan><tspan>) / </tspan><tspan class="it">s</tspan><tspan dy="4" class="sub"><tspan class="it">R</tspan></tspan></text>
+  <text x="520" y="330" class="mono-green">Clipped surrogate min(&#961; A&#770;<tspan dy="-4" font-size="8.5">k</tspan><tspan dy="7" font-size="8.5">i</tspan><tspan dy="-3">, clip(&#961;) A&#770;</tspan><tspan dy="-4" font-size="8.5">k</tspan><tspan dy="7" font-size="8.5">i</tspan><tspan dy="-3">) is positively homogeneous</tspan></text>
+  <text x="520" y="347" class="mono">Scales prompt x's loss and gradient contribution by a<tspan dy="3" font-size="8.5">k</tspan><tspan dy="-3">(x)</tspan></text>
+
+  <line class="divider" x1="26" y1="382" x2="894" y2="382" />
+
+  <!-- ==================== STAGE 3 ==================== -->
+  <text x="26" y="406" class="stage-num">03 / CONTINUOUS NONLINEAR CONTRAST: WIN-RATE MAX@K (SECTION 5.2, EQ. 12, 15, 141&#8211;144)</text>
+  <text x="26" y="426" class="stage-title">A nonlinear convex transform changes relative spacing within the group and survives standardization</text>
+
+  <!-- Left box 3 -->
+  <rect class="box-neutral" x="26" y="438" width="356" height="102" />
+  <rect class="badge-dark" x="26" y="438" width="242" height="20" />
+  <text x="34" y="452" class="badge-text">NONLINEAR WIN-RATE MAP (EQ. 12, 141)</text>
+  <text x="40" y="480" class="math-eq"><tspan class="it">S</tspan><tspan dy="-5" class="sub">q</tspan><tspan dy="9" class="sub"><tspan class="it">x</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">r</tspan><tspan>) = </tspan><tspan class="it">T</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan>,&#946;</tspan><tspan dy="-4">(</tspan><tspan class="it">F</tspan><tspan dy="4" class="sub">ref</tspan><tspan dy="-4">(</tspan><tspan class="it">r</tspan><tspan> | </tspan><tspan class="it">x</tspan><tspan>)) = &#946; log( </tspan><tspan class="it">C</tspan><tspan> + </tspan><tspan class="it">G</tspan><tspan>(</tspan><tspan class="it">q</tspan><tspan>)</tspan><tspan dy="-5" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="5"> / &#946; )</tspan></text>
+  <text x="40" y="502" class="mono-muted">For k &gt; 1: T'<tspan dy="3" font-size="8.5">k,&#946;</tspan><tspan dy="-3">(q) = k G(q)</tspan><tspan dy="-4" font-size="8.5">k&#8722;1</tspan><tspan dy="4"> is strictly convex &amp; nonlinear</tspan></text>
+  <text x="40" y="519" class="mono-muted">Stretches upper-quantile gaps relative to lower-quantile gaps</text>
+
+  <!-- Arrow 3 -->
+  <text x="444" y="476" class="arrow-label">NON-AFFINE</text>
+  <text x="444" y="489" class="mono-muted" text-anchor="middle" style="font-size:9.5px;">warps spacing</text>
+  <line class="arrow-line" x1="390" y1="497" x2="490" y2="497" />
+  <polygon class="arrow-head" points="498,497 488,492 488,502" />
+
+  <!-- Right box 3 -->
+  <rect class="box-solution" x="506" y="438" width="388" height="102" />
+  <rect class="badge-green" x="506" y="438" width="246" height="20" />
+  <text x="514" y="452" class="badge-text">CONTINUOUS @K-GRPO (EQ. 15, 143&#8211;144)</text>
+  <text x="520" y="480" class="math-eq"><tspan class="it">A&#770;</tspan><tspan dy="-5" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="9" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> = ( </tspan><tspan class="it">S</tspan><tspan dy="-5" class="sub">q</tspan><tspan dy="9" class="sub"><tspan class="it">x</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4">) &#8722; mean(</tspan><tspan class="it">S</tspan><tspan dy="-5" class="sub">q</tspan><tspan dy="9" class="sub"><tspan class="it">x</tspan></tspan><tspan dy="-4">) ) / std( </tspan><tspan class="it">S</tspan><tspan dy="-5" class="sub">q</tspan><tspan dy="9" class="sub"><tspan class="it">x</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">j</tspan></tspan><tspan dy="-4">) )</tspan></text>
+  <text x="520" y="502" class="mono-green">At &#960; &#8776; &#960;<tspan dy="3" font-size="8.5">ref</tspan><tspan dy="-3">: Q</tspan><tspan dy="3" font-size="8.5">x</tspan><tspan dy="-3">(Y) &#8764; Unif[0,1] &#8594; common (&#956;</tspan><tspan dy="3" font-size="8.5">k,&#946;</tspan><tspan dy="-3">, &#963;</tspan><tspan dy="3" font-size="8.5">k,&#946;</tspan><tspan dy="-3">) across prompts</tspan></text>
+  <text x="520" y="519" class="mono-muted">Later in training: GRPO std reweights prompts without canceling S<tspan dy="-4" font-size="8.5">q</tspan><tspan dy="7" font-size="8.5">x</tspan></text>
+</svg>
