@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" width="920" height="430" role="img" aria-labelledby="title desc">
+  <title id="title">Two pipelines where the post-training optimization operator rewrites the specified reward signal</title>
+  <desc id="desc">Side-by-side comparison of two post-training pipelines where an intermediate operator alters the reward signal before the parameter update: (A) in KAPPO on GRPO (Matrenok et al., 2026), within-group standardization divides out any positive per-prompt multiplier a_k(x) placed on binary rewards, requiring post-standardization scaling; (B) in group-aware RLHF (Cui, Zhang, and Zhou, 2026), pooling or summing group objectives lets early anti-aligned gradients collapse the minority group even at Pearson r = 0.65, requiring gradient-space coordination via PCGrad or MGDA.</desc>
+  <style>
+    .bg { fill: #fffdf7; }
+    .header-bar { fill: #e8e1d1; stroke: #222a24; stroke-width: 2; }
+    .stage-num { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11px; font-weight: 600; fill: #1f6b4f; letter-spacing: 0.08em; }
+    .stage-title { font-family: 'Newsreader', Georgia, serif; font-size: 16px; font-weight: 700; fill: #1c211d; }
+    .box-neutral { fill: #f7f3e8; stroke: #222a24; stroke-width: 1.75; }
+    .box-obstruction { fill: #fbf4f1; stroke: #bd5b4a; stroke-width: 1.75; }
+    .box-solution { fill: #eef5f0; stroke: #1f6b4f; stroke-width: 2; }
+    .badge-dark { fill: #222a24; }
+    .badge-red { fill: #bd5b4a; }
+    .badge-green { fill: #1f6b4f; }
+    .badge-text { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 9.5px; font-weight: 600; fill: #fffdf7; letter-spacing: 0.06em; }
+    .mono { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.6px; fill: #1c211d; }
+    .mono-muted { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.2px; fill: #495148; }
+    .mono-bold { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.8px; font-weight: 600; fill: #1c211d; }
+    .mono-red { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.6px; font-weight: 600; fill: #9e3f30; }
+    .mono-green { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.6px; font-weight: 600; fill: #1f6b4f; }
+    .math-eq { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 14px; font-weight: 600; fill: #1c211d; }
+    .it { font-style: italic; }
+    .sub { font-size: 10px; }
+    .arrow-line-red { stroke: #bd5b4a; stroke-width: 2; fill: none; }
+    .arrow-head-red { fill: #bd5b4a; }
+    .arrow-line { stroke: #1f6b4f; stroke-width: 2; fill: none; }
+    .arrow-head { fill: #1f6b4f; }
+    .divider { stroke: #d8d0be; stroke-width: 1; stroke-dasharray: 4 4; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="920" height="430" />
+
+  <!-- Top window bar -->
+  <rect class="header-bar" x="1" y="1" width="918" height="36" />
+  <rect x="14" y="14" width="9" height="9" fill="#bd5b4a" stroke="#222a24" stroke-width="1" />
+  <rect x="29" y="14" width="9" height="9" fill="#f0c35a" stroke="#222a24" stroke-width="1" />
+  <rect x="44" y="14" width="9" height="9" fill="#1f6b4f" stroke="#222a24" stroke-width="1" />
+  <text x="66" y="23" class="mono-bold">WHERE THE SIGNAL GETS REWRITTEN / ADVANTAGE NORMALIZATION VS. GRADIENT AGGREGATION</text>
+  <text x="904" y="23" class="mono-muted" text-anchor="end">TWO POST-TRAINING PIPELINES</text>
+
+  <!-- ==================== PIPELINE A ==================== -->
+  <text x="26" y="64" class="stage-num">PIPELINE A / CROSS-PROMPT PRESSURE IN GRPO (MATRENOK ET AL., 2026, APPENDIX G)</text>
+  <text x="26" y="84" class="stage-title">Within-group z-scoring is scale-invariant; move the prompt multiplier after standardization</text>
+
+  <!-- Col 1 A -->
+  <rect class="box-neutral" x="26" y="96" width="268" height="112" />
+  <rect class="badge-dark" x="26" y="96" width="186" height="20" />
+  <text x="34" y="110" class="badge-text">1. SPECIFIED REWARD TARGET</text>
+  <text x="38" y="138" class="math-eq"><tspan class="it">R&#771;</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">y,x</tspan><tspan>) = </tspan><tspan class="it">a</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">x</tspan><tspan>)</tspan><tspan class="it">R</tspan><tspan>(</tspan><tspan class="it">y,x</tspan><tspan>)</tspan></text>
+  <text x="38" y="160" class="mono">a<tspan dy="3" font-size="8">k</tspan><tspan dy="-3">(x) = k(1 &#8722; p*(x))</tspan><tspan dy="-4" font-size="8">k&#8722;1</tspan><tspan dy="4"> &gt; 0</tspan></text>
+  <text x="38" y="177" class="mono-muted">Exact pass@k optimum under @1</text>
+  <text x="38" y="193" class="mono-muted">KL objective (Corollary 4.4, Eq. 7)</text>
+
+  <!-- Arrow A1 -->
+  <line class="arrow-line-red" x1="298" y1="152" x2="318" y2="152" />
+  <polygon class="arrow-head-red" points="324,152 315,147 315,157" />
+
+  <!-- Col 2 A -->
+  <rect class="box-obstruction" x="326" y="96" width="268" height="112" />
+  <rect class="badge-red" x="326" y="96" width="212" height="20" />
+  <text x="334" y="110" class="badge-text">2. OPERATOR REWRITES SIGNAL</text>
+  <text x="338" y="138" class="math-eq"><tspan>(</tspan><tspan class="it">R&#771;</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; </tspan><tspan class="it">R&#771;&#772;</tspan><tspan>) / </tspan><tspan class="it">s</tspan><tspan dy="4" class="sub"><tspan class="it">R&#771;</tspan></tspan><tspan dy="-4"> = (</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; </tspan><tspan class="it">R&#772;</tspan><tspan>) / </tspan><tspan class="it">s</tspan><tspan dy="4" class="sub"><tspan class="it">R</tspan></tspan></text>
+  <text x="338" y="160" class="mono-red">Group std divides by a<tspan dy="3" font-size="8">k</tspan><tspan dy="-3">(x)s</tspan><tspan dy="3" font-size="8">R</tspan></text>
+  <text x="338" y="177" class="mono-muted">Algebraic 0-DOF invariance:</text>
+  <text x="338" y="193" class="mono-muted">a<tspan dy="3" font-size="8">k</tspan><tspan dy="-3">(x) cancels before policy step</tspan></text>
+
+  <!-- Arrow A2 -->
+  <line class="arrow-line" x1="598" y1="152" x2="618" y2="152" />
+  <polygon class="arrow-head" points="624,152 615,147 615,157" />
+
+  <!-- Col 3 A -->
+  <rect class="box-solution" x="626" y="96" width="268" height="112" />
+  <rect class="badge-green" x="626" y="96" width="216" height="20" />
+  <text x="634" y="110" class="badge-text">3. POST-OPERATOR INTERVENTION</text>
+  <text x="638" y="138" class="math-eq"><tspan class="it">A&#770;</tspan><tspan dy="-5" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="9" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> = </tspan><tspan class="it">a</tspan><tspan dy="4" class="sub"><tspan class="it">k</tspan></tspan><tspan dy="-4">(</tspan><tspan class="it">x</tspan><tspan>) &#183; (</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; </tspan><tspan class="it">R&#772;</tspan><tspan>) / </tspan><tspan class="it">s</tspan><tspan dy="4" class="sub"><tspan class="it">R</tspan></tspan></text>
+  <text x="638" y="160" class="mono-green">Multiply after standardization</text>
+  <text x="638" y="177" class="mono-muted">Or use nonlinear S<tspan dy="-4" font-size="8">q</tspan><tspan dy="7" font-size="8">x</tspan><tspan dy="-3">(r), drop s</tspan><tspan dy="3" font-size="8">R</tspan><tspan dy="-3">,</tspan></text>
+  <text x="638" y="193" class="mono-muted">or adapt KL weight &#946;<tspan dy="3" font-size="8">eff</tspan><tspan dy="-3">(x) (Eq. 140)</tspan></text>
+
+  <line class="divider" x1="26" y1="226" x2="894" y2="226" />
+
+  <!-- ==================== PIPELINE B ==================== -->
+  <text x="26" y="250" class="stage-num">PIPELINE B / CROSS-GROUP PREFERENCES IN RLHF (CUI, ZHANG, &amp; ZHOU, 2026)</text>
+  <text x="26" y="270" class="stage-title">Scalar pooling and unprojected gradient sums suffer interference; coordinate in gradient space</text>
+
+  <!-- Col 1 B -->
+  <rect class="box-neutral" x="26" y="282" width="268" height="122" />
+  <rect class="badge-dark" x="26" y="282" width="198" height="20" />
+  <text x="34" y="296" class="badge-text">1. COMPATIBLE GROUP REWARDS</text>
+  <text x="38" y="324" class="math-eq"><tspan class="it">r</tspan><tspan dy="4" class="sub">maj</tspan><tspan dy="-4"> (80%),  </tspan><tspan class="it">r</tspan><tspan dy="4" class="sub">min</tspan><tspan dy="-4"> (20%)</tspan></text>
+  <text x="38" y="346" class="mono">At &#945; = 0.75: Pearson r = 0.65 &gt; 0</text>
+  <text x="38" y="363" class="mono-muted">No value-level conflict required:</text>
+  <text x="38" y="379" class="mono-muted">concise positive reviews satisfy</text>
+  <text x="38" y="394" class="mono-muted">both groups simultaneously</text>
+
+  <!-- Arrow B1 -->
+  <line class="arrow-line-red" x1="298" y1="343" x2="318" y2="343" />
+  <polygon class="arrow-head-red" points="324,343 315,338 315,348" />
+
+  <!-- Col 2 B -->
+  <rect class="box-obstruction" x="326" y="282" width="268" height="122" />
+  <rect class="badge-red" x="326" y="282" width="218" height="20" />
+  <text x="334" y="296" class="badge-text">2. GRADIENT INTERFERENCE</text>
+  <text x="338" y="324" class="math-eq"><tspan>cos(</tspan><tspan class="it">g</tspan><tspan dy="4" class="sub">PPO</tspan><tspan dy="-4">, </tspan><tspan class="it">g</tspan><tspan dy="4" class="sub">min</tspan><tspan dy="-4">) &lt; &#8722;0.5  (early)</tspan></text>
+  <text x="338" y="346" class="mono-red">Vanilla collapses at &#945; &#8712; [0.7, 0.75]</text>
+  <text x="338" y="363" class="mono-muted">Cosine later turns &gt; 0, yet minority</text>
+  <text x="338" y="379" class="mono-muted">stays low; at &#945; = 1.2, MaxMin (0.181)</text>
+  <text x="338" y="394" class="mono-muted">&amp; SumGrad (&#8722;0.106) also break</text>
+
+  <!-- Arrow B2 -->
+  <line class="arrow-line" x1="598" y1="343" x2="618" y2="343" />
+  <polygon class="arrow-head" points="624,343 615,338 615,348" />
+
+  <!-- Col 3 B -->
+  <rect class="box-solution" x="626" y="282" width="268" height="122" />
+  <rect class="badge-green" x="626" y="282" width="216" height="20" />
+  <text x="634" y="296" class="badge-text">3. GRADIENT COORDINATION</text>
+  <text x="638" y="324" class="math-eq"><tspan class="it">g</tspan><tspan dy="-5" class="sub">PC</tspan><tspan dy="9" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8592; </tspan><tspan class="it">g</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4"> &#8722; (</tspan><tspan class="it">g</tspan><tspan dy="4" class="sub"><tspan class="it">i</tspan></tspan><tspan dy="-4">&#183;</tspan><tspan class="it">g</tspan><tspan dy="4" class="sub"><tspan class="it">j</tspan></tspan><tspan dy="-4"> / &#8214;</tspan><tspan class="it">g</tspan><tspan dy="4" class="sub"><tspan class="it">j</tspan></tspan><tspan dy="-4">&#8214;</tspan><tspan dy="-5" class="sub">2</tspan><tspan dy="5">) </tspan><tspan class="it">g</tspan><tspan dy="4" class="sub"><tspan class="it">j</tspan></tspan></text>
+  <text x="638" y="346" class="mono-green">PCGrad / MGDA on group gradients</text>
+  <text x="638" y="363" class="mono-muted">Worst-group at &#945; = 1.2: PCGrad 0.835,</text>
+  <text x="638" y="379" class="mono-muted">MGDA 0.842 (at &#945; = 1.3: 0.432, 0.536)</text>
+  <text x="638" y="394" class="mono-muted">Recovers Pythia-160M &amp; Llama-3.2-1B</text>
+</svg>
