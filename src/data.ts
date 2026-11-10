@@ -57,10 +57,11 @@ export const profileData: Profile = {
 };
 
 export const newsData: NewsItem[] = [
+  { date: 'Nov. 2026', body: 'New research note on <strong><a href="/blog/reward-scaling-normalization/">Your Reward Shaping Might Disappear at Normalization</a></strong>: GRPO within-group standardization cancels a positive per-prompt reward scale (KAPPO, Matrenok et al.) unless that scale is applied after normalization, with a companion reading of gradient interference in group-aware RLHF. <a href="/blog/reward-scaling-normalization/">Read the research note</a>.' },
   { date: 'Nov. 2026', body: 'New research note on <strong><a href="/projects/geometric-unlearning/">Geometric-Disentanglement Unlearning</a></strong> (<strong>EMNLP 2026 Main</strong>): why Euclidean orthogonality is not retain invariance under adaptive optimizers, and how projecting in the optimizer\'s metric separates forgetting from capability preservation. <a href="/blog/geometric-unlearning/">Read the research note</a>.' },
   { date: 'Nov. 2026', body: 'New research note on <strong><a href="/projects/distributionally-robust-control/">DR-SAC</a></strong> (<strong>ICLR 2026</strong>): making worst-case soft Bellman backups tractable in offline continuous control via KL duality and functional optimization. <a href="/blog/dr-sac/">Read the research note</a>.' },
   { date: 'Nov. 2026', body: '<strong><a href="/projects/cumulative-fisher/">Cumulative Fisher Protection</a></strong>: during RLHF, what matters is which directions the policy moves, not how far. <strong><a href="/projects/procontract/">ProContract</a></strong> keeps a long-horizon agent\'s responsibilities outside the harness. Both under review. arXiv and code coming soon.' },
-  { date: 'Nov. 2026', body: '<strong><a href="/projects/gradient-interference-rlhf/">Gradient Interference in Group-Aware RLHF</a></strong>: single-reward RLHF can collapse for a minority group while the group rewards stay positively correlated. arXiv and code coming soon.' },
+  { date: 'Nov. 2026', body: '<strong><a href="/projects/gradient-interference-rlhf/">Gradient Interference in Group-Aware RLHF</a></strong>: single-reward RLHF can collapse for a minority group while the group rewards stay positively correlated. arXiv and code coming soon. <a href="/blog/reward-scaling-normalization/">Read the research note</a>.' },
   { date: 'Oct. 2026', body: '<strong><a href="/projects/gear/">GEAR</a></strong>, our GPU-accelerated global solver for nonlinear programs via linear bound propagation, accepted to <strong>NeurIPS 2026</strong>. <a href="/blog/gear/">Read the research note</a>.' },
   { date: 'Aug. 2026', body: '<strong><a href="/projects/geometric-unlearning/">Geometric-Disentanglement Language Model Unlearning</a></strong> accepted to EMNLP 2026 Main. <a href="/blog/geometric-unlearning/">Read the research note</a>.' },
   { date: 'Jul. 2026', body: 'Won VNN-COMP 2026 on CAV 2026.' },
@@ -88,7 +89,7 @@ export const publicationsData: Publication[] = [
   },
   {
     title: 'Where the Policy Moves Matters: Capability Preservation via Cumulative Fisher Protection in RLHF',
-    authors: 'Yuming, Lu, <strong>Duo Zhou</strong>, Lanran Fang, Grani A. Hanasusanto',
+    authors: 'Yuming Lu, <strong>Duo Zhou</strong>, Lanran Fang, Grani A. Hanasusanto',
     venue: 'Under review',
     venueShort: 'UNDER REVIEW',
     year: '2027',
