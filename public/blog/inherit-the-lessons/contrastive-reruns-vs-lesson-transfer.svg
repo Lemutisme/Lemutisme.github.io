@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 540" width="920" height="540" role="img" aria-labelledby="title desc">
+  <title id="title">Same-task contrastive reruns versus cross-task lesson transfer in Harness&#178;</title>
+  <desc id="desc">Two-stage diagram of Harness&#178; (Xu et al., 2026, Sections 2.2&#8211;2.3): Stage 1 shows task-level recursion on task t, where starting from the shared baseline harness H0, scoped invariant (INV) and domain (DOM) candidate edits are probed under matched conditions against reference execution e0 and selectively composed via Eq. (1). Stage 2 contrasts naive inheritance of the task-customized harness (or blind unprobed editing, which drops WB-code from 73.4 to 63.2) against harnessing-level recursion Eq. (4), which resets task t+1 to H0 and transfers only contrast-backed editing lessons and indexed components inside the improvement harness.</desc>
+  <style>
+    .bg { fill: #fffdf7; }
+    .header-bar { fill: #e8e1d1; stroke: #222a24; stroke-width: 2; }
+    .stage-num { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 11px; font-weight: 600; fill: #1f6b4f; letter-spacing: 0.08em; }
+    .stage-title { font-family: 'Newsreader', Georgia, serif; font-size: 16px; font-weight: 700; fill: #1c211d; }
+    .box-neutral { fill: #f7f3e8; stroke: #222a24; stroke-width: 1.75; }
+    .box-obstruction { fill: #fbf4f1; stroke: #bd5b4a; stroke-width: 1.75; }
+    .box-solution { fill: #eef5f0; stroke: #1f6b4f; stroke-width: 2; }
+    .badge-dark { fill: #222a24; }
+    .badge-red { fill: #bd5b4a; }
+    .badge-green { fill: #1f6b4f; }
+    .badge-text { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 9.5px; font-weight: 600; fill: #fffdf7; letter-spacing: 0.06em; }
+    .mono { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.6px; fill: #1c211d; }
+    .mono-muted { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.2px; fill: #495148; }
+    .mono-bold { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.8px; font-weight: 600; fill: #1c211d; }
+    .mono-red { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.6px; font-weight: 600; fill: #9e3f30; }
+    .mono-green { font-family: 'IBM Plex Mono', Consolas, monospace; font-size: 10.6px; font-weight: 600; fill: #1f6b4f; }
+    .math-eq { font-family: 'Newsreader', Georgia, 'Times New Roman', serif; font-size: 14.2px; font-weight: 600; fill: #1c211d; }
+    .it { font-style: italic; }
+    .sub { font-size: 10px; }
+    .arrow-line-red { stroke: #bd5b4a; stroke-width: 2; fill: none; }
+    .arrow-head-red { fill: #bd5b4a; }
+    .arrow-line { stroke: #1f6b4f; stroke-width: 2; fill: none; }
+    .arrow-head { fill: #1f6b4f; }
+    .divider { stroke: #d8d0be; stroke-width: 1; stroke-dasharray: 4 4; }
+  </style>
+
+  <rect class="bg" x="0" y="0" width="920" height="540" />
+
+  <!-- Top window bar -->
+  <rect class="header-bar" x="1" y="1" width="918" height="36" />
+  <rect x="14" y="14" width="9" height="9" fill="#bd5b4a" stroke="#222a24" stroke-width="1" />
+  <rect x="29" y="14" width="9" height="9" fill="#f0c35a" stroke="#222a24" stroke-width="1" />
+  <rect x="44" y="14" width="9" height="9" fill="#1f6b4f" stroke="#222a24" stroke-width="1" />
+  <text x="66" y="23" class="mono-bold">HARNESS&#178; / SAME-TASK CONTRASTIVE RERUNS VS. CROSS-TASK LESSON TRANSFER</text>
+  <text x="904" y="23" class="mono-muted" text-anchor="end">XU ET AL. (2026)</text>
+
+  <!-- ==================== STAGE 1 ==================== -->
+  <text x="26" y="64" class="stage-num">01 / WITHIN TASK q<tspan dy="3" font-size="8.5">t</tspan><tspan dy="-3">: CONTRASTIVE PROPOSE&#8211;PROBE&#8211;COMPOSE (SECTION 2.2, EQ. 1&#8211;3)</tspan></text>
+  <text x="26" y="84" class="stage-title">Matched reruns on the same task create behavioral contrast without a ground-truth verifier</text>
+
+  <!-- Col 1 Stage 1 -->
+  <rect class="box-neutral" x="26" y="96" width="268" height="142" />
+  <rect class="badge-dark" x="26" y="96" width="206" height="20" />
+  <text x="34" y="110" class="badge-text">1. SHARED BASELINE ROLLOUT</text>
+  <text x="38" y="138" class="math-eq"><tspan class="it">e</tspan><tspan dy="4" class="sub">0</tspan><tspan dy="-4"> = (&#964;</tspan><tspan dy="4" class="sub">0</tspan><tspan dy="-4">, </tspan><tspan class="it">y</tspan><tspan dy="4" class="sub">0</tspan><tspan dy="-4">) &#8764; </tspan><tspan class="it">A</tspan><tspan>(</tspan><tspan class="it">q</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-4">; </tspan><tspan class="it">M</tspan><tspan>, </tspan><tspan class="it">H</tspan><tspan dy="4" class="sub">0</tspan><tspan dy="-4">)</tspan></text>
+  <text x="38" y="161" class="mono">Starts from common harness H<tspan dy="3" font-size="8">0</tspan><tspan dy="-3"> (K = 8 files)</tspan></text>
+  <text x="38" y="179" class="mono-muted">Exposes how H<tspan dy="3" font-size="8">0</tspan><tspan dy="-3"> behaves on q</tspan><tspan dy="3" font-size="8">t</tspan><tspan dy="-3">, not</tspan></text>
+  <text x="38" y="195" class="mono-muted">whether deliverable y<tspan dy="3" font-size="8">0</tspan><tspan dy="-3"> is ground-truth</tspan></text>
+  <text x="38" y="211" class="mono-muted">correct; R<tspan dy="3" font-size="8">t</tspan><tspan dy="-3"> stays fixed during task t</tspan></text>
+
+  <!-- Arrow 1A -->
+  <line class="arrow-line" x1="298" y1="167" x2="318" y2="167" />
+  <polygon class="arrow-head" points="324,167 315,162 315,172" />
+
+  <!-- Col 2 Stage 1 -->
+  <rect class="box-neutral" x="326" y="96" width="268" height="142" />
+  <rect class="badge-dark" x="326" y="96" width="222" height="20" />
+  <text x="334" y="110" class="badge-text">2. SCOPED PROPOSE &amp; PROBE</text>
+  <text x="338" y="138" class="math-eq"><tspan class="it">H</tspan><tspan dy="4" class="sub">INV</tspan><tspan dy="-4">, </tspan><tspan class="it">H</tspan><tspan dy="4" class="sub">DOM</tspan><tspan dy="-4"> &#8594; </tspan><tspan class="it">e</tspan><tspan dy="4" class="sub">INV</tspan><tspan dy="-4">, </tspan><tspan class="it">e</tspan><tspan dy="4" class="sub">DOM</tspan><tspan dy="-4"> on </tspan><tspan class="it">q</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan></tspan></text>
+  <text x="338" y="161" class="mono">INV: workflow, tool errors, hooks, scripts</text>
+  <text x="338" y="179" class="mono">DOM: domain rules, skills, structure</text>
+  <text x="338" y="195" class="mono-muted">Rerun on same q<tspan dy="3" font-size="8">t</tspan><tspan dy="-3"> under matched M &amp; env</tspan></text>
+  <text x="338" y="211" class="mono-muted">to observe trajectory contrast vs. e<tspan dy="3" font-size="8">0</tspan></text>
+
+  <!-- Arrow 1B -->
+  <line class="arrow-line" x1="598" y1="167" x2="618" y2="167" />
+  <polygon class="arrow-head" points="624,167 615,162 615,172" />
+
+  <!-- Col 3 Stage 1 -->
+  <rect class="box-solution" x="626" y="96" width="268" height="142" />
+  <rect class="badge-green" x="626" y="96" width="232" height="20" />
+  <text x="634" y="110" class="badge-text">3. EVIDENCE-GATED COMPOSE</text>
+  <text x="638" y="138" class="math-eq"><tspan>(</tspan><tspan class="it">H'</tspan><tspan>, </tspan><tspan class="it">e'</tspan><tspan>, &#958;) = &#934;(</tspan><tspan class="it">q</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-4">, </tspan><tspan class="it">H</tspan><tspan>, </tspan><tspan class="it">E</tspan><tspan>; </tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-4">)</tspan></text>
+  <text x="638" y="161" class="mono-green">kept | revised | dropped &#8594; trajectory moment</text>
+  <text x="638" y="179" class="mono-muted">MERGE, ADOPT, or KEEP_BASE; scales via</text>
+  <text x="638" y="195" class="mono-muted">parallel (Eq. 2) or sequential (Eq. 3)</text>
+  <text x="638" y="211" class="mono-muted">recursion + blind selector &#8594; adopted H*<tspan dy="3" font-size="8">t</tspan></text>
+
+  <line class="divider" x1="26" y1="260" x2="894" y2="260" />
+
+  <!-- ==================== STAGE 2 ==================== -->
+  <text x="26" y="286" class="stage-num">02 / ACROSS TASKS q<tspan dy="3" font-size="8.5">t</tspan><tspan dy="-3"> &#8594; q</tspan><tspan dy="3" font-size="8.5">t+1</tspan><tspan dy="-3">: WHAT TRANSFERS (SECTION 2.3, EQ. 4 &amp; APPENDIX E.2)</tspan></text>
+  <text x="26" y="306" class="stage-title">Carry forward contrast-backed editing lessons in <tspan class="it">R</tspan><tspan dy="4" font-size="11"><tspan class="it">t</tspan>+1</tspan><tspan dy="-4">; reset the next task's execution harness to </tspan><tspan class="it">H</tspan><tspan dy="4" font-size="11">0</tspan></text>
+
+  <!-- Left box Stage 2 (Obstruction) -->
+  <rect class="box-obstruction" x="26" y="320" width="412" height="194" />
+  <rect class="badge-red" x="26" y="320" width="318" height="20" />
+  <text x="34" y="334" class="badge-text">ANTI-PATTERN: CARRY H*<tspan dy="2" font-size="7.5">t</tspan><tspan dy="-2"> OR EDIT BLINDLY</tspan></text>
+  <text x="40" y="362" class="math-eq"><tspan class="it">q</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan>+1</tspan><tspan dy="-4"> &#8592; </tspan><tspan class="it">H</tspan><tspan dy="-5" class="sub">*</tspan><tspan dy="9" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-4">   or   </tspan><tspan class="it">H'</tspan><tspan> = Edit(</tspan><tspan class="it">q</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan>+1</tspan><tspan dy="-4">, </tspan><tspan class="it">H</tspan><tspan dy="4" class="sub">0</tspan><tspan dy="-4">) w/o probes</tspan></text>
+  <text x="40" y="386" class="mono-red">1. Customized harness H*<tspan dy="3" font-size="8">t</tspan><tspan dy="-3"> encodes task-t workspace facts</tspan></text>
+  <text x="40" y="404" class="mono-muted">File joins, column keys, and thresholds from q<tspan dy="3" font-size="8">t</tspan><tspan dy="-3"> become</tspan></text>
+  <text x="40" y="420" class="mono-muted">wrong anchors when task requirements shift on q<tspan dy="3" font-size="8">t+1</tspan><tspan dy="-3">.</tspan></text>
+  <text x="40" y="442" class="mono-red">2. Direct editing without probes or library hurts (Fig. 7):</text>
+  <text x="40" y="460" class="mono-muted">On Gemini 3.5 Flash (OpenCode), blind edits drop WB-code</text>
+  <text x="40" y="476" class="mono-muted">73.4 &#8594; 63.2 (&#8722;10.2) and WB-web 69.9 &#8594; 65.0 (&#8722;4.9).</text>
+  <text x="40" y="496" class="mono-muted">3. Unchecked rules cap the pool (Fig. 14: &#8722;2 to &#8722;11 pts).</text>
+
+  <!-- Right box Stage 2 (Solution) -->
+  <rect class="box-solution" x="466" y="320" width="428" height="194" />
+  <rect class="badge-green" x="466" y="320" width="334" height="20" />
+  <text x="474" y="334" class="badge-text">HARNESS&#178;: UPDATE IMPROVER R<tspan dy="2" font-size="7.5">t+1</tspan><tspan dy="-2">, RESET TO H</tspan><tspan dy="2" font-size="7.5">0</tspan></text>
+  <text x="480" y="362" class="math-eq"><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan>+1</tspan><tspan dy="-4"> = Update(</tspan><tspan class="it">R</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-4">, </tspan><tspan class="it">H</tspan><tspan dy="-5" class="sub">*</tspan><tspan dy="9" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-4">, </tspan><tspan class="it">D</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan></tspan><tspan dy="-4">),   start </tspan><tspan class="it">q</tspan><tspan dy="4" class="sub"><tspan class="it">t</tspan>+1</tspan><tspan dy="-4"> from </tspan><tspan class="it">H</tspan><tspan dy="4" class="sub">0</tspan></text>
+  <text x="480" y="386" class="mono-green">1. Reflector audits all candidate diffs in D<tspan dy="3" font-size="8">t</tspan><tspan dy="-3"> (Prompt 6):</tspan></text>
+  <text x="480" y="404" class="mono-muted">Labels each edit helped | hurt | no effect | confounded;</text>
+  <text x="480" y="420" class="mono-muted">declines entry (NO_ENTRY) if contrasts are confounded.</text>
+  <text x="480" y="442" class="mono-green">2. Transfers lessons &amp; adaptable components, not state:</text>
+  <text x="480" y="460" class="mono-muted">Library provenance in 22&#8211;47% of modified files, but only</text>
+  <text x="480" y="476" class="mono-muted">2&#8211;10% copy &#8805;50% of lines (Fig. 10); workspace facts must</text>
+  <text x="480" y="496" class="mono-muted">be re-verified against q<tspan dy="3" font-size="8">t+1</tspan><tspan dy="-3">'s own trajectories (Prompt 1).</tspan></text>
+</svg>
